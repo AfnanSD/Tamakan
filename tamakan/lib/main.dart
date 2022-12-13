@@ -66,9 +66,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   final gsReference = FirebaseStorage.instance.refFromURL(
                       "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
 
+                  print(await gsReference.getDownloadURL());
                   await player.play(
                       DeviceFileSource(await gsReference.getDownloadURL()));
-                  print('5');
                 },
                 child: Text('play'),
               ),
@@ -78,7 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 child: Text(text),
               ),
-            )
+            ),
+            validatePronuciation(['ا', "الف"]),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -119,5 +120,28 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() => isListening = false);
       speech.stop();
     }
+  }
+
+  Widget validatePronuciation(List correctText) {
+    bool found = false;
+    for (var element in correctText) {
+      if (text == element) found = true;
+    }
+    if (found)
+      return Text(
+        'true',
+        style: TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    else
+      return Text(
+        'false',
+        style: TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        ),
+      );
   }
 }
