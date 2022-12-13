@@ -39,6 +39,8 @@ dependencies:
   firebase_storage: ^11.0.7
   firebase_core: ^2.4.0
   audioplayers: ^1.1.1
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
 
 dev_dependencies:
   flutter_test:
