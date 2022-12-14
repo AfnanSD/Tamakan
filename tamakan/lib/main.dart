@@ -1,4 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
   await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,12 +42,36 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isListening = false;
   String text = 'press';
   double confidence = 1;
+  late String recordURL;
+  late List<String> correctText = List<String>.empty(growable: true);
+  String id = '1'; //need to come from learnig map
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     speech = stt.SpeechToText();
+    geturl(id);
+    getCorrectText(id);
+  }
+
+  Future geturl(String id) async {
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .get()
+        .then((value) => recordURL = value['lessonRecord']);
+  }
+
+  Future getCorrectText(String id) async {
+    QuerySnapshot qs = await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .collection('correctText')
+        .get();
+    for (var element in qs.docs) {
+      correctText.add(element['text']);
+    }
   }
 
   @override
@@ -57,6 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  //for finding refernce only  !?
+
                   // Create a storage reference from our app
                   final storageRef = FirebaseStorage.instance.ref();
 
@@ -66,9 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   final gsReference = FirebaseStorage.instance.refFromURL(
                       "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
 
-                  print(await gsReference.getDownloadURL());
-                  await player.play(
-                      DeviceFileSource(await gsReference.getDownloadURL()));
+                  // print(await gsReference.getDownloadURL());
+                  // await player.play(
+                  //     DeviceFileSource(await gsReference.getDownloadURL()));
+
+                  await player.play(DeviceFileSource(recordURL));
                 },
                 child: Text('play'),
               ),
@@ -79,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text(text),
               ),
             ),
-            validatePronuciation(['ا', "الف"]),
+            validatePronuciation(correctText),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
