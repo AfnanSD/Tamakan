@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
@@ -33,48 +34,35 @@ class _GameState extends State<Game> {
     speech = stt.SpeechToText();
   }
 
-  Future geturl(String id) async {
-    await FirebaseFirestore.instance
-        .collection('lesson')
-        .doc(id)
-        .get()
-        .then((value) {
-      setState(() {
-        recordURL = value['lessonRecord'];
-        lesson = value['lesson'];
-      });
-    });
-  }
-
-  Future getCorrectText(String id) async {
-    QuerySnapshot qs = await FirebaseFirestore.instance
-        .collection('lesson')
-        .doc(id)
-        .collection('correctText')
-        .get();
-    for (var element in qs.docs) {
-      correctText.add(element['text']);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('لعبة الحروف')),
-      ),
-      body: practice(lessonIDs[index].toString()),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AvatarGlow(
-        animate: isListening,
-        glowColor: Theme.of(context).primaryColor,
-        endRadius: 75.0,
-        duration: const Duration(milliseconds: 2000),
-        repeatPauseDuration: const Duration(milliseconds: 100),
-        repeat: true,
-        child: FloatingActionButton(
-          onPressed: listen,
-          child: Icon(isListening ? Icons.mic : Icons.mic_none),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            Image.asset(
+              'assets/images/droppedlogo.png',
+              scale: 0.5,
+            ),
+          ],
+          backgroundColor: Color(0xffFF6B6B),
+          // title: Text('لعبة الحروف'),
+          // centerTitle: true,
+        ),
+        body: practice(lessonIDs[index].toString()),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: AvatarGlow(
+          animate: isListening,
+          glowColor: Theme.of(context).primaryColor,
+          endRadius: 75.0,
+          duration: const Duration(milliseconds: 2000),
+          repeatPauseDuration: const Duration(milliseconds: 100),
+          repeat: true,
+          child: FloatingActionButton(
+            onPressed: listen,
+            child: Icon(isListening ? Icons.mic : Icons.mic_none),
+          ),
         ),
       ),
     );
@@ -114,6 +102,30 @@ class _GameState extends State<Game> {
     }
   }
 
+  Future geturl(String id) async {
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .get()
+        .then((value) {
+      setState(() {
+        recordURL = value['lessonRecord'];
+        lesson = value['lesson'];
+      });
+    });
+  }
+
+  Future getCorrectText(String id) async {
+    QuerySnapshot qs = await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .collection('correctText')
+        .get();
+    for (var element in qs.docs) {
+      correctText.add(element['text']);
+    }
+  }
+
   Widget validatePronuciation(List correctText) {
     for (var element in correctText) {
       if (text == element) found = true;
@@ -137,11 +149,54 @@ class _GameState extends State<Game> {
   }
 
   Widget practice(String id) {
-    geturl(lessonIDs[index].toString());
-    getCorrectText(lessonIDs[index].toString());
+    geturl(id);
+    getCorrectText(id);
     return Column(
       children: [
-        Text(lesson),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 30),
+          child: gameStatusBar(), //from index
+        ),
+        CircleAvatar(
+          maxRadius: 100,
+          backgroundColor: Color(0xff4ECDC4), //4ECDC4
+          child: Text(
+            lesson,
+            style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 50,
+              margin: EdgeInsets.all(20),
+              child: Image.asset('assets/images/mic.png'),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Row(
+          children: [
+            Container(
+              height: 50,
+              margin: EdgeInsets.all(20),
+              child: Image.asset('assets/images/lightbulb.png'),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Text(
+                'تلميح',
+                style: TextStyle(fontSize: 30),
+              ),
+            )
+          ],
+        ),
         Center(
           child: ElevatedButton(
             onPressed: () async {
@@ -176,7 +231,10 @@ class _GameState extends State<Game> {
                   setState(() {
                     found = false;
                     text = '';
-                    if ((index + 1) < lessonIDs.length) {
+                    if (index == 5)
+                      print('done game '); //get to map
+                    //((index + 1) < lessonIDs.length)
+                    else {
                       index++;
                     }
                   });
@@ -186,5 +244,35 @@ class _GameState extends State<Game> {
             : Container(),
       ],
     );
+  }
+
+  Widget gameStatusBar() {
+    int completed = 0;
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children:
+            //[
+            lessonIDs
+                .map((e) => ((index == 5) || (completed++ < index))
+                    ? new Container(
+                        color: Colors.green,
+                        height: 8,
+                        width: 80,
+                        margin: EdgeInsets.all(10),
+                      )
+                    : new Container(
+                        color: Colors.grey,
+                        height: 8,
+                        width: 80,
+                        margin: EdgeInsets.all(10),
+                      ))
+                .toList()
+        // Container(
+        //   color: Colors.grey,
+        //   height: 10,
+        //   width: 100,
+        // )
+        //],
+        );
   }
 }

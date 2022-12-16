@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tamakan/View/game.dart';
+import 'package:tamakan/View/learning_map.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Game(), //MyHomePage(),
+      home: const LearningMap(), //MyHomePage(),
     );
   }
 }
