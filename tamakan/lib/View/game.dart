@@ -51,19 +51,6 @@ class _GameState extends State<Game> {
           // centerTitle: true,
         ),
         body: practice(lessonIDs[index].toString()),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: AvatarGlow(
-          animate: isListening,
-          glowColor: Theme.of(context).primaryColor,
-          endRadius: 75.0,
-          duration: const Duration(milliseconds: 2000),
-          repeatPauseDuration: const Duration(milliseconds: 100),
-          repeat: true,
-          child: FloatingActionButton(
-            onPressed: listen,
-            child: Icon(isListening ? Icons.mic : Icons.mic_none),
-          ),
-        ),
       ),
     );
   }
@@ -174,7 +161,18 @@ class _GameState extends State<Game> {
             Container(
               height: 50,
               margin: EdgeInsets.all(20),
-              child: Image.asset('assets/images/mic.png'),
+              child: AvatarGlow(
+                animate: isListening,
+                glowColor: Theme.of(context).primaryColor,
+                duration: const Duration(milliseconds: 2000),
+                repeatPauseDuration: const Duration(milliseconds: 100),
+                repeat: true,
+                endRadius: 75.0,
+                child: IconButton(
+                  icon: Image.asset('assets/images/mic.png'),
+                  onPressed: listen,
+                ),
+              ),
             )
           ],
         ),
@@ -186,7 +184,27 @@ class _GameState extends State<Game> {
             Container(
               height: 50,
               margin: EdgeInsets.all(20),
-              child: Image.asset('assets/images/lightbulb.png'),
+              child: IconButton(
+                icon: Image.asset('assets/images/lightbulb.png'),
+                onPressed: () async {
+                  //for finding refernce only  !?
+
+                  // Create a storage reference from our app
+                  final storageRef = FirebaseStorage.instance.ref();
+
+                  // Create a reference with an initial file path and name
+                  final pathReference = storageRef.child("/practices/ألف.mp3");
+                  // Create a reference to a file from a Google Cloud Storage URI
+                  final gsReference = FirebaseStorage.instance.refFromURL(
+                      "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+
+                  // print(await gsReference.getDownloadURL());
+                  // await player.play(
+                  //     DeviceFileSource(await gsReference.getDownloadURL()));
+
+                  await player.play(DeviceFileSource(recordURL));
+                },
+              ),
             ),
             Container(
               margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -196,29 +214,6 @@ class _GameState extends State<Game> {
               ),
             )
           ],
-        ),
-        Center(
-          child: ElevatedButton(
-            onPressed: () async {
-              //for finding refernce only  !?
-
-              // Create a storage reference from our app
-              final storageRef = FirebaseStorage.instance.ref();
-
-              // Create a reference with an initial file path and name
-              final pathReference = storageRef.child("/practices/ألف.mp3");
-              // Create a reference to a file from a Google Cloud Storage URI
-              final gsReference = FirebaseStorage.instance.refFromURL(
-                  "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
-
-              // print(await gsReference.getDownloadURL());
-              // await player.play(
-              //     DeviceFileSource(await gsReference.getDownloadURL()));
-
-              await player.play(DeviceFileSource(recordURL));
-            },
-            child: const Text('play'),
-          ),
         ),
         SingleChildScrollView(
           reverse: true,
@@ -250,29 +245,22 @@ class _GameState extends State<Game> {
     int completed = 0;
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children:
-            //[
-            lessonIDs
-                .map((e) => ((index == 5) || (completed++ < index))
-                    ? new Container(
-                        color: Colors.green,
-                        height: 8,
-                        width: 80,
-                        margin: EdgeInsets.all(10),
-                      )
-                    : new Container(
-                        color: Colors.grey,
-                        height: 8,
-                        width: 80,
-                        margin: EdgeInsets.all(10),
-                      ))
-                .toList()
-        // Container(
-        //   color: Colors.grey,
-        //   height: 10,
-        //   width: 100,
-        // )
-        //],
-        );
+        children: lessonIDs
+            .map(
+              (e) => ((index == 5) || (completed++ < index))
+                  ? new Container(
+                      color: Colors.green,
+                      height: 8,
+                      width: 80,
+                      margin: EdgeInsets.all(10),
+                    )
+                  : new Container(
+                      color: Colors.grey,
+                      height: 8,
+                      width: 80,
+                      margin: EdgeInsets.all(10),
+                    ),
+            )
+            .toList());
   }
 }
