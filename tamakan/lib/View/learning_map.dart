@@ -22,7 +22,9 @@ class _LearningMapState extends State<LearningMap> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const Game(),
+                    builder: (context) => const Game(
+                      practiceID: '21.5',
+                    ),
                   ));
             }),
       ],

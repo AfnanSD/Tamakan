@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class Game extends StatefulWidget {
-  const Game({super.key});
-
+  const Game({super.key, required this.practiceID});
+  final String practiceID;
   @override
   State<Game> createState() => _GameState();
 }
@@ -27,10 +27,11 @@ class _GameState extends State<Game> {
   late List<String> correctText = List<String>.empty(growable: true);
   late String lesson = '';
   bool found = false;
+  bool waiting = true;
   @override
   void initState() {
     super.initState();
-    selectRandomLessons('7.5'); //need to come from learning map
+    selectRandomLessons(widget.practiceID); //need to come from learning map
     speech = stt.SpeechToText();
   }
 
@@ -50,18 +51,29 @@ class _GameState extends State<Game> {
           // title: Text('لعبة الحروف'),
           // centerTitle: true,
         ),
-        body: practice(lessonIDs[index].toString()),
+        body: waiting ? Container() : practice(lessonIDs[index].toString()),
       ),
     );
   }
 
-  void selectRandomLessons(String practiceID) {
+  Future<void> selectRandomLessons(String practiceID) async {
+    double prev = 0;
+    await FirebaseFirestore.instance
+        .collection('practice')
+        .doc(practiceID)
+        .get()
+        .then((value) {
+      prev = double.parse(value['prev']);
+    });
     double pID = double.parse(practiceID);
     while (lessonIDs.length < 5) {
-      int num = Random().nextInt(pID.ceil());
+      int num = Random().nextInt(pID.ceil() - prev.ceil()) + prev.ceil();
       if (!lessonIDs.contains(num) && num != 0) lessonIDs.add(num);
     }
     print(lessonIDs);
+    setState(() {
+      waiting = false;
+    });
   }
 
   void listen() async {
@@ -237,6 +249,23 @@ class _GameState extends State<Game> {
                 child: const Text('next'),
               )
             : Container(),
+        //for testing only
+        ElevatedButton(
+          onPressed: () {
+            print(index);
+            setState(() {
+              found = false;
+              text = '';
+              if (index + 1 == 5) {
+                print('done game ');
+                Navigator.of(context).pop();
+              } else {
+                index++;
+              }
+            });
+          },
+          child: const Text('nexttt'),
+        )
       ],
     );
   }
