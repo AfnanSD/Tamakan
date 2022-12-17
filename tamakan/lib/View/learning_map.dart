@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tamakan/View/game.dart';
+import 'package:tamakan/View/lesson.dart';
 
 class LearningMap extends StatefulWidget {
   const LearningMap({super.key});
@@ -26,6 +27,14 @@ class _LearningMapState extends State<LearningMap> {
                       practiceID: '21.5',
                     ),
                   ));
+            }),
+        ElevatedButton(
+            child: Text('lesson'),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Lesson(lessonID: '1')));
             }),
       ],
     ));
