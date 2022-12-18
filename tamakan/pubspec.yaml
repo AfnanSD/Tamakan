@@ -42,6 +42,12 @@ dependencies:
   audioplayers: ^1.1.1
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
+  google_speech: ^2.1.1
+  permission_handler: ^10.2.0
+  downloads_path_provider_28: ^0.1.2
+  loading_indicator: ^3.1.0
+  rxdart: ^0.27.7
+  sound_stream: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +76,8 @@ flutter:
    - assets/images/droppedlogo.png
    - assets/images/lightbulb.png
    - assets/images/mic.png
+   - assets/test_service_account.json
+   - assets/test.wav
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
