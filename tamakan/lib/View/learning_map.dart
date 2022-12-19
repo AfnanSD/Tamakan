@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:tamakan/View/game.dart';
-import 'package:tamakan/View/google_cloud.dart';
 import 'package:tamakan/View/google_speech_mic.dart';
-import 'package:tamakan/View/google_speech_youtube.dart';
 import 'package:tamakan/View/lesson.dart';
 
 class LearningMap extends StatefulWidget {
@@ -38,18 +34,6 @@ class _LearningMapState extends State<LearningMap> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const Lesson(lessonID: '1')));
-            }),
-        ElevatedButton(
-            child: Text('google'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AudioRecognize()));
-            }),
-        ElevatedButton(
-            child: Text('google youtube version'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()));
             }),
         ElevatedButton(
             child: Text('google mic version'),
