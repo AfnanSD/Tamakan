@@ -49,7 +49,27 @@ class _LessonState extends State<Lesson> {
           // title: Text('لعبة الحروف'),
           // centerTitle: true,
         ),
-        body: practice(widget.lessonID),
+        body: Column(
+          children: [
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Container(
+                child: Center(
+                    child: Text(
+                  'الدرس الأول',
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                )),
+                width: double.infinity,
+              ),
+            ),
+            practice(widget.lessonID)
+          ],
+        ),
       ),
     );
   }
@@ -59,80 +79,163 @@ class _LessonState extends State<Lesson> {
     getCorrectText(id);
     return Column(
       children: [
-        SizedBox(
-          height: 50,
-        ),
-        CircleAvatar(
-          maxRadius: 100,
-          backgroundColor: Color(0xff4ECDC4), //4ECDC4
-          child: Text(
-            lesson,
-            style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
-          ),
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 50,
-              margin: EdgeInsets.all(20),
-              child: AvatarGlow(
-                animate: isListening,
-                glowColor: Theme.of(context).primaryColor,
-                duration: const Duration(milliseconds: 2000),
-                repeatPauseDuration: const Duration(milliseconds: 100),
-                repeat: true,
-                endRadius: 75.0,
-                child: IconButton(
-                  icon: Image.asset('assets/images/mic.png'),
-                  onPressed: listen,
+        // SizedBox(
+        //   height: 50,
+        // ),
+        Container(
+          width: double.infinity,
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(100),
+              child: CircleAvatar(
+                maxRadius: 130,
+                backgroundColor: Color(0xff4ECDC4), //4ECDC4
+                child: Text(
+                  lesson,
+                  style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
                 ),
               ),
-            )
-          ],
+            ),
+          ),
         ),
-        SizedBox(
-          height: 50,
-        ),
+        // SizedBox(
+        //   height: 50,
+        // ),
         Row(
           children: [
-            Container(
-              height: 50,
-              margin: EdgeInsets.all(20),
-              child: IconButton(
-                icon: Image.asset('assets/images/lightbulb.png'),
-                onPressed: () async {
-                  //for finding refernce only  !?
-
-                  // Create a storage reference from our app
-                  final storageRef = FirebaseStorage.instance.ref();
-
-                  // Create a reference with an initial file path and name
-                  final pathReference = storageRef.child("/practices/ألف.mp3");
-                  // Create a reference to a file from a Google Cloud Storage URI
-                  final gsReference = FirebaseStorage.instance.refFromURL(
-                      "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
-
-                  // print(await gsReference.getDownloadURL());
-                  // await player.play(
-                  //     DeviceFileSource(await gsReference.getDownloadURL()));
-
-                  await player.play(DeviceFileSource(recordURL));
-                },
+            Expanded(
+              child: Card(
+                color: isListening ? Color(0xffF7FFF7) : Colors.white,
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.all(20),
+                      child: IconButton(
+                        icon: Image.asset('assets/images/mic.png'),
+                        onPressed: listen,
+                      ),
+                      // AvatarGlow(
+                      //   animate: isListening,
+                      //   glowColor: Theme.of(context).primaryColor,
+                      //   duration: const Duration(milliseconds: 2000),
+                      //   repeatPauseDuration: const Duration(milliseconds: 100),
+                      //   repeat: true,
+                      //   endRadius: 75.0,
+                      //   child: IconButton(
+                      //     icon: Image.asset('assets/images/mic.png'),
+                      //     onPressed: listen,
+                      //   ),
+                      // ),
+                    )
+                  ],
+                ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Text(
-                'تلميح',
-                style: TextStyle(fontSize: 30),
+            Expanded(
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      margin: EdgeInsets.all(20),
+                      child: IconButton(
+                        icon: Image.asset('assets/images/lightbulb.png'),
+                        onPressed: () async {
+                          //for finding refernce only  !?
+
+                          // Create a storage reference from our app
+                          final storageRef = FirebaseStorage.instance.ref();
+
+                          // Create a reference with an initial file path and name
+                          final pathReference =
+                              storageRef.child("/practices/ألف.mp3");
+                          // Create a reference to a file from a Google Cloud Storage URI
+                          final gsReference = FirebaseStorage.instance.refFromURL(
+                              "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+
+                          // print(await gsReference.getDownloadURL());
+                          // await player.play(
+                          //     DeviceFileSource(await gsReference.getDownloadURL()));
+
+                          await player.play(DeviceFileSource(recordURL));
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Text(
+                        'تلميح',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
+        // SizedBox(
+        //   height: 50,
+        // ),
+        // Card(
+        //   elevation: 4,
+        //   shape: RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.circular(10),
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Container(
+        //         height: 50,
+        //         margin: EdgeInsets.all(20),
+        //         child: IconButton(
+        //           icon: Image.asset('assets/images/lightbulb.png'),
+        //           onPressed: () async {
+        //             //for finding refernce only  !?
+
+        //             // Create a storage reference from our app
+        //             final storageRef = FirebaseStorage.instance.ref();
+
+        //             // Create a reference with an initial file path and name
+        //             final pathReference =
+        //                 storageRef.child("/practices/ألف.mp3");
+        //             // Create a reference to a file from a Google Cloud Storage URI
+        //             final gsReference = FirebaseStorage.instance.refFromURL(
+        //                 "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+
+        //             // print(await gsReference.getDownloadURL());
+        //             // await player.play(
+        //             //     DeviceFileSource(await gsReference.getDownloadURL()));
+
+        //             await player.play(DeviceFileSource(recordURL));
+        //           },
+        //         ),
+        //       ),
+        //       Container(
+        //         margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        //         child: Text(
+        //           'تلميح',
+        //           style: TextStyle(fontSize: 30),
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
         SingleChildScrollView(
           reverse: true,
           child: Text(text),
