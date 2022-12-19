@@ -76,6 +76,10 @@ flutter:
    - assets/images/droppedlogo.png
    - assets/images/lightbulb.png
    - assets/images/mic.png
+   - assets/images/trophy.png
+   - assets/images/star1.png
+   - assets/images/star2.png
+   - assets/images/star3.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 

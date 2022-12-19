@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
+import 'package:tamakan/View/learning_map.dart';
 
 class Lesson extends StatefulWidget {
   const Lesson({super.key, required this.lessonID});
@@ -148,7 +149,8 @@ class _LessonState extends State<Lesson> {
         //for testing only
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            showCustomDialog(context);
+            //Navigator.of(context).pop();
           },
           child: const Text('testing back'),
         )
@@ -225,5 +227,137 @@ class _LessonState extends State<Lesson> {
           fontWeight: FontWeight.bold,
         ),
       );
+  }
+
+  void showCustomDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: Color(0xffFFFBEC),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Image.asset(
+                              'assets/images/star1.png',
+                              scale: 1.7,
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          'assets/images/star2.png',
+                          scale: 1.5,
+                        ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Image.asset(
+                              'assets/images/star3.png',
+                              scale: 1.7,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                'أحسنت',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+              Text(
+                'لقد اجتزت الدرس بنجاح',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              Text(
+                '5',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                '! مجموع النقاط التي حصلت عليها',
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                'assets/images/trophy.png',
+                scale: 1.3,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xffFFE66D),
+                    ),
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LearningMap())),
+                    child: Row(
+                      children: [
+                        Icon(Icons.home),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('الخريطة'),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: null,
+                    child: Row(
+                      children: [
+                        Icon(Icons.play_arrow),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('الدرس التالي'),
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
