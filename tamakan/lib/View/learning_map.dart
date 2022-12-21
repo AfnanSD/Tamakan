@@ -13,35 +13,40 @@ class LearningMap extends StatefulWidget {
 class _LearningMapState extends State<LearningMap> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        ElevatedButton(
-            child: Text('game'),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Game(
-                      practiceID: '21.5',
-                    ),
-                  ));
-            }),
-        ElevatedButton(
-            child: Text('lesson'),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Lesson(lessonID: '1')));
-            }),
-        ElevatedButton(
-            child: Text('google mic version'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AudioRecognizeMic()));
-            }),
-      ],
-    ));
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+          child: Column(
+        children: [
+          ElevatedButton(
+              child: Text('game'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Game(
+                        practiceID: '21.5',
+                      ),
+                    ));
+              }),
+          ElevatedButton(
+              child: Text('lesson'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Lesson(lessonID: '1')));
+              }),
+          ElevatedButton(
+              child: Text('google mic version'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AudioRecognizeMic()));
+              }),
+        ],
+      )),
+    );
   }
 }

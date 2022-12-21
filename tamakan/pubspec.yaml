@@ -80,6 +80,13 @@ flutter:
    - assets/images/star1.png
    - assets/images/star2.png
    - assets/images/star3.png
+   - assets/images/crocodile.png
+   - assets/images/lion.png
+   - assets/images/owl.png
+   - assets/images/pigeon.png
+   - assets/images/hand.png
+   - assets/images/book.png
+   - assets/images/location.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
