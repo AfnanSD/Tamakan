@@ -38,6 +38,23 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_storage: ^11.0.7
   firebase_core: ^2.4.0
+<<<<<<< Updated upstream
+=======
+  cloud_firestore: ^4.2.0
+  audioplayers: ^1.1.1
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
+  google_speech: ^2.1.1
+  permission_handler: ^10.2.0
+  downloads_path_provider_28: ^0.1.2
+  loading_indicator: ^3.1.0
+  rxdart: ^0.27.7
+  sound_stream: ^0.3.0
+  font_awesome_flutter: ^10.3.0
+  firebase_auth: ^4.2.1
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+>>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +79,24 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+<<<<<<< Updated upstream
   # assets:
   #   - images/a_dot_burr.jpeg
+=======
+  assets:
+   - assets/images/droppedlogo.png
+   - assets/images/resetpassword.png
+   - assets/images/login.png
+   - assets/images/register.png
+   - assets/images/r3.png
+   - assets/images/lightbulb.png
+   - assets/images/mic.png
+   - assets/images/trophy.png
+   - assets/images/star1.png
+   - assets/images/star2.png
+   - assets/images/star3.png
+   - assets/test_service_account.json
+>>>>>>> Stashed changes
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

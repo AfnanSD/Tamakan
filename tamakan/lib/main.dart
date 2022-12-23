@@ -1,6 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+<<<<<<< Updated upstream
+=======
+import 'package:tamakan/View/game.dart';
+import 'package:tamakan/View/learning_map.dart';
+import 'package:tamakan/View/loginView.dart';
+import 'package:tamakan/View/registerationView.dart';
+
+>>>>>>> Stashed changes
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -27,7 +36,17 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+<<<<<<< Updated upstream
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+=======
+      routes: <String, WidgetBuilder>{
+        '/LearningMap': (BuildContext context) => const LearningMap(),
+        '/loginview': (BuildContext context) => loginview(),
+        '/registerview': (BuildContext context) => registerationview(),
+      },
+      home: const registerationview(), //MyHomePage(),
+      builder: EasyLoading.init(),
+>>>>>>> Stashed changes
     );
   }
 }
