@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:tamakan/Model/userModel.dart';
-import 'package:tamakan/View/learning_map.dart';
+//import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/loginView.dart';
 import 'package:tamakan/View/welcomeView.dart';
 
@@ -52,7 +52,7 @@ class AuthController extends GetxController {
   _setInitialView(User? user) {
     if (user != null) {
       //change LearningMap to parent home page----------------------
-      Get.offAll(() => const LearningMap());
+      //Get.offAll(() => const LearningMap());
     } else {
       const CircularProgressIndicator(color: Color.fromARGB(255, 154, 62, 16));
     }
