@@ -29,7 +29,7 @@ class Child {
   Child.fromJson(Map<String, dynamic> json)
       : childID = json['childID'],
         name = json['name'],
-        birthDate = json['birthDate'],
+        birthDate = json['birthDate'].toDate(),
         profilePicture = json['profilePicture'],
         passwordPicture = json['passwordPicture'];
   //progress here?
