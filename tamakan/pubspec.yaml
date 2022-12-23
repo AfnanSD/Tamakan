@@ -48,6 +48,7 @@ dependencies:
   loading_indicator: ^3.1.0
   rxdart: ^0.27.7
   sound_stream: ^0.3.0
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,12 @@ flutter:
    - assets/images/hand.png
    - assets/images/book.png
    - assets/images/location.png
+   - assets/images/mushroom.png
+   - assets/images/red-maple-leaf.png
+   - assets/images/snowflake.png
+   - assets/images/snowy-pine-trees.png
+   - assets/images/sun.png
+   - assets/images/yellow-flower.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
