@@ -176,7 +176,7 @@ class _LessonState extends State<Lesson> {
           reverse: true,
           child: Text(text),
         ),
-        validatePronuciation(correctText),
+        //validatePronuciation(correctText),
         found
             ? ElevatedButton(
                 onPressed: () {
@@ -242,37 +242,39 @@ class _LessonState extends State<Lesson> {
       }
     } else {
       setState(() => isListening = false);
+      validatePronuciation(correctText);
       speech.stop();
     }
   }
 
-  Widget validatePronuciation(List correctText) {
+  void validatePronuciation(List correctText) {
     for (var element in correctText) {
       if (text == element) found = true;
     }
     if (found) {
-      //showCustomDialog(context); //cause error
+      showCustomDialog(context);
       FirebaseFirestore.instance
           .collection('parent')
           .doc('a@gmail.com') //need update
           .collection('children')
           .doc(widget.childID)
           .update({'points': child.points + 5});
-      return const Text(
-        'true',
-        style: TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-    } else
-      return Text(
-        'false',
-        style: TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+      // return const Text(
+      //   'true',
+      //   style: TextStyle(
+      //     color: Colors.green,
+      //     fontWeight: FontWeight.bold,
+      //   ),
+      // );
+    }
+    // else
+    //   return Text(
+    //     'false',
+    //     style: TextStyle(
+    //       color: Colors.red,
+    //       fontWeight: FontWeight.bold,
+    //     ),
+    //   );
   }
 
   void showCustomDialog(BuildContext context) {
@@ -367,7 +369,7 @@ class _LessonState extends State<Lesson> {
                 children: [
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xffFFE66D),
+                      primary: Color(0xff4ECDC4),
                     ),
                     onPressed: () => Navigator.push(
                         context,
@@ -377,7 +379,7 @@ class _LessonState extends State<Lesson> {
                       children: [
                         Icon(Icons.home),
                         SizedBox(
-                          width: 10,
+                          width: 20,
                         ),
                         Text('الخريطة'),
                       ],
@@ -387,7 +389,13 @@ class _LessonState extends State<Lesson> {
                     width: 20,
                   ),
                   ElevatedButton(
-                    onPressed: null,
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Lesson(
+                                lessonID:
+                                    (int.parse(widget.lessonID) + 1).toString(),
+                                childID: child.childID))),
                     child: Row(
                       children: [
                         Icon(Icons.play_arrow),
