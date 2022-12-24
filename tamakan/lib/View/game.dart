@@ -8,9 +8,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
+import '../Model/child.dart';
+
 class Game extends StatefulWidget {
-  const Game({super.key, required this.practiceID});
+  const Game({super.key, required this.practiceID, required this.childID});
+
   final String practiceID;
+  final String childID;
+
   @override
   State<Game> createState() => _GameState();
 }
@@ -28,11 +33,15 @@ class _GameState extends State<Game> {
   late String lesson = '';
   bool found = false;
   bool waiting = true;
+  late Child child;
+  var accumelatedPoints = 0;
+
   @override
   void initState() {
     super.initState();
     selectRandomLessons(widget.practiceID); //need to come from learning map
     speech = stt.SpeechToText();
+    readChildData(widget.childID);
   }
 
   @override
@@ -130,6 +139,7 @@ class _GameState extends State<Game> {
       if (text == element) found = true;
     }
     if (found) {
+      accumelatedPoints += 5;
       return const Text(
         'true',
         style: TextStyle(
@@ -252,12 +262,19 @@ class _GameState extends State<Game> {
         //for testing only
         ElevatedButton(
           onPressed: () {
-            print(index);
+            print(index.toString() + " index");
+
             setState(() {
               found = false;
               text = '';
               if (index + 1 == 5) {
                 print('done game ');
+                FirebaseFirestore.instance
+                    .collection('parent')
+                    .doc('a@gmail.com') //need update
+                    .collection('children')
+                    .doc(widget.childID)
+                    .update({'points': child.points + accumelatedPoints});
                 Navigator.of(context).pop();
               } else {
                 index++;
@@ -273,23 +290,41 @@ class _GameState extends State<Game> {
   Widget gameStatusBar() {
     int completed = 0;
     return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: lessonIDs
-            .map(
-              (e) => ((index == 5) || (completed++ < index))
-                  ? new Container(
-                      color: Colors.green,
-                      height: 8,
-                      width: 80,
-                      margin: EdgeInsets.all(10),
-                    )
-                  : new Container(
-                      color: Colors.grey,
-                      height: 8,
-                      width: 80,
-                      margin: EdgeInsets.all(10),
-                    ),
-            )
-            .toList());
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: lessonIDs
+          .map(
+            (e) => ((index == 5) || (completed++ < index))
+                ? new Container(
+                    color: Colors.green,
+                    height: 8,
+                    width: 80,
+                    margin: EdgeInsets.all(10),
+                  )
+                : new Container(
+                    color: Colors.grey,
+                    height: 8,
+                    width: 80,
+                    margin: EdgeInsets.all(10),
+                  ),
+          )
+          .toList(),
+    );
+  }
+
+  Future<void> readChildData(String childID) async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc('a@gmail.com') //update this
+        .collection('children')
+        .where('childID', isEqualTo: childID)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        child = Child.fromJson(element.data());
+        // setState(() {
+        //   readingData = false;
+        // });
+      }
+    });
   }
 }

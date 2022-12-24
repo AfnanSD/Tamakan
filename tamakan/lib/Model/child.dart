@@ -6,6 +6,7 @@ class Child {
   final DateTime birthDate;
   final String profilePicture;
   final String passwordPicture;
+  final int points;
 
   Child({
     required this.childID,
@@ -13,6 +14,7 @@ class Child {
     required this.birthDate,
     required this.profilePicture,
     required this.passwordPicture,
+    required this.points,
   });
 
   Map<String, dynamic> toJson() {
@@ -22,15 +24,16 @@ class Child {
       'name': name,
       'passwordPicture': passwordPicture,
       'profilePicture': profilePicture,
+      'points': points,
     };
   }
 
-//not tested
   Child.fromJson(Map<String, dynamic> json)
       : childID = json['childID'],
         name = json['name'],
         birthDate = json['birthDate'].toDate(),
         profilePicture = json['profilePicture'],
-        passwordPicture = json['passwordPicture'];
+        passwordPicture = json['passwordPicture'],
+        points = json['points'];
   //progress here?
 }

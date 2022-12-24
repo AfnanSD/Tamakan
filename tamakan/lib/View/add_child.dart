@@ -238,11 +238,13 @@ class _AddChildState extends State<AddChild> {
           .collection('children')
           .doc();
       Child child = new Child(
-          childID: docRef.id,
-          name: nameController.text,
-          birthDate: birthDate!,
-          profilePicture: profilePicture,
-          passwordPicture: passwordPicture);
+        childID: docRef.id,
+        name: nameController.text,
+        birthDate: birthDate!,
+        profilePicture: profilePicture,
+        passwordPicture: passwordPicture,
+        points: 0,
+      );
 
       await docRef.set(child.toJson());
 

@@ -28,7 +28,9 @@ class Temp extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChildHomePage()));
+                      builder: (context) => const ChildHomePage(
+                            childID: 'K2WRY0J6f2TkffrQcI9w',
+                          )));
             },
             child: Text('child home page'),
           ),

@@ -26,6 +26,7 @@ class _LearningMapState extends State<LearningMap> {
                     MaterialPageRoute(
                       builder: (context) => const Game(
                         practiceID: '21.5',
+                        childID: 'K2WRY0J6f2TkffrQcI9w',
                       ),
                     ));
               }),
@@ -35,7 +36,10 @@ class _LearningMapState extends State<LearningMap> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Lesson(lessonID: '1')));
+                        builder: (context) => const Lesson(
+                              lessonID: '1',
+                              childID: 'K2WRY0J6f2TkffrQcI9w',
+                            )));
               }),
           ElevatedButton(
               child: Text('google mic version'),

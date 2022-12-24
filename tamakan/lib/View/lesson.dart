@@ -1,15 +1,16 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
+import 'package:tamakan/Model/child.dart';
 import 'package:tamakan/View/learning_map.dart';
 
 class Lesson extends StatefulWidget {
-  const Lesson({super.key, required this.lessonID});
+  const Lesson({super.key, required this.lessonID, required this.childID});
 
   final String lessonID;
+  final String childID;
 
   @override
   State<Lesson> createState() => _LessonState();
@@ -25,12 +26,14 @@ class _LessonState extends State<Lesson> {
   late List<String> correctText = List<String>.empty(growable: true);
   late String lesson = '';
   bool found = false;
+  late Child child;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     speech = stt.SpeechToText();
+    readChildData(widget.childID);
   }
 
   @override
@@ -46,8 +49,6 @@ class _LessonState extends State<Lesson> {
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),
-          // title: Text('لعبة الحروف'),
-          // centerTitle: true,
         ),
         body: Column(
           children: [
@@ -79,9 +80,6 @@ class _LessonState extends State<Lesson> {
     getCorrectText(id);
     return Column(
       children: [
-        // SizedBox(
-        //   height: 50,
-        // ),
         Container(
           width: double.infinity,
           child: Card(
@@ -102,9 +100,6 @@ class _LessonState extends State<Lesson> {
             ),
           ),
         ),
-        // SizedBox(
-        //   height: 50,
-        // ),
         Row(
           children: [
             Expanded(
@@ -124,18 +119,6 @@ class _LessonState extends State<Lesson> {
                         icon: Image.asset('assets/images/mic.png'),
                         onPressed: listen,
                       ),
-                      // AvatarGlow(
-                      //   animate: isListening,
-                      //   glowColor: Theme.of(context).primaryColor,
-                      //   duration: const Duration(milliseconds: 2000),
-                      //   repeatPauseDuration: const Duration(milliseconds: 100),
-                      //   repeat: true,
-                      //   endRadius: 75.0,
-                      //   child: IconButton(
-                      //     icon: Image.asset('assets/images/mic.png'),
-                      //     onPressed: listen,
-                      //   ),
-                      // ),
                     )
                   ],
                 ),
@@ -189,53 +172,6 @@ class _LessonState extends State<Lesson> {
             ),
           ],
         ),
-        // SizedBox(
-        //   height: 50,
-        // ),
-        // Card(
-        //   elevation: 4,
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(10),
-        //   ),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       Container(
-        //         height: 50,
-        //         margin: EdgeInsets.all(20),
-        //         child: IconButton(
-        //           icon: Image.asset('assets/images/lightbulb.png'),
-        //           onPressed: () async {
-        //             //for finding refernce only  !?
-
-        //             // Create a storage reference from our app
-        //             final storageRef = FirebaseStorage.instance.ref();
-
-        //             // Create a reference with an initial file path and name
-        //             final pathReference =
-        //                 storageRef.child("/practices/ألف.mp3");
-        //             // Create a reference to a file from a Google Cloud Storage URI
-        //             final gsReference = FirebaseStorage.instance.refFromURL(
-        //                 "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
-
-        //             // print(await gsReference.getDownloadURL());
-        //             // await player.play(
-        //             //     DeviceFileSource(await gsReference.getDownloadURL()));
-
-        //             await player.play(DeviceFileSource(recordURL));
-        //           },
-        //         ),
-        //       ),
-        //       Container(
-        //         margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-        //         child: Text(
-        //           'تلميح',
-        //           style: TextStyle(fontSize: 30),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // ),
         SingleChildScrollView(
           reverse: true,
           child: Text(text),
@@ -255,7 +191,7 @@ class _LessonState extends State<Lesson> {
             showCustomDialog(context);
             //Navigator.of(context).pop();
           },
-          child: const Text('testing back'),
+          child: const Text('testing dialog'),
         )
       ],
     );
@@ -315,6 +251,13 @@ class _LessonState extends State<Lesson> {
       if (text == element) found = true;
     }
     if (found) {
+      //showCustomDialog(context); //cause error
+      FirebaseFirestore.instance
+          .collection('parent')
+          .doc('a@gmail.com') //need update
+          .collection('children')
+          .doc(widget.childID)
+          .update({'points': child.points + 5});
       return const Text(
         'true',
         style: TextStyle(
@@ -462,5 +405,22 @@ class _LessonState extends State<Lesson> {
         );
       },
     );
+  }
+
+  Future<void> readChildData(String childID) async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc('a@gmail.com') //update this
+        .collection('children')
+        .where('childID', isEqualTo: childID)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        child = Child.fromJson(element.data());
+        // setState(() {
+        //   readingData = false;
+        // });
+      }
+    });
   }
 }
