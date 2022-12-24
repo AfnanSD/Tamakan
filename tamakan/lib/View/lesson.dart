@@ -60,7 +60,7 @@ class _LessonState extends State<Lesson> {
               child: Container(
                 child: Center(
                     child: Text(
-                  'الدرس الأول',
+                  'الدرس الأول', //need to update
                   style: TextStyle(
                     fontSize: 30,
                   ),
@@ -139,21 +139,21 @@ class _LessonState extends State<Lesson> {
                       child: IconButton(
                         icon: Image.asset('assets/images/lightbulb.png'),
                         onPressed: () async {
-                          //for finding refernce only  !?
+                          // //for finding refernce only  !?
 
-                          // Create a storage reference from our app
-                          final storageRef = FirebaseStorage.instance.ref();
+                          // // Create a storage reference from our app
+                          // final storageRef = FirebaseStorage.instance.ref();
 
-                          // Create a reference with an initial file path and name
-                          final pathReference =
-                              storageRef.child("/practices/ألف.mp3");
-                          // Create a reference to a file from a Google Cloud Storage URI
-                          final gsReference = FirebaseStorage.instance.refFromURL(
-                              "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+                          // // Create a reference with an initial file path and name
+                          // final pathReference =
+                          //     storageRef.child("/practices/ألف.mp3");
+                          // // Create a reference to a file from a Google Cloud Storage URI
+                          // final gsReference = FirebaseStorage.instance.refFromURL(
+                          //     "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
 
-                          // print(await gsReference.getDownloadURL());
-                          // await player.play(
-                          //     DeviceFileSource(await gsReference.getDownloadURL()));
+                          // // print(await gsReference.getDownloadURL());
+                          // // await player.play(
+                          // //     DeviceFileSource(await gsReference.getDownloadURL()));
 
                           await player.play(DeviceFileSource(recordURL));
                         },
