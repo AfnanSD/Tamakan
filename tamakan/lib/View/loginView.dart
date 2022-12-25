@@ -32,9 +32,9 @@ class loginview extends StatelessWidget {
                 .login(_emailController.text, _passwordController.text);
             print(user);
             if (await user) {
-              Navigator.pushNamed(context, '/LearningMap');
+              Navigator.pushNamed(context, '/ParentProfile');
             } else {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/loginview');
             }
           },
           child: Text(

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextInputField extends StatelessWidget {
-  final TextEditingController controller;
-  final String myLabelText;
-  final String myHintText;
-
+  final TextEditingController? controller;
+  final String? myLabelText;
+  final String? myHintText;
+  final String? initilVlue;
+  final bool? enabled;
   //final IconData myIcon;
   final bool obsecure;
   final String? Function(String?)? validator;
@@ -12,12 +13,13 @@ class TextInputField extends StatelessWidget {
 
   TextInputField(
       {Key? key,
-      required this.controller,
-      required this.myLabelText,
-      required this.myHintText,
+      this.controller,
+      this.myLabelText,
+      this.myHintText,
       this.validator,
       this.onCallBack,
-
+      this.initilVlue,
+      this.enabled,
       //required this.myIcon,
       this.obsecure = false})
       : super(key: key);
@@ -29,9 +31,11 @@ class TextInputField extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(right: 1, left: 250),
           child: TextFormField(
+            initialValue: initilVlue,
             obscureText: obsecure,
             validator: validator,
             controller: controller,
+            enabled: enabled,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -50,6 +54,9 @@ class TextInputField extends StatelessWidget {
                 hintTextDirection: TextDirection.rtl,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
+            onChanged: (v) {
+              onCallBack!.call(v);
+            },
           ),
         ));
   }

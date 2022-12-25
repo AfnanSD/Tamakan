@@ -60,7 +60,7 @@ class _registerationviewState extends State<registerationview> {
               );
               print(user);
               if (await user) {
-                Navigator.pushNamed(context, '/LearningMap');
+                Navigator.pushNamed(context, '/ParentProfile');
               } else {
                 Navigator.pop(context);
               }

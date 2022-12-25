@@ -41,7 +41,7 @@ class resetPasswordView extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/resetpassword.png"),
+              image: AssetImage("assets/images/password.png"),
               fit: BoxFit.fill //BoxFit.cover,
               ),
         ),

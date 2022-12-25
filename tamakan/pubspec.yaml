@@ -52,6 +52,9 @@ dependencies:
   firebase_auth: ^4.2.1
   flutter_easyloading: ^3.0.5
   get: ^4.6.5
+  url_launcher: ^6.1.7
+  flutter_profile_picture: ^2.0.0
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:
@@ -78,16 +81,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/images/droppedlogo.png
+   - assets/images/welcome.png
+   - assets/images/sadFace.png
    - assets/images/resetpassword.png
+   - assets/images/password.png
    - assets/images/login.png
    - assets/images/register.png
    - assets/images/r3.png
-   - assets/images/lightbulb.png
-   - assets/images/mic.png
-   - assets/images/trophy.png
-   - assets/images/star1.png
-   - assets/images/star2.png
-   - assets/images/star3.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 

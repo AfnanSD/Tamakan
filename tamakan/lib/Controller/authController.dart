@@ -270,7 +270,7 @@ class AuthController extends GetxController {
   Future<void> deleteUser(String id) async {
     try {
       EasyLoading.show(status: '...انتظر قليلًا');
-      await _firestone.collection('Parent').doc(id).delete();
+      await _firestone.collection('parent').doc(id).delete();
 
       EasyLoading.dismiss();
       EasyLoading.showSuccess('تم حذف الحساب بنجاح');
@@ -278,6 +278,86 @@ class AuthController extends GetxController {
       EasyLoading.dismiss();
       EasyLoading.showError('$e');
       print('err -> $e');
+    }
+  }
+
+  // edit user profile
+  void editProfile(
+    String name,
+    String email,
+    String password,
+    String? gender,
+    String bDate,
+  ) async {
+    // UserModel? userModel;
+
+    ///validation to name
+    RegExp regexname = RegExp(r'^.{2,}$');
+
+    if (name.isEmpty || name.trim().isEmpty)
+      EasyLoading.showError("الرجاء أدخال الأسم");
+    else if (!regexname.hasMatch(name)) {
+      EasyLoading.showError("يجب ان يحتوي الأسم على حرفين على الأقل");
+    } else if (!RegExp(r"^[\p{L} ,.'-]*$",
+            caseSensitive: false, unicode: true, dotAll: true)
+        .hasMatch(name)) {
+      EasyLoading.showError("يجب ان يحتوي الأسم على أحرف فقط");
+    } /*else if (name.length > 10) {
+        EasyLoading.showError("الأسم المدخل غير صحيح");
+      } */
+    else
+
+      ///validation to email
+
+      Pattern pattern =
+          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regexemail = RegExp(pattern.toString());
+
+    if (email.isEmpty || email.trim().isEmpty) {
+      EasyLoading.showError("الرجاء إدخال بريدك الإلكتروني");
+    }
+
+    if (!regexemail.hasMatch(email)) {
+      EasyLoading.showError('بريدك الإلكتروني غير صحيح');
+    } else
+      ////////////////////////////////////////////////// validation to password
+      RegExp regexpass = new RegExp(r'^.{8,}$');
+    if (password.isEmpty || password.trim().isEmpty) {
+      EasyLoading.showError("الرجاء تعيين كلمة مرور");
+    }
+
+    if (!isPasswordCompliant(password)) {
+      EasyLoading.showError(
+          'الرجاء إدخال كلمة مرور تحتوي على حرف كبير وصغير ورقم');
+    } else if (!isPasswordCompliant2(password)) {
+      EasyLoading.showError('    الرجاء إدخال كلمة مرور تحتوي على 8 خانات');
+    } else
+    ////validation to birthdate
+    if (bDate.isEmpty || bDate.trim().isEmpty) {
+      EasyLoading.showError("الرجاء أدخال تاريخ الميلاد");
+    } else
+
+    /// All good
+    if (name.isNotEmpty &&
+        email.isNotEmpty &&
+        password.isNotEmpty &&
+        bDate.isNotEmpty) {
+      UserModel user = UserModel(
+          name: name,
+          email: email.trim(),
+          password: password,
+          gender: gender,
+          birthdate: bDate,
+          uid: FirebaseAuth.instance.currentUser!.uid);
+
+      EasyLoading.show(status: '...رفع البيانات');
+      await FirebaseFirestore.instance
+          .collection('parent')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update(user.toJson())
+          .then((value) {
+        EasyLoading.showSuccess("تم التعديل بنجاح!");
+      });
     }
   }
 }

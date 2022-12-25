@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 //import 'package:tamakan/View/game.dart';
 //import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/loginView.dart';
+import 'package:tamakan/View/parentProfile.dart';
 import 'package:tamakan/View/registerationView.dart';
+import 'package:tamakan/View/welcomeView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
         //'/LearningMap': (BuildContext context) => const LearningMap(),
         '/loginview': (BuildContext context) => loginview(),
         '/registerview': (BuildContext context) => registerationview(),
+        '/ParentProfile': (BuildContext context) => parentprofileview(),
       },
       home: const registerationview(), //MyHomePage(),
       builder: EasyLoading.init(),
