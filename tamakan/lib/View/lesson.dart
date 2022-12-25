@@ -3,8 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
+import 'package:better_player/better_player.dart';
+
 import 'package:tamakan/Model/child.dart';
 import 'package:tamakan/View/learning_map.dart';
+
+import '../Controller/Constants.dart';
+import '../Controller/utils.dart';
 
 class Lesson extends StatefulWidget {
   const Lesson({super.key, required this.lessonID, required this.childID});
@@ -50,26 +55,32 @@ class _LessonState extends State<Lesson> {
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
-        body: Column(
-          children: [
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Container(
-                child: Center(
-                    child: Text(
-                  'الدرس الأول', //need to update
-                  style: TextStyle(
-                    fontSize: 30,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                )),
-                width: double.infinity,
+                  child: Container(
+                    child: Center(
+                        child: Text(
+                      'الدرس الأول', //need to update
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    )),
+                    width: double.infinity,
+                  ),
+                ),
               ),
-            ),
-            practice(widget.lessonID)
-          ],
+              practice(widget.lessonID)
+            ],
+          ),
         ),
       ),
     );
@@ -81,6 +92,7 @@ class _LessonState extends State<Lesson> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
           child: Card(
             elevation: 4,
@@ -100,77 +112,142 @@ class _LessonState extends State<Lesson> {
             ),
           ),
         ),
-        Row(
-          children: [
-            Expanded(
-              child: Card(
-                color: isListening ? Color(0xffF7FFF7) : Colors.white,
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 50,
-                      margin: EdgeInsets.all(20),
-                      child: IconButton(
-                        icon: Image.asset('assets/images/mic.png'),
-                        onPressed: listen,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 50,
-                      margin: EdgeInsets.all(20),
-                      child: IconButton(
-                        icon: Image.asset('assets/images/lightbulb.png'),
-                        onPressed: () async {
-                          // //for finding refernce only  !?
+        // Row(
+        //   children: [
+        //     Expanded(
+        //       child: Card(
+        //         color: isListening ? Color(0xffF7FFF7) : Colors.white,
+        //         elevation: 4,
+        //         shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Container(
+        //               height: 50,
+        //               margin: EdgeInsets.all(20),
+        //               child: IconButton(
+        //                 icon: Image.asset('assets/images/mic.png'),
+        //                 onPressed: listen,
+        //               ),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //     Expanded(
+        //       child: Card(
+        //         elevation: 4,
+        //         shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: Row(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Container(
+        //               height: 50,
+        //               margin: EdgeInsets.all(20),
+        //               child: IconButton(
+        //                 icon: Image.asset('assets/images/listen.png'),
+        //                 onPressed: () async {
+        //                   // //for finding refernce only  !?
 
-                          // // Create a storage reference from our app
-                          // final storageRef = FirebaseStorage.instance.ref();
+        //                   // // Create a storage reference from our app
+        //                   // final storageRef = FirebaseStorage.instance.ref();
 
-                          // // Create a reference with an initial file path and name
-                          // final pathReference =
-                          //     storageRef.child("/practices/ألف.mp3");
-                          // // Create a reference to a file from a Google Cloud Storage URI
-                          // final gsReference = FirebaseStorage.instance.refFromURL(
-                          //     "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+        //                   // // Create a reference with an initial file path and name
+        //                   // final pathReference =
+        //                   //     storageRef.child("/practices/ألف.mp3");
+        //                   // // Create a reference to a file from a Google Cloud Storage URI
+        //                   // final gsReference = FirebaseStorage.instance.refFromURL(
+        //                   //     "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
 
-                          // // print(await gsReference.getDownloadURL());
-                          // // await player.play(
-                          // //     DeviceFileSource(await gsReference.getDownloadURL()));
+        //                   // // print(await gsReference.getDownloadURL());
+        //                   // // await player.play(
+        //                   // //     DeviceFileSource(await gsReference.getDownloadURL()));
 
-                          await player.play(DeviceFileSource(recordURL));
-                        },
+        //                   await player.play(DeviceFileSource(recordURL));
+        //                 },
+        //               ),
+        //             ),
+        //             // Container(
+        //             //   margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        //             //   child: Text(
+        //             //     'تلميح',
+        //             //     style: TextStyle(fontSize: 30),
+        //             //   ),
+        //             // )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        Container(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  child: Card(
+                    color: isListening ? Color(0xffF7FFF7) : Colors.white,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                      child: Image.asset(
+                        'assets/images/mic.png',
+                        scale: 1.2,
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                      child: Text(
-                        'تلميح',
-                        style: TextStyle(fontSize: 30),
-                      ),
-                    )
-                  ],
+                  ),
+                  onTap: listen,
                 ),
+                InkWell(
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                      child: Image.asset(
+                        'assets/images/listen.png',
+                        scale: 5,
+                      ),
+                    ),
+                  ),
+                  onTap: () async {
+                    await player.play(DeviceFileSource(recordURL));
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        InkWell(
+          child: Card(
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/images/lightbulb.png',
+                scale: 1.4,
               ),
             ),
-          ],
+          ),
+          onTap: () => showHintVideo(context),
         ),
         SingleChildScrollView(
           reverse: true,
@@ -430,5 +507,29 @@ class _LessonState extends State<Lesson> {
         // });
       }
     });
+  }
+
+  showHintVideo(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return Container(
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: BetterPlayer.network(
+                        'https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/practices%20videos%2FUntitled%20video%20-%20Made%20with%20Clipchamp%20(36).mp4?alt=media&token=651c3877-a08d-41dc-b981-5371aa18ba18',
+                        betterPlayerConfiguration: BetterPlayerConfiguration(
+                          autoPlay: true,
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

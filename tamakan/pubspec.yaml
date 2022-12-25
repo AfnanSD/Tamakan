@@ -49,6 +49,7 @@ dependencies:
   rxdart: ^0.27.7
   sound_stream: ^0.3.0
   intl: ^0.18.0
+  better_player: ^0.0.83
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,7 @@ flutter:
    - assets/images/snowy-pine-trees.png
    - assets/images/sun.png
    - assets/images/yellow-flower.png
+   - assets/images/listen.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
