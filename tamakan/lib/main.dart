@@ -5,6 +5,15 @@ import 'package:tamakan/View/child_homepage.dart';
 import 'package:tamakan/View/game.dart';
 import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/temp.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+
+//import 'package:tamakan/View/game.dart';
+//import 'package:tamakan/View/learning_map.dart';
+import 'package:tamakan/View/loginView.dart';
+import 'package:tamakan/View/parentProfile.dart';
+import 'package:tamakan/View/registerationView.dart';
+import 'package:tamakan/View/welcomeView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +30,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: createMaterialColor(Color(0xffFF6B6B)),
       ),
-      home: const Temp(),
+      routes: <String, WidgetBuilder>{
+        //'/LearningMap': (BuildContext context) => const LearningMap(),
+        '/loginview': (BuildContext context) => loginview(),
+        '/registerview': (BuildContext context) => registerationview(),
+        '/ParentProfile': (BuildContext context) => parentprofileview(),
+      },
+      home: const registerationview(), //MyHomePage(),
+      builder: EasyLoading.init(),
     );
   }
 }

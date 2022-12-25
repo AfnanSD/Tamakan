@@ -50,6 +50,13 @@ dependencies:
   sound_stream: ^0.3.0
   intl: ^0.18.0
   better_player: ^0.0.83
+  font_awesome_flutter: ^10.3.0
+  firebase_auth: ^4.2.1
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+  url_launcher: ^6.1.7
+  flutter_profile_picture: ^2.0.0
+  image_picker: ^0.8.6
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +103,13 @@ flutter:
    - assets/images/sun.png
    - assets/images/yellow-flower.png
    - assets/images/listen.png
+   - assets/images/welcome.png
+   - assets/images/sadFace.png
+   - assets/images/resetpassword.png
+   - assets/images/password.png
+   - assets/images/login.png
+   - assets/images/register.png
+   - assets/images/r3.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
