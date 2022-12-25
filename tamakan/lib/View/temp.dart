@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tamakan/View/add_child.dart';
 import 'package:tamakan/View/child_homepage.dart';
+import 'package:tamakan/View/parentProfile.dart';
 import 'package:tamakan/View/view_child_profile.dart';
 
 class Temp extends StatelessWidget {
@@ -44,6 +45,15 @@ class Temp extends StatelessWidget {
                           )));
             },
             child: Text('view child profile'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const parentprofileview()));
+            },
+            child: Text('parent profile'),
           ),
         ],
       ),

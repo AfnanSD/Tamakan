@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         //'/LearningMap': (BuildContext context) => const LearningMap(),
         '/loginview': (BuildContext context) => loginview(),
         '/registerview': (BuildContext context) => registerationview(),
-        '/ParentProfile': (BuildContext context) => parentprofileview(),
+        '/ParentProfile': (BuildContext context) => Temp(),
       },
       home: const registerationview(), //MyHomePage(),
       builder: EasyLoading.init(),
