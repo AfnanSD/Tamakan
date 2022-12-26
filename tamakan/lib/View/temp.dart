@@ -17,15 +17,6 @@ class Temp extends StatelessWidget {
       child: Column(
         children: [
           ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AddChild(),
-                    ));
-              },
-              child: Text('add child')),
-          ElevatedButton(
             onPressed: () {
               Navigator.push(
                   context,
@@ -35,17 +26,6 @@ class Temp extends StatelessWidget {
                           )));
             },
             child: Text('child home page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ViewChildProfile(
-                            childID: 'ER3I9DAL9rnd2fPIS1dS', //update this
-                          )));
-            },
-            child: Text('view child profile'),
           ),
           ElevatedButton(
             onPressed: () {

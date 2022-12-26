@@ -20,7 +20,12 @@ class _AddChildState extends State<AddChild> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final _birthDateController = TextEditingController();
-  final availableProfilePics = ['lion', 'crocodile', 'owl', 'pigeon']; //?
+  final availableProfilePics = [
+    'assets/images/crocodile.png',
+    'assets/images/lion.png',
+    'assets/images/owl.png',
+    'assets/images/pigeon.png'
+  ];
   DateTime? birthDate;
   var selected = [false, false, false, false, false, false]; //for passwrod
   var oneSelected = false; //for passwrod
@@ -32,11 +37,13 @@ class _AddChildState extends State<AddChild> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
 
+  late List<String> childrenPics = List<String>.empty(growable: true);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    getChildrenProfilePics();
   }
 
   @override
@@ -329,37 +336,41 @@ class _AddChildState extends State<AddChild> {
   }
 
   void selectProfilePic(BuildContext context) {
+    print(availableProfilePics
+            .toSet()
+            .difference(childrenPics.toSet())
+            .toList()
+            .toString() +
+        "888");
+    List<String> diff =
+        availableProfilePics.toSet().difference(childrenPics.toSet()).toList();
     showModalBottomSheet(
         context: context,
         builder: (_) {
           return Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  slectProfilePicture('assets/images/lion.png', 'lion'),
-                  slectProfilePicture('assets/images/owl.png', 'owl'),
-                ]),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  slectProfilePicture('assets/images/pigeon.png', 'pigeon'),
-                  slectProfilePicture(
-                      'assets/images/crocodile.png', 'crocodile'),
-                ]),
-              ],
+            child: GridView.builder(
+              itemCount: 4 - childrenPics.length,
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  maxCrossAxisExtent: 350),
+              itemBuilder: (context, index) {
+                return slectProfilePicture(diff[index]);
+              },
             ),
           );
         });
   }
 
-  Widget slectProfilePicture(String asset, String picked) {
+  Widget slectProfilePicture(String asset) {
     return InkWell(
       child: Container(
-        padding: EdgeInsets.all(20),
-        // height: 160,
-        // width: 160,
+        //padding: EdgeInsets.all(10),
+        // height: 100,
+        // width: 100,
         child: Image.asset(
           asset,
-          scale: 1.5,
+          scale: 1.3,
         ),
       ),
       onTap: () {
@@ -370,5 +381,19 @@ class _AddChildState extends State<AddChild> {
       },
       splashColor: Colors.white,
     );
+  }
+
+  Future<void> getChildrenProfilePics() async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc(signedInUser.email)
+        .collection('children')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        childrenPics.add(element['profilePicture']);
+      }
+      print(childrenPics);
+    });
   }
 }

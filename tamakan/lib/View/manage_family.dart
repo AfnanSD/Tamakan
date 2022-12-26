@@ -19,6 +19,8 @@ class ManageFamily extends StatefulWidget {
 class _ManageFamily extends State<ManageFamily> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
+  var waiting = true;
+  late int childrenCount;
 
   Future getData() async {
     QuerySnapshot qn = await FirebaseFirestore.instance
@@ -26,6 +28,10 @@ class _ManageFamily extends State<ManageFamily> {
         .doc(signedInUser.email)
         .collection('children')
         .get();
+    setState(() {
+      childrenCount = qn.docs.length;
+      waiting = false;
+    });
     return qn.docs;
   }
 
@@ -122,15 +128,22 @@ class _ManageFamily extends State<ManageFamily> {
                 },
               );
             }),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddChild(),
-            ),
-          ),
-        ),
+        floatingActionButton: waiting
+            ? FloatingActionButton(onPressed: null)
+            : FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  if (childrenCount < 4) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddChild(),
+                      ),
+                    );
+                  } else {
+                    showCusomDialog();
+                  }
+                }),
       ),
     );
   }
@@ -144,5 +157,49 @@ class _ManageFamily extends State<ManageFamily> {
     } catch (e) {
       EasyLoading.showError("حدث خطأ ما ....");
     }
+  }
+
+  void showCusomDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  'عذرا, لا يمكنك إضافة أكثر من أربعة أطفال',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: 200,
+                    child: Center(child: Text('حسنا')),
+                  ),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
