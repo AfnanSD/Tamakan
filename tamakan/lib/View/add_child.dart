@@ -7,6 +7,8 @@ import 'dart:ui' as ui;
 
 import 'package:tamakan/Model/child.dart';
 
+import 'manage_family.dart';
+
 class AddChild extends StatefulWidget {
   const AddChild({super.key});
 
@@ -270,7 +272,11 @@ class _AddChildState extends State<AddChild> {
 
       await docRef.set(child.toJson());
 
+      //dont update
       Navigator.pop(context);
+      //make back button navigate wrong
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => const ManageFamily()));
     }
   }
 
