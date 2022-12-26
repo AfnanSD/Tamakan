@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/View/learning_map.dart';
 
 import '../Model/child.dart';
@@ -20,10 +22,14 @@ class _ChildHomePageState extends State<ChildHomePage> {
   var readingData = true;
   late Child child;
 
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
   void initState() {
     // TODO: implement initState
     super.initState();
     print(widget.childID);
+    getCurrentUser();
     readChildData(widget.childID);
   }
 
@@ -221,10 +227,21 @@ class _ChildHomePageState extends State<ChildHomePage> {
     );
   }
 
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
+  }
+
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc('a@gmail.com') //update this
+        .doc(signedInUser.email) //update this
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
@@ -18,10 +20,14 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
   var readingData = true;
   late Child child;
 
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getCurrentUser();
     readChildData(widget.childID);
   }
 
@@ -182,10 +188,21 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
     );
   }
 
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
+  }
+
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc('a@gmail.com') //update this
+        .doc(signedInUser.email) //update this
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()

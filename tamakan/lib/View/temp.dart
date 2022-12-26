@@ -30,7 +30,7 @@ class Temp extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const ChildHomePage(
-                            childID: 'K2WRY0J6f2TkffrQcI9w',
+                            childID: 'ER3I9DAL9rnd2fPIS1dS', //update this
                           )));
             },
             child: Text('child home page'),
@@ -41,7 +41,7 @@ class Temp extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const ViewChildProfile(
-                            childID: 'K2WRY0J6f2TkffrQcI9w',
+                            childID: 'ER3I9DAL9rnd2fPIS1dS', //update this
                           )));
             },
             child: Text('view child profile'),

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
@@ -24,6 +26,16 @@ class _AddChildState extends State<AddChild> {
   var profilePictureChoosen = false;
   String profilePicture = '';
   var submit = false;
+
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurrentUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +234,17 @@ class _AddChildState extends State<AddChild> {
         ),
       ),
     );
-    ;
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
   }
 
   submitData() async {
@@ -234,7 +256,7 @@ class _AddChildState extends State<AddChild> {
     if (isValid && profilePictureChoosen && oneSelected) {
       final docRef = FirebaseFirestore.instance
           .collection('parent')
-          .doc('a@gmail.com')
+          .doc(signedInUser.email)
           .collection('children')
           .doc();
       Child child = new Child(
