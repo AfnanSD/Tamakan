@@ -21,17 +21,6 @@ class Temp extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChildHomePage(
-                            childID: 'ER3I9DAL9rnd2fPIS1dS', //update this
-                          )));
-            },
-            child: Text('child home page'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
                       builder: (context) => const parentprofileview()));
             },
             child: Text('parent profile'),
@@ -44,7 +33,18 @@ class Temp extends StatelessWidget {
                       builder: (context) => const ManageFamily()));
             },
             child: Text('manage family'),
-          )
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChildHomePage(
+                            childID: 'QkyaVglcPJJjlxwhz3zp',
+                          )));
+            },
+            child: Text('child home page '),
+          ),
         ],
       ),
     );

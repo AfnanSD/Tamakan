@@ -8,9 +8,6 @@ import 'package:better_player/better_player.dart';
 import 'package:tamakan/Model/child.dart';
 import 'package:tamakan/View/learning_map.dart';
 
-import '../Controller/Constants.dart';
-import '../Controller/utils.dart';
-
 class Lesson extends StatefulWidget {
   const Lesson({super.key, required this.lessonID, required this.childID});
 

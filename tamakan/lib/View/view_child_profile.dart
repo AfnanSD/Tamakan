@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:tamakan/View/exchange_points.dart';
+import 'package:tamakan/View/manage_family.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -75,61 +77,75 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                       ),
                       Container(
                         width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'اسم الطفل :',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: TextFormField(
-                                    initialValue: child.name,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder()),
-                                    enabled: false,
-                                  ),
-                                )
-                              ],
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'اسم الطفل :',
+                                style: TextStyle(fontSize: 15),
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              child: TextFormField(
+                                initialValue: child.name,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder()),
+                                enabled: false,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Container(
                         width: double.infinity,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 100,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'تاريح الميلاد :',
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: TextFormField(
-                                    initialValue: DateFormat.yMd()
-                                        .format(child.birthDate),
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder()),
-                                    enabled: false,
-                                  ),
-                                )
-                              ],
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'تاريح الميلاد :',
+                                style: TextStyle(fontSize: 15),
+                              ),
                             ),
-                          ),
+                            Expanded(
+                              child: TextFormField(
+                                initialValue:
+                                    DateFormat.yMd().format(child.birthDate),
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder()),
+                                enabled: false,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100,
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'نقاط طفلي :',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                initialValue: child.points.toString(),
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder()),
+                                enabled: false,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       Container(
@@ -142,6 +158,36 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                                     backgroundColor:
                                         MaterialStateProperty.all<Color>(
                                             Color(0xff4ECDC4)),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ExhcangePoints(
+                                            childID: child.childID),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    child: Center(
+                                        child: Text('استبدال نقاط طفلي')),
+                                    width: double.infinity,
+                                  )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color(0xff1A535C)),
                                     shape: MaterialStateProperty.all<
                                         RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
@@ -241,29 +287,36 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color(0xffFF6B6B)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0xffFF6B6B)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
                             ),
                           ),
-                          onPressed: () {
-                            FirebaseFirestore.instance
-                                .collection('parent')
-                                .doc('a@gmail.com') //update this
-                                .collection('children')
-                                .doc(child.childID)
-                                .delete();
-                          },
-                          child: Container(
-                            child: Center(child: Text('تأكيد')),
-                            width: 200,
-                          )),
-                    )
+                        ),
+                        onPressed: () {
+                          FirebaseFirestore.instance
+                              .collection('parent')
+                              .doc(signedInUser.email)
+                              .collection('children')
+                              .doc(child.childID)
+                              .delete();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ManageFamily(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          child: Center(child: Text('تأكيد')),
+                          width: 200,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ));
