@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:tamakan/View/widgets/childPoints.dart';
+import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
 import '../Model/couponType.dart';
+import 'manage_family.dart';
 
 class ExhcangePoints extends StatefulWidget {
   const ExhcangePoints({super.key, required this.childID});
@@ -16,6 +17,9 @@ class ExhcangePoints extends StatefulWidget {
   @override
   State<ExhcangePoints> createState() => _ExhcangePointsState();
 }
+
+//check dates? start and end
+//check available?
 
 class _ExhcangePointsState extends State<ExhcangePoints> {
   var readingChildData = true;
@@ -89,12 +93,24 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                               ),
                               child: ListTile(
                                 title: Text(coupons[index].name),
-                                subtitle: Text(coupons[index].descripton),
+                                subtitle: Text(
+                                    'استبدل ${coupons[index].points} نقطة \n${coupons[index].descripton}'),
                                 leading:
                                     Image.network(coupons[index].pictureURL),
                                 trailing: TextButton(
                                     onPressed: () {
-                                      print('here');
+                                      if (child.points >=
+                                          coupons[index].points) {
+                                        showConfirmationDialog(
+                                          coupons[index].name,
+                                          coupons[index].amount,
+                                          coupons[index].points,
+                                        );
+                                      } else {
+                                        print('nooo');
+                                        showNotEnoughPointsDialof(
+                                            coupons[index].points);
+                                      }
                                     },
                                     child: Text('استبدال')),
                               ),
@@ -126,7 +142,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .collection('parent')
         .doc(signedInUser.email)
         .collection('children')
-        .where('childID', isEqualTo: childID)
+        .where('childID', isEqualTo: childID) //why not doc(child.childID)?
         .get()
         .then((value) {
       for (var element in value.docs) {
@@ -151,5 +167,127 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         readingCouponsData = false;
       });
     });
+  }
+
+  void exchangeCoupon(String couponName, int amount, int points) {
+    FirebaseFirestore.instance
+        .collection('couponType')
+        .doc(couponName)
+        .update({'amount': (--amount)});
+    FirebaseFirestore.instance
+        .collection('parent')
+        .doc(signedInUser.email)
+        .collection('children')
+        .doc(child.childID)
+        .update({'points': child.points - points});
+  }
+
+  void showConfirmationDialog(String name, int amount, int couponPoints) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    child: Text(
+                      'هل أنت متأكد من استبدال كوبون ${name} بـ ${couponPoints} ؟',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xffFF6B6B)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        exchangeCoupon(name, amount, couponPoints);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ManageFamily(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        child: Center(child: Text('تأكيد')),
+                        width: 200,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ));
+      },
+    );
+  }
+
+  void showNotEnoughPointsDialof(int points) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    child: Text(
+                      'عدد نقاط طفلك أقل من ${points}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Color(0xffFF6B6B)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        child: Center(child: Text('حسنا')),
+                        width: 200,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ));
+      },
+    );
   }
 }

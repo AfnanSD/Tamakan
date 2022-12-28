@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/View/learning_map.dart';
-import 'package:tamakan/View/widgets/childPoints.dart';
+import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';
 
