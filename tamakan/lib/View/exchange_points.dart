@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:tamakan/Model/coupon.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
 
@@ -70,7 +71,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                           padding: const EdgeInsets.all(20.0),
                           child: Center(
                             child: Text(
-                              'قائمة الكوبونات',
+                              'قائمة القسائم',
                               style: TextStyle(fontSize: 30),
                             ),
                           ),
@@ -180,6 +181,28 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .collection('children')
         .doc(child.childID)
         .update({'points': child.points - points});
+    FirebaseFirestore.instance
+        .collection('coupon')
+        .where('name', isEqualTo: couponName)
+        .get()
+        .then(
+      (value) {
+        print(value.docs.length);
+        var found = false;
+        for (var element in value.docs) {
+          Coupon coupon =
+              Coupon.fromJson(element.data()); //here is the copounID
+          if (coupon.childID.isEmpty) {
+            FirebaseFirestore.instance
+                .collection('coupon')
+                .doc(coupon.couponID)
+                .update({'childID': child.childID});
+            found = true;
+          }
+          if (found) break;
+        }
+      },
+    );
   }
 
   void showConfirmationDialog(String name, int amount, int couponPoints) {
