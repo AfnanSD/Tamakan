@@ -5,7 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:tamakan/View/add_child.dart';
 import 'package:tamakan/View/child_homepage.dart';
 import 'package:tamakan/View/manage_family.dart';
-import 'package:tamakan/View/parentProfile.dart';
+import 'package:tamakan/View/parentProfileView.dart';
+
 import 'package:tamakan/View/view_child_profile.dart';
 
 class Temp extends StatelessWidget {

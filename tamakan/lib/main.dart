@@ -11,7 +11,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 //import 'package:tamakan/View/game.dart';
 //import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/loginView.dart';
-import 'package:tamakan/View/parentProfile.dart';
+
 import 'package:tamakan/View/registerationView.dart';
 import 'package:tamakan/View/welcomeView.dart';
 
