@@ -108,7 +108,6 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                                           coupons[index].points,
                                         );
                                       } else {
-                                        print('nooo');
                                         showNotEnoughPointsDialof(
                                             coupons[index].points);
                                       }
@@ -162,7 +161,8 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .then((value) {
       for (var element in value.docs) {
         CouponType c = CouponType.fromJson(element.data());
-        coupons.add(c);
+        if (c.startDate.isBefore(DateTime.now()) &&
+            c.endDate.isAfter(DateTime.now())) coupons.add(c);
       }
       setState(() {
         readingCouponsData = false;
