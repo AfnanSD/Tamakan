@@ -12,6 +12,7 @@ import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/Model/userModel.dart';
 import 'package:tamakan/View/deleteAccountView.dart';
 import 'package:tamakan/View/parentHome.dart';
+import 'package:tamakan/View/parentProfileEdit.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
@@ -57,10 +58,8 @@ class _parentprofileviewState extends State<parentprofileview> {
       child: MaterialButton(
         padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
         onPressed: () async {
-          AuthController().editProfile(userModel!.name, userModel!.email,
-              userModel!.password, userModel!.gender, userModel!.birthdate);
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => parentprofileview()));
+              MaterialPageRoute(builder: (context) => parentprofileEdit()));
         },
         child: Text(
           "تعديل",
@@ -341,141 +340,11 @@ class _parentprofileviewState extends State<parentprofileview> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Column(
-                                          children: [
-                                            //photo////////////////////////////////////////////////////////
-                                            FutureBuilder<String>(
-                                              future: _firebaseStorage
-                                                  .ref()
-                                                  .child(
-                                                      'usersProfileImages/${_auth.currentUser?.email}')
-                                                  .getDownloadURL(),
-                                              builder: (BuildContext context,
-                                                  AsyncSnapshot<String>
-                                                      snapshot) {
-                                                if (snapshot.connectionState ==
-                                                        ConnectionState.done ||
-                                                    snapshot.data == null ||
-                                                    snapshot.hasError) {
-                                                  if (snapshot.data == null ||
-                                                      snapshot.hasError) {
-                                                    imageURL = null;
-                                                  } else {
-                                                    imageURL = snapshot.data;
-                                                  }
-                                                  return Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 14),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        // const SizedBox(
-                                                        //     height: 30),
-                                                        Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            ProfilePicture(
-                                                              name: '',
-                                                              radius: 31,
-                                                              fontsize: 40,
-                                                              img: imageURL,
-                                                            ),
-                                                            const SizedBox(
-                                                                height: 8),
-                                                          ],
-                                                        ),
-                                                        TextButton(
-                                                          child: const Text(
-                                                            '+ أضف صورتك الشخصية',
-                                                            style: TextStyle(
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                                fontSize: 15,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        71,
-                                                                        81,
-                                                                        80),
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
-                                                            textAlign:
-                                                                TextAlign.right,
-                                                          ),
-                                                          onPressed: () async {
-                                                            final pickedFile =
-                                                                await picker.getImage(
-                                                                    source: ImageSource
-                                                                        .gallery);
-                                                            print(
-                                                                '**************************************');
-                                                            print(
-                                                                '**************************************');
-
-                                                            print(pickedFile
-                                                                ?.path);
-                                                            imageURL =
-                                                                pickedFile
-                                                                    ?.path;
-                                                            setState(() {
-                                                              if (pickedFile !=
-                                                                  null) {
-                                                                _image = File(
-                                                                    pickedFile
-                                                                        .path);
-                                                              } else {
-                                                                print(
-                                                                    'No image selected.');
-                                                              }
-                                                            });
-                                                          },
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 15),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }
-
-                                                return const Center(
-                                                  child: Text('يتم التحميل'),
-                                                );
-                                              },
-                                            ),
-                                            // const Text(
-                                            //   '   أضف صورتك الشخصية+',
-                                            //   textAlign: TextAlign.center,
-                                            //   style: TextStyle(
-                                            //       fontSize: 15,
-                                            //       color: Color.fromARGB(
-                                            //           255, 71, 81, 80),
-                                            //       fontWeight: FontWeight.bold),
-                                            // ),
-                                          ],
-                                        ),
-                                      ),
                                       // name
                                       label(inputLabel: 'الإسم'),
                                       TextInputField(
+                                        enabled: false,
                                         initilVlue: userModel!.name,
-                                        onCallBack: (v) {
-                                          userModel!.name = v;
-                                        },
                                       ),
                                       SizedBox(
                                         height: 15,
@@ -485,64 +354,15 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       TextInputField(
                                         enabled: false,
                                         initilVlue: userModel!.email,
-                                        onCallBack: (v) {
-                                          userModel!.email = v;
-                                        },
                                       ),
                                       SizedBox(
                                         height: 15,
                                       ),
                                       //GENDER
                                       label(inputLabel: 'الجنس'),
-                                      Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(
-                                              right: 1, left: 250),
-                                          child: DecoratedBox(
-                                            decoration: ShapeDecoration(
-                                                shape: RoundedRectangleBorder(
-                                              side: BorderSide(
-                                                  width: 1.0,
-                                                  style: BorderStyle.solid,
-                                                  color: Color.fromARGB(
-                                                      115, 60, 69, 69)),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0)),
-                                            )),
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 20, vertical: 4),
-                                              child: DropdownButton<String>(
-                                                  isExpanded: true,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                  value: userModel!.gender ??
-                                                      gender,
-                                                  items: genders
-                                                      .map((item) =>
-                                                          DropdownMenuItem(
-                                                              value: item,
-                                                              child: Text(
-                                                                item,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    color: Colors
-                                                                        .black54),
-                                                              )))
-                                                      .toList(),
-                                                  onChanged: (item) => setState(
-                                                        (() {
-                                                          gender = item;
-                                                          userModel!.gender =
-                                                              item;
-                                                        }),
-                                                      )),
-                                            ),
-                                          ),
-                                        ),
+                                      TextInputField(
+                                        enabled: false,
+                                        initilVlue: userModel!.gender,
                                       ),
 
                                       SizedBox(
@@ -550,88 +370,9 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       ),
                                       // birthdate
                                       label(inputLabel: 'تاريخ الميلاد'),
-                                      Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child: Container(
-                                          margin: const EdgeInsets.only(
-                                              right: 1, left: 250),
-                                          child: TextFormField(
-                                            initialValue: userModel!.birthdate,
-                                            onChanged: (v) {
-                                              userModel!.birthdate = v;
-                                            },
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black54),
-                                            //controller: _dateController,
-                                            decoration: InputDecoration(
-                                                border: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10))),
-                                                //ENABLED BORDER: NOT CLICKED BY USER YET
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Color.fromARGB(
-                                                            115, 60, 69, 69)),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10))),
-                                                //FOCUSED BORDER: CLICKED BY USER
-                                                focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.amber,
-                                                        width: 2),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10))),
-                                                //labelText: "تاريخ الميلاد",
-                                                hintText: "اختر سنة ميلادك",
-                                                hintTextDirection:
-                                                    TextDirection.rtl,
-                                                contentPadding: EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 20)),
-                                            onTap: () async {
-                                              // Below line stops keyboard from appearing
-                                              FocusScope.of(context)
-                                                  .requestFocus(
-                                                      new FocusNode());
-                                              DateTime? newDate =
-                                                  await showDatePicker(
-                                                      context: context,
-                                                      builder:
-                                                          (BuildContext context,
-                                                              Widget? child) {
-                                                        return Theme(
-                                                          data:
-                                                              ThemeData.light()
-                                                                  .copyWith(
-                                                            primaryColor:
-                                                                Colors.amber,
-                                                            colorScheme:
-                                                                ColorScheme.light(
-                                                                    primary: Colors
-                                                                        .amber),
-                                                            buttonTheme:
-                                                                ButtonThemeData(
-                                                                    textTheme:
-                                                                        ButtonTextTheme
-                                                                            .primary),
-                                                          ),
-                                                          child: child!,
-                                                        );
-                                                      },
-                                                      initialDate:
-                                                          DateTime.now(),
-                                                      firstDate: DateTime(1900),
-                                                      lastDate: DateTime.now());
-                                              //if Cancel
-                                              if (newDate == null) return;
-                                              //if OK
-                                              // setState(() => date = newDate);
-                                              // _dateController.text =
-                                              //     intl.DateFormat.yMMMd().format(newDate);
-                                            },
-                                          ),
-                                        ),
+                                      TextInputField(
+                                        enabled: false,
+                                        initilVlue: userModel!.birthdate,
                                       ),
                                       SizedBox(
                                         height: 15,
@@ -639,28 +380,17 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       label(inputLabel: 'كلمة المرور'),
                                       TextInputField(
                                         initilVlue: userModel!.password,
-                                        onCallBack: (v) {
-                                          userModel!.password = v;
-                                        },
+                                        enabled: false,
+                                        obsecure: true,
                                       ),
                                       SizedBox(
                                         height: 20,
+                                      ),
+                                      updataButton,
+                                      SizedBox(
+                                        height: 15,
                                       ),
 
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          updataButton,
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          cancelButton,
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
                                       deleteButton,
                                     ],
                                   ),
