@@ -110,6 +110,7 @@ flutter:
    - assets/images/login.png
    - assets/images/register.png
    - assets/images/r3.png
+   - assets/images/rabbit.png
    - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
