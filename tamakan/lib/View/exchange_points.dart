@@ -95,7 +95,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                               child: ListTile(
                                 title: Text(coupons[index].name),
                                 subtitle: Text(
-                                    'استبدل ${coupons[index].points} نقطة \n${coupons[index].descripton}'),
+                                    'استبدل ${coupons[index].points} نقطة \n${coupons[index].description}'),
                                 leading:
                                     Image.network(coupons[index].pictureURL),
                                 trailing: TextButton(
@@ -161,8 +161,10 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .then((value) {
       for (var element in value.docs) {
         CouponType c = CouponType.fromJson(element.data());
+        //check for amount
         if (c.startDate.isBefore(DateTime.now()) &&
-            c.endDate.isAfter(DateTime.now())) coupons.add(c);
+            c.endDate.isAfter(DateTime.now()) &&
+            c.amount > 0) coupons.add(c);
       }
       setState(() {
         readingCouponsData = false;
