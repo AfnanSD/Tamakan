@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
@@ -27,15 +29,21 @@ class _LessonState extends State<Lesson> {
   late String recordURL;
   late List<String> correctText = List<String>.empty(growable: true);
   late String lesson = '';
+  late String title = '';
   bool found = false;
   late Child child;
+
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     speech = stt.SpeechToText();
+    getCurrentUser();
     readChildData(widget.childID);
+    updateData();
   }
 
   @override
@@ -55,26 +63,26 @@ class _LessonState extends State<Lesson> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Center(
-                        child: Text(
-                      'الدرس الأول', //need to update
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    )),
-                    width: double.infinity,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              //   child: Card(
+              //     elevation: 4,
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     child: Container(
+              //       child: Center(
+              //           child: Text(
+              //         'الدرس الأول', //need to update
+              //         style: TextStyle(
+              //           fontSize: 30,
+              //         ),
+              //       )),
+              //       width: double.infinity,
+              //     ),
+              //   ),
+              // ),
               practice(widget.lessonID)
             ],
           ),
@@ -84,10 +92,29 @@ class _LessonState extends State<Lesson> {
   }
 
   Widget practice(String id) {
-    geturl(id);
+    getLessonData(id);
     getCorrectText(id);
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              child: Center(
+                  child: Text(
+                'الدرس $title',
+                style: TextStyle(
+                  fontSize: 30,
+                ),
+              )),
+              width: double.infinity,
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
@@ -271,7 +298,27 @@ class _LessonState extends State<Lesson> {
     );
   }
 
-  Future geturl(String id) async {
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
+  }
+
+  void updateData() async {
+    // for (var i = 34; i < 35; i++) {
+    //   await FirebaseFirestore.instance
+    //       .collection('lesson')
+    //       .doc(i.toString())
+    //       .set({'lesson': '', 'lessonID': '', 'lessonRecord': '', 'title': ''});
+    // }
+  }
+
+  Future getLessonData(String id) async {
     await FirebaseFirestore.instance
         .collection('lesson')
         .doc(id)
@@ -280,6 +327,7 @@ class _LessonState extends State<Lesson> {
       setState(() {
         recordURL = value['lessonRecord'];
         lesson = value['lesson'];
+        title = value['title'];
       });
     });
   }
@@ -329,10 +377,11 @@ class _LessonState extends State<Lesson> {
       showCustomDialog(context);
       FirebaseFirestore.instance
           .collection('parent')
-          .doc('a@gmail.com') //need update
+          .doc(signedInUser.email)
           .collection('children')
           .doc(widget.childID)
           .update({'points': child.points + 5});
+      print(child.points + 5);
       // return const Text(
       //   'true',
       //   style: TextStyle(
@@ -448,7 +497,9 @@ class _LessonState extends State<Lesson> {
                     onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LearningMap())),
+                            builder: (context) => LearningMap(
+                                  childId: widget.childID,
+                                ))),
                     child: Row(
                       children: [
                         Icon(Icons.home),
@@ -469,7 +520,7 @@ class _LessonState extends State<Lesson> {
                             builder: (context) => Lesson(
                                 lessonID:
                                     (int.parse(widget.lessonID) + 1).toString(),
-                                childID: child.childID))),
+                                childID: widget.childID))),
                     child: Row(
                       children: [
                         Icon(Icons.play_arrow),
@@ -492,7 +543,7 @@ class _LessonState extends State<Lesson> {
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc('a@gmail.com') //update this
+        .doc(signedInUser.email)
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()
@@ -503,6 +554,7 @@ class _LessonState extends State<Lesson> {
         //   readingData = false;
         // });
       }
+      print('done');
     });
   }
 

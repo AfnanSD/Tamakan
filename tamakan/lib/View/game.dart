@@ -4,8 +4,10 @@ import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../Model/child.dart';
@@ -36,11 +38,15 @@ class _GameState extends State<Game> {
   late Child child;
   var accumelatedPoints = 0;
 
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
   @override
   void initState() {
     super.initState();
     selectRandomLessons(widget.practiceID); //need to come from learning map
     speech = stt.SpeechToText();
+    getCurrentUser();
     readChildData(widget.childID);
   }
 
@@ -63,6 +69,17 @@ class _GameState extends State<Game> {
         body: waiting ? Container() : practice(lessonIDs[index].toString()),
       ),
     );
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
   }
 
   Future<void> selectRandomLessons(String practiceID) async {
@@ -268,10 +285,10 @@ class _GameState extends State<Game> {
               found = false;
               text = '';
               if (index + 1 == 5) {
-                print('done game ');
+                print('done game ' + accumelatedPoints.toString());
                 FirebaseFirestore.instance
                     .collection('parent')
-                    .doc('a@gmail.com') //need update
+                    .doc(signedInUser.email)
                     .collection('children')
                     .doc(widget.childID)
                     .update({'points': child.points + accumelatedPoints});
@@ -314,7 +331,7 @@ class _GameState extends State<Game> {
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc('a@gmail.com') //update this
+        .doc(signedInUser.email)
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()
