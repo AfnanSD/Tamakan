@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,27 +65,27 @@ class _LessonState extends State<Lesson> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //   child: Card(
-              //     elevation: 4,
-              //     shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     child: Container(
-              //       child: Center(
-              //           child: Text(
-              //         'الدرس الأول', //need to update
-              //         style: TextStyle(
-              //           fontSize: 30,
-              //         ),
-              //       )),
-              //       width: double.infinity,
-              //     ),
-              //   ),
-              // ),
-              practice(widget.lessonID)
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    child: Center(
+                        child: Text(
+                      'الدرس $title',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    )),
+                    width: double.infinity,
+                  ),
+                ),
+              ),
+              practice(widget.lessonID),
             ],
           ),
         ),
@@ -96,25 +98,6 @@ class _LessonState extends State<Lesson> {
     getCorrectText(id);
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              child: Center(
-                  child: Text(
-                'الدرس $title',
-                style: TextStyle(
-                  fontSize: 30,
-                ),
-              )),
-              width: double.infinity,
-            ),
-          ),
-        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
@@ -208,51 +191,49 @@ class _LessonState extends State<Lesson> {
         //     ),
         //   ],
         // ),
-        Container(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  child: Card(
-                    color: isListening ? Color(0xffF7FFF7) : Colors.white,
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-                      child: Image.asset(
-                        'assets/images/mic.png',
-                        scale: 1.2,
-                      ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                child: Card(
+                  color: isListening ? Color(0xffF7FFF7) : Colors.white,
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                    child: Image.asset(
+                      'assets/images/mic.png',
+                      scale: 1.2,
                     ),
                   ),
-                  onTap: listen,
                 ),
-                InkWell(
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-                      child: Image.asset(
-                        'assets/images/listen.png',
-                        scale: 5,
-                      ),
+                onTap: listen,
+              ),
+              InkWell(
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                    child: Image.asset(
+                      'assets/images/listen.png',
+                      scale: 5,
                     ),
                   ),
-                  onTap: () async {
-                    await player.play(DeviceFileSource(recordURL));
-                  },
                 ),
-              ],
-            ),
+                onTap: () async {
+                  await player.play(DeviceFileSource(recordURL));
+                },
+              ),
+            ],
           ),
         ),
         InkWell(
@@ -310,12 +291,31 @@ class _LessonState extends State<Lesson> {
   }
 
   void updateData() async {
-    // for (var i = 34; i < 35; i++) {
+    // for (var i = 35; i < 71; i++) {
     //   await FirebaseFirestore.instance
     //       .collection('lesson')
     //       .doc(i.toString())
     //       .set({'lesson': '', 'lessonID': '', 'lessonRecord': '', 'title': ''});
     // }
+
+    //testing
+    // List<double> ids = List<double>.empty(growable: true);
+    // await FirebaseFirestore.instance.collection('lesson').get().then((value) {
+    //   for (var element in value.docs) {
+    //     ids.add(double.parse(element['lessonID']));
+    //   }
+    // });
+    // await FirebaseFirestore.instance.collection('practice').get().then((value) {
+    //   for (var element in value.docs) {
+    //     ids.add(double.parse(element['practiceID']));
+    //   }
+    // });
+    // bool isInteger(num value) => (value % 1) == 0;
+
+    // ids.sort();
+    // print(isInteger(ids[0]).toString() + ids[0].toString());
+    // print(isInteger(ids[7]).toString() + ids[7].toString());
+    // print(ids);
   }
 
   Future getLessonData(String id) async {
@@ -560,25 +560,26 @@ class _LessonState extends State<Lesson> {
 
   showHintVideo(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return Container(
-            child: Column(
-              children: [
-                const SizedBox(height: 8),
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: BetterPlayer.network(
-                        'https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/practices%20videos%2FUntitled%20video%20-%20Made%20with%20Clipchamp%20(36).mp4?alt=media&token=651c3877-a08d-41dc-b981-5371aa18ba18',
-                        betterPlayerConfiguration: BetterPlayerConfiguration(
-                          autoPlay: true,
-                        )),
-                  ),
+      context: context,
+      builder: (_) {
+        return Container(
+          child: Column(
+            children: [
+              const SizedBox(height: 8),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: BetterPlayer.network(
+                      'https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/practices%20videos%2FUntitled%20video%20-%20Made%20with%20Clipchamp%20(36).mp4?alt=media&token=651c3877-a08d-41dc-b981-5371aa18ba18',
+                      betterPlayerConfiguration: BetterPlayerConfiguration(
+                        autoPlay: true,
+                      )),
                 ),
-              ],
-            ),
-          );
-        });
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
