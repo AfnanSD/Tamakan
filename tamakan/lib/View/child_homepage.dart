@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/route_manager.dart';
+import 'package:tamakan/View/child_coupons_view.dart';
 import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
@@ -134,8 +136,12 @@ class _ChildHomePageState extends State<ChildHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () => print(
-                                  'points?'), //need update - make it badges?
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ChildCouponsVIew(
+                                  childID: widget.childID,
+                                ),
+                              )),
                               child: Card(
                                 child: Container(
                                   height: 150,
@@ -144,11 +150,14 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                   child: Row(
                                     children: [
                                       Image.asset(
-                                        'assets/images/trophy.png',
-                                        scale: 1,
+                                        'assets/images/coupon.png',
+                                        scale: 4.5,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
                                       ),
                                       Text(
-                                        'نقاطي',
+                                        'قسائمي',
                                         style: TextStyle(fontSize: 30),
                                       ),
                                     ],
