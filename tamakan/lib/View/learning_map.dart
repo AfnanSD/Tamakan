@@ -38,7 +38,7 @@ class _LearningMapState extends State<LearningMap> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => Lesson(
-                              lessonID: '35',
+                              lessonID: '1',
                               childID: widget.childId,
                             )));
               }),
