@@ -494,12 +494,10 @@ class _LessonState extends State<Lesson> {
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff4ECDC4),
                     ),
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LearningMap(
-                                  childId: widget.childID,
-                                ))),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.home),
@@ -514,13 +512,18 @@ class _LessonState extends State<Lesson> {
                     width: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () => Navigator.push(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Lesson(
-                                lessonID:
-                                    (int.parse(widget.lessonID) + 1).toString(),
-                                childID: widget.childID))),
+                          builder: (context) => Lesson(
+                              lessonID:
+                                  (int.parse(widget.lessonID) + 1).toString(),
+                              childID: widget.childID),
+                        ),
+                      );
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.play_arrow),
