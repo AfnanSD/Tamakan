@@ -12,6 +12,8 @@ class label extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             ' ${inputLabel}',

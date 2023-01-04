@@ -30,11 +30,6 @@ final List<String> genders = [
   'ذكر',
 ];
 String? gender = 'أنثى';
-final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-final FirebaseAuth _auth = FirebaseAuth.instance;
-late String? imageURL;
-final picker = ImagePicker();
-late File? _image = null;
 
 class _parentprofileEditState extends State<parentprofileEdit> {
   UserModel? userModel;
@@ -171,6 +166,28 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                 ))
                               : Expanded(
                                   child: SingleChildScrollView(
+                                      child: Center(
+                                          child: Container(
+                                  height: 750,
+                                  width: 600,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 40,
+                                    vertical: 20,
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 40,
+                                    vertical: 20,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: const Offset(0, 5),
+                                            blurRadius: 10,
+                                            spreadRadius: 1,
+                                            color: Colors.grey[300]!)
+                                      ]),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -205,7 +222,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                         textDirection: TextDirection.rtl,
                                         child: Container(
                                           margin: const EdgeInsets.only(
-                                              right: 1, left: 250),
+                                              right: 100, left: 100),
                                           child: DecoratedBox(
                                             decoration: ShapeDecoration(
                                                 shape: RoundedRectangleBorder(
@@ -261,7 +278,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                         textDirection: TextDirection.rtl,
                                         child: Container(
                                           margin: const EdgeInsets.only(
-                                              right: 1, left: 250),
+                                              right: 100, left: 100),
                                           child: TextFormField(
                                             initialValue: userModel!.birthdate,
                                             onChanged: (v) {
@@ -373,7 +390,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                       deleteButton,
                                     ],
                                   ),
-                                ))
+                                ))))
                         ]))))));
   }
 

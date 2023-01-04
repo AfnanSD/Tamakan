@@ -241,10 +241,10 @@ class AuthController extends GetxController {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       EasyLoading.dismiss();
       EasyLoading.showSuccess(
-          'تم إرسال رابط إعادة تعيين المرور إلى بريدك الإلكتروني');
+          'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
       if (email != null) {
         //Get.toNamed("/loginview");
-        Get.toNamed(loginview.screenRoute);
+        // Get.toNamed(loginview.screenRoute);
       }
     } catch (e) {
       print(e);

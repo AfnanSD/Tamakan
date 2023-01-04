@@ -37,54 +37,103 @@ class resetPasswordView extends StatelessWidget {
       ),
     );
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/password.png"),
+              image: AssetImage("assets/images/b2.png"),
               fit: BoxFit.fill //BoxFit.cover,
               ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.end,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(
-                  children: [
-                    const SizedBox(
-                      height: 600,
-                    ),
-                    const Text(
-                      "الرجاء إدخال البريد الإلكتروني حتى نتمكن من إعادة تعيين كلمة مرورك",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color.fromARGB(255, 66, 63, 63),
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.right,
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    label(inputLabel: 'البريد الإلكتروني'),
-                    TextInputField(
-                        controller: _emailController,
-                        myLabelText: 'البريد الإلكتروني',
-                        myHintText: 'admin@gmail.com'),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    resetButton,
-                    const SizedBox(
-                      height: 130,
-                    ),
-                  ],
+                Image.asset(
+                  'assets/images/logo3.png',
+                  height: 150,
+                  width: 150,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                const Text(
+                  "  إعادة تعيين كلمة المرور ",
+                  style: TextStyle(
+                      fontSize: 50,
+                      color: Color.fromARGB(255, 71, 81, 80),
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.right,
                 ),
               ],
             ),
-          ),
+            SizedBox(
+              height: 50,
+            ),
+            SingleChildScrollView(
+              child: Center(
+                child: Container(
+                  height: 550,
+                  width: 600,
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 20,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(0, 5),
+                            blurRadius: 10,
+                            spreadRadius: 1,
+                            color: Colors.grey[300]!)
+                      ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          const Text(
+                            "الرجاء إدخال البريد الإلكتروني حتى نتمكن من إعادة تعيين كلمة مرورك",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color.fromARGB(255, 66, 63, 63),
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.right,
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          label(inputLabel: 'البريد الإلكتروني'),
+                          TextInputField(
+                              controller: _emailController,
+                              myLabelText: 'البريد الإلكتروني',
+                              myHintText: 'admin@gmail.com'),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          resetButton,
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 110,
+            ),
+          ],
         ),
       ),
     );

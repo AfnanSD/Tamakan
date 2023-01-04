@@ -29,7 +29,7 @@ class TextInputField extends StatelessWidget {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
-          margin: const EdgeInsets.only(right: 1, left: 250),
+          margin: const EdgeInsets.only(right: 100, left: 100),
           child: TextFormField(
             initialValue: initilVlue,
             obscureText: obsecure,
@@ -46,7 +46,7 @@ class TextInputField extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 //FOCUSED BORDER: CLICKED BY USER
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffFF6B6B), width: 1),
+                    borderSide: BorderSide(color: Color(0xff1A535C), width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 hintText: myHintText,
                 //labelText: myLabelText,

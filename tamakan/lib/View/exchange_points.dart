@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +7,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/Model/coupon.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
+import 'package:http/http.dart' as http;
 
 import '../Model/child.dart';
 import '../Model/couponType.dart';
+import '../Model/userModel.dart';
 import 'manage_family.dart';
 
 class ExhcangePoints extends StatefulWidget {
@@ -205,6 +209,84 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
     );
   }
 
+  Future SendEmail(String couponName, int points) async {
+    print("SendEmail******************************");
+    // UserModel? userModel;
+    // await FirebaseFirestore.instance
+    //     .collection('parent')
+    //     .doc(FirebaseAuth.instance.currentUser!.email)
+    //     .get()
+    //     .then((value) {
+    //   userModel = UserModel.fromSnap(value);
+    // });
+    // Coupon? coupon;
+    // await FirebaseFirestore.instance
+    //     .collection('coupon')
+    //     .where('name', isEqualTo: couponName)
+    //     .get()
+    //     .then(
+    //   (value) {
+    //     for (var element in value.docs) {
+    //       coupon = Coupon.fromJson(element.data());
+    //     }
+    //   },
+    // );
+    // CouponType? couponType;
+    // await FirebaseFirestore.instance
+    //     .collection('coupon')
+    //     .where('name', isEqualTo: couponName)
+    //     .get()
+    //     .then(
+    //   (value) {
+    //     for (var element in value.docs) {
+    //       couponType = CouponType.fromJson(element.data());
+    //     }
+    //   },
+    // );
+
+    print("Information******************************");
+    print(signedInUser.email);
+    // print(userModel!.name);
+    print(child.name);
+    print(points);
+    print(couponName);
+    // print(couponType!.startDate);
+    // print(coupon!.endDate);
+    // print(couponType!.descripton);
+    // print(coupon!.couponID);
+//  'parent_name': userModel!.name,
+//           'childName': child.name,
+//           'point': points,
+//           'coupon_name': couponName,
+//           'startDate': couponType!.startDate,
+//           'endDate': coupon!.endDate,
+//           'description': couponType!.descripton,
+//           'couponID': coupon!.couponID,
+
+    final serviceId = 'service_w5ei0k1';
+    final templateId = 'template_mxy1yae';
+    final userId = '5tJEsLojudk2YIKcD';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'parent_email': signedInUser.email,
+          'point': points,
+          'coupon_name': couponName,
+        },
+      }),
+    );
+  }
+
   void showConfirmationDialog(String name, int amount, int couponPoints) {
     showDialog(
       context: context,
@@ -242,6 +324,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                       ),
                       onPressed: () {
                         exchangeCoupon(name, amount, couponPoints);
+                        SendEmail(name, couponPoints);
 
                         Navigator.push(
                           context,

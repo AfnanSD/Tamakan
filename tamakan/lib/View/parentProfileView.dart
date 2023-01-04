@@ -30,11 +30,6 @@ final List<String> genders = [
   'ذكر',
 ];
 String? gender = 'أنثى';
-final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-final FirebaseAuth _auth = FirebaseAuth.instance;
-late String? imageURL;
-final picker = ImagePicker();
-late File? _image = null;
 
 class _parentprofileviewState extends State<parentprofileview> {
   UserModel? userModel;
@@ -116,286 +111,299 @@ class _parentprofileviewState extends State<parentprofileview> {
     );
 
     return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-            appBar: AppBar(
-              actions: <Widget>[
-                Image.asset(
-                  'assets/images/droppedlogo.png',
-                  scale: 0.5,
-                ),
-              ],
-              backgroundColor: Color(0xffFF6B6B),
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            Image.asset(
+              'assets/images/droppedlogo.png',
+              scale: 0.5,
             ),
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
-                child: Center(
-                    child: Container(
-                        padding: const EdgeInsets.all(30.0),
-                        constraints: const BoxConstraints.expand(),
-                        // decoration: const BoxDecoration(
-                        //   image: DecorationImage(
-                        //       image: AssetImage("./images/noborderwaves.png"),
-                        //       fit: BoxFit.cover),
-                        // ),
-                        child: Column(children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return StatefulBuilder(
-                                        builder: (context, setState) {
-                                          return AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0)),
-                                              titlePadding:
-                                                  const EdgeInsets.all(0),
-                                              title: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            topLeft: Radius
-                                                                .circular(20),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    20)),
-                                                    color: Color(0xffFF6B6B)),
-                                                width: 300,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      vertical: 15.0,
-                                                      horizontal: 25.0),
-                                                  child: Text(
-                                                    '! تحذير',
-                                                    textAlign: TextAlign.right,
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Color.fromARGB(
-                                                          255, 239, 235, 208),
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
+          ],
+          backgroundColor: Color(0xffFF6B6B),
+        ),
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Center(
+            child: Container(
+              padding: const EdgeInsets.all(30.0),
+              constraints: const BoxConstraints.expand(),
+              // decoration: const BoxDecoration(
+              //   image: DecorationImage(
+              //       image: AssetImage("./images/noborderwaves.png"),
+              //       fit: BoxFit.cover),
+              // ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0)),
+                                      titlePadding: const EdgeInsets.all(0),
+                                      title: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20)),
+                                            color: Color(0xffFF6B6B)),
+                                        width: 300,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 15.0, horizontal: 25.0),
+                                          child: Text(
+                                            '! تحذير',
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 239, 235, 208),
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      scrollable: true,
+                                      content: Container(
+                                        child: Form(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                'هل أنت متأكد من تسجيل الخروج؟',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17,
                                                 ),
                                               ),
-                                              scrollable: true,
-                                              content: Container(
-                                                child: Form(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        'هل أنت متأكد من تسجيل الخروج؟',
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          color: Color(
+                                                              0xffFF6B6B)),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 5,
+                                                          horizontal: 30),
+                                                      child: Text(
+                                                        'إلغاء',
                                                         style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 17,
-                                                        ),
+                                                            color: Colors.white,
+                                                            fontSize: 20.0),
                                                       ),
-                                                      const SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              20)),
-                                                                  color: Color(
-                                                                      0xffFF6B6B)),
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 5,
-                                                                  horizontal:
-                                                                      30),
-                                                              child: Text(
-                                                                'إلغاء',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        20.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 20,
-                                                          ),
-                                                          ///////
-                                                          TextButton(
-                                                            onPressed:
-                                                                () async {
-                                                              try {
-                                                                await FirebaseAuth
-                                                                    .instance
-                                                                    .signOut();
-                                                                EasyLoading
-                                                                    .showSuccess(
-                                                                        '!تم تسجيل الخروج بنجاح');
-                                                                EasyLoading
-                                                                    .dismiss();
-                                                                Navigator.pushNamed(
-                                                                    context,
-                                                                    '/registerview');
-                                                              } catch (e) {
-                                                                print(e);
-                                                              }
-                                                              // AuthController()
-                                                              //     .logout();
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              20)),
-                                                                  color: Color(
-                                                                      0xffFF6B6B)),
-                                                              padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 5,
-                                                                  horizontal:
-                                                                      30),
-                                                              child: Text(
-                                                                'خروج',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        20.0),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ));
-                                        },
-                                      );
-                                    },
-                                  );
+                                                  SizedBox(
+                                                    width: 20,
+                                                  ),
+                                                  ///////
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      try {
+                                                        await FirebaseAuth
+                                                            .instance
+                                                            .signOut();
+                                                        EasyLoading.showSuccess(
+                                                            '!تم تسجيل الخروج بنجاح');
+                                                        EasyLoading.dismiss();
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            '/registerview');
+                                                      } catch (e) {
+                                                        print(e);
+                                                      }
+                                                      // AuthController()
+                                                      //     .logout();
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          color: Color(
+                                                              0xffFF6B6B)),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 5,
+                                                          horizontal: 30),
+                                                      child: Text(
+                                                        'خروج',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ));
                                 },
+                              );
+                            },
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              size: 30,
+                            ),
+                            Text(
+                              'تسجيل الخروج',
+                              style: TextStyle(fontSize: 17),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
+
+                  const Text(
+                    '   الملف الشخصي ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 35,
+                        color: Color.fromARGB(255, 71, 81, 80),
+                        fontWeight: FontWeight.bold),
+                  ),
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //here starts the text fields that the user will enter
+                  !isloading
+                      ? const Expanded(
+                          child: Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xffFF6B6B),
+                          ),
+                        ))
+                      : Expanded(
+                          child: SingleChildScrollView(
+                            child: Center(
+                              child: Container(
+                                height: 750,
+                                width: 600,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                  vertical: 20,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                  vertical: 20,
+                                ),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: const Offset(0, 5),
+                                          blurRadius: 10,
+                                          spreadRadius: 1,
+                                          color: Colors.grey[300]!)
+                                    ]),
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
-                                    Icon(
-                                      Icons.logout,
-                                      size: 30,
+                                    // name
+                                    label(inputLabel: 'الإسم'),
+                                    TextInputField(
+                                      enabled: false,
+                                      initilVlue: userModel!.name,
                                     ),
-                                    Text(
-                                      'تسجيل الخروج',
-                                      style: TextStyle(fontSize: 17),
+                                    SizedBox(
+                                      height: 15,
                                     ),
+                                    //email
+                                    label(inputLabel: 'البريد الإلكتروني'),
+                                    TextInputField(
+                                      enabled: false,
+                                      initilVlue: userModel!.email,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    //GENDER
+                                    label(inputLabel: 'الجنس'),
+                                    TextInputField(
+                                      enabled: false,
+                                      initilVlue: userModel!.gender,
+                                    ),
+
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    // birthdate
+                                    label(inputLabel: 'تاريخ الميلاد'),
+                                    TextInputField(
+                                      enabled: false,
+                                      initilVlue: userModel!.birthdate,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    label(inputLabel: 'كلمة المرور'),
+                                    TextInputField(
+                                      initilVlue: userModel!.password,
+                                      enabled: false,
+                                      obsecure: true,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    updataButton,
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+
+                                    deleteButton,
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                          // const SizedBox(
-                          //   height: 20,
-                          // ),
-                          const Text(
-                            '   الملف الشخصي ',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 35,
-                                color: Color.fromARGB(255, 71, 81, 80),
-                                fontWeight: FontWeight.bold),
-                          ),
-
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          //here starts the text fields that the user will enter
-                          !isloading
-                              ? const Expanded(
-                                  child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: Color(0xffFF6B6B),
-                                  ),
-                                ))
-                              : Expanded(
-                                  child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      // name
-                                      label(inputLabel: 'الإسم'),
-                                      TextInputField(
-                                        enabled: false,
-                                        initilVlue: userModel!.name,
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      //email
-                                      label(inputLabel: 'البريد الإلكتروني'),
-                                      TextInputField(
-                                        enabled: false,
-                                        initilVlue: userModel!.email,
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      //GENDER
-                                      label(inputLabel: 'الجنس'),
-                                      TextInputField(
-                                        enabled: false,
-                                        initilVlue: userModel!.gender,
-                                      ),
-
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      // birthdate
-                                      label(inputLabel: 'تاريخ الميلاد'),
-                                      TextInputField(
-                                        enabled: false,
-                                        initilVlue: userModel!.birthdate,
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      label(inputLabel: 'كلمة المرور'),
-                                      TextInputField(
-                                        initilVlue: userModel!.password,
-                                        enabled: false,
-                                        obsecure: true,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      updataButton,
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-
-                                      deleteButton,
-                                    ],
-                                  ),
-                                ))
-                        ]))))));
+                        )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> lodProfile() async {

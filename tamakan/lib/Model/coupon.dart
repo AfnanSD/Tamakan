@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Coupon {
   final String couponID;
   final String name;
@@ -25,4 +27,6 @@ class Coupon {
         name = json['name'],
         endDate = json['endDate'].toDate(),
         childID = json['childID'];
+
+  Coupon? fromJson(QuerySnapshot<Map<String, dynamic>> value) {}
 }
