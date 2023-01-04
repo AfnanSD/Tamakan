@@ -193,7 +193,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .where('name', isEqualTo: couponName)
         .get()
         .then(
-      (value) {
+      (value) async {
         print(value.docs.length);
         var found = false;
         for (var element in value.docs) {
@@ -206,11 +206,36 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
             found = true;
           }
           if (found) break;
+          final serviceId = 'service_w5ei0k1';
+          final templateId = 'template_mxy1yae';
+          final userId = '5tJEsLojudk2YIKcD';
+
+          final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+          final response = await http.post(
+            url,
+            headers: {
+              'origin': 'http://localhost',
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({
+              'service_id': serviceId,
+              'template_id': templateId,
+              'user_id': userId,
+              'template_params': {
+                'parent_email': signedInUser.email,
+                'point': points,
+                'coupon_name': couponName,
+                'coupon_ID': coupon.couponID,
+                'child_name': child.name,
+              },
+            }),
+          );
         }
       },
     );
   }
 
+/*
   Future SendEmail(String couponName, int points) async {
     print("SendEmail******************************");
     // UserModel? userModel;
@@ -290,7 +315,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
       }),
     );
   }
-
+*/
   void showConfirmationDialog(String name, int amount, int couponPoints) {
     showDialog(
       context: context,
@@ -328,7 +353,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                       ),
                       onPressed: () {
                         exchangeCoupon(name, amount, couponPoints);
-                        SendEmail(name, couponPoints);
+                        // SendEmail(name, couponPoints);
 
                         Navigator.push(
                           context,
