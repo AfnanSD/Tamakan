@@ -4,7 +4,8 @@ import 'package:tamakan/View/google_speech_mic.dart';
 import 'package:tamakan/View/lesson.dart';
 
 class LearningMap extends StatefulWidget {
-  const LearningMap({super.key});
+  final String childId;
+  const LearningMap({super.key, required this.childId});
 
   @override
   State<LearningMap> createState() => _LearningMapState();
@@ -24,9 +25,9 @@ class _LearningMapState extends State<LearningMap> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Game(
+                      builder: (context) => Game(
                         practiceID: '21.5',
-                        childID: 'K2WRY0J6f2TkffrQcI9w',
+                        childID: widget.childId,
                       ),
                     ));
               }),
@@ -36,9 +37,9 @@ class _LearningMapState extends State<LearningMap> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Lesson(
+                        builder: (context) => Lesson(
                               lessonID: '1',
-                              childID: 'K2WRY0J6f2TkffrQcI9w',
+                              childID: widget.childId,
                             )));
               }),
           ElevatedButton(

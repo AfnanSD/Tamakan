@@ -5,8 +5,10 @@ class Coupon {
   final String name;
   final DateTime endDate;
   final String childID;
+  final String pictureURL;
 
-  Coupon({
+  Coupon(
+    this.pictureURL, {
     required this.couponID,
     required this.name,
     required this.endDate,
@@ -19,6 +21,7 @@ class Coupon {
       'name': name,
       'endDate': endDate,
       'childID': childID,
+      'pictureURL': pictureURL,
     };
   }
 
@@ -26,7 +29,6 @@ class Coupon {
       : couponID = json['couponID'],
         name = json['name'],
         endDate = json['endDate'].toDate(),
-        childID = json['childID'];
-
-  Coupon? fromJson(QuerySnapshot<Map<String, dynamic>> value) {}
+        childID = json['childID'],
+        pictureURL = json['pictureURL'];
 }

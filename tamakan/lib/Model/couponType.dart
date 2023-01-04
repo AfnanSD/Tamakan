@@ -3,7 +3,7 @@ class CouponType {
   DateTime startDate;
   DateTime endDate;
   String pictureURL;
-  String descripton;
+  String description;
   int amount;
   int points;
 
@@ -12,7 +12,7 @@ class CouponType {
     this.startDate,
     this.endDate,
     this.pictureURL,
-    this.descripton,
+    this.description,
     this.amount,
     this.points,
   );
@@ -23,7 +23,7 @@ class CouponType {
       'startDate': startDate,
       'endDate': endDate,
       'pictureURL': pictureURL,
-      'descripton': descripton,
+      'description': description,
       'amount': amount,
       'points': points,
     };
@@ -34,7 +34,7 @@ class CouponType {
         startDate = json['startDate'].toDate(),
         endDate = json['endDate'].toDate(),
         pictureURL = json['pictureURL'],
-        descripton = json['descripton'],
+        description = json['description'],
         amount = json['amount'],
         points = json['points'];
 }

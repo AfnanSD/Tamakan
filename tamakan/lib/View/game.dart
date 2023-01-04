@@ -3,9 +3,12 @@ import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import '../Model/child.dart';
@@ -36,11 +39,15 @@ class _GameState extends State<Game> {
   late Child child;
   var accumelatedPoints = 0;
 
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
   @override
   void initState() {
     super.initState();
     selectRandomLessons(widget.practiceID); //need to come from learning map
     speech = stt.SpeechToText();
+    getCurrentUser();
     readChildData(widget.childID);
   }
 
@@ -60,9 +67,26 @@ class _GameState extends State<Game> {
           // title: Text('لعبة الحروف'),
           // centerTitle: true,
         ),
-        body: waiting ? Container() : practice(lessonIDs[index].toString()),
+        body: waiting
+            ? Container()
+            : SingleChildScrollView(
+                child: practice(
+                  lessonIDs[index].toString(),
+                ),
+              ),
       ),
     );
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+      }
+    } catch (e) {
+      EasyLoading.showError("حدث خطأ ما ....");
+    }
   }
 
   Future<void> selectRandomLessons(String practiceID) async {
@@ -110,7 +134,7 @@ class _GameState extends State<Game> {
     }
   }
 
-  Future geturl(String id) async {
+  Future getLessonData(String id) async {
     await FirebaseFirestore.instance
         .collection('lesson')
         .doc(id)
@@ -158,7 +182,7 @@ class _GameState extends State<Game> {
   }
 
   Widget practice(String id) {
-    geturl(id);
+    getLessonData(id);
     getCorrectText(id);
     return Column(
       children: [
@@ -166,81 +190,150 @@ class _GameState extends State<Game> {
           margin: EdgeInsets.symmetric(vertical: 30),
           child: gameStatusBar(), //from index
         ),
-        CircleAvatar(
-          maxRadius: 100,
-          backgroundColor: Color(0xff4ECDC4), //4ECDC4
-          child: Text(
-            lesson,
-            style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
-          ),
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 50,
-              margin: EdgeInsets.all(20),
-              child: AvatarGlow(
-                animate: isListening,
-                glowColor: Theme.of(context).primaryColor,
-                duration: const Duration(milliseconds: 2000),
-                repeatPauseDuration: const Duration(milliseconds: 100),
-                repeat: true,
-                endRadius: 75.0,
-                child: IconButton(
-                  icon: Image.asset('assets/images/mic.png'),
-                  onPressed: listen,
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          width: double.infinity,
+          child: Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(100),
+              child: CircleAvatar(
+                maxRadius: 130,
+                backgroundColor: Color(0xff4ECDC4), //4ECDC4
+                child: Text(
+                  lesson,
+                  style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
                 ),
               ),
-            )
-          ],
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        Row(
-          children: [
-            Container(
-              height: 50,
-              margin: EdgeInsets.all(20),
-              child: IconButton(
-                icon: Image.asset('assets/images/lightbulb.png'),
-                onPressed: () async {
-                  //for finding refernce only  !?
-
-                  // Create a storage reference from our app
-                  final storageRef = FirebaseStorage.instance.ref();
-
-                  // Create a reference with an initial file path and name
-                  final pathReference = storageRef.child("/practices/ألف.mp3");
-                  // Create a reference to a file from a Google Cloud Storage URI
-                  final gsReference = FirebaseStorage.instance.refFromURL(
-                      "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
-
-                  // print(await gsReference.getDownloadURL());
-                  // await player.play(
-                  //     DeviceFileSource(await gsReference.getDownloadURL()));
-
-                  await player.play(DeviceFileSource(recordURL));
-                },
-              ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Text(
-                'تلميح',
-                style: TextStyle(fontSize: 30),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                child: Card(
+                  color: isListening ? Color(0xffF7FFF7) : Colors.white,
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                    child: Image.asset(
+                      'assets/images/mic.png',
+                      scale: 1.2,
+                    ),
+                  ),
+                ),
+                onTap: listen,
               ),
-            )
-          ],
+              InkWell(
+                child: Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+                    child: Image.asset(
+                      'assets/images/lightbulb.png',
+                      scale: 1.8,
+                    ),
+                  ),
+                ),
+                onTap: () => showHintVideo(context),
+              ),
+            ],
+          ),
         ),
-        SingleChildScrollView(
-          reverse: true,
-          child: Text(text),
-        ),
+        //old
+        // Container(
+        //   margin: EdgeInsets.symmetric(vertical: 30),
+        //   child: gameStatusBar(), //from index
+        // ),
+        // CircleAvatar(
+        //   maxRadius: 100,
+        //   backgroundColor: Color(0xff4ECDC4), //4ECDC4
+        //   child: Text(
+        //     lesson,
+        //     style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 50,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Container(
+        //       height: 50,
+        //       margin: EdgeInsets.all(20),
+        //       child: AvatarGlow(
+        //         animate: isListening,
+        //         glowColor: Theme.of(context).primaryColor,
+        //         duration: const Duration(milliseconds: 2000),
+        //         repeatPauseDuration: const Duration(milliseconds: 100),
+        //         repeat: true,
+        //         endRadius: 75.0,
+        //         child: IconButton(
+        //           icon: Image.asset('assets/images/mic.png'),
+        //           onPressed: listen,
+        //         ),
+        //       ),
+        //     )
+        //   ],
+        // ),
+        // SizedBox(
+        //   height: 50,
+        // ),
+        // Row(
+        //   children: [
+        //     Container(
+        //       height: 50,
+        //       margin: EdgeInsets.all(20),
+        //       child: IconButton(
+        //         icon: Image.asset('assets/images/lightbulb.png'),
+        //         onPressed: () async {
+        //           //for finding refernce only  !?
+
+        //           // Create a storage reference from our app
+        //           final storageRef = FirebaseStorage.instance.ref();
+
+        //           // Create a reference with an initial file path and name
+        //           final pathReference = storageRef.child("/practices/ألف.mp3");
+        //           // Create a reference to a file from a Google Cloud Storage URI
+        //           final gsReference = FirebaseStorage.instance.refFromURL(
+        //               "gs://tamakan-ef69b.appspot.com/practices/ألف.mp3");
+
+        //           // print(await gsReference.getDownloadURL());
+        //           // await player.play(
+        //           //     DeviceFileSource(await gsReference.getDownloadURL()));
+
+        //           await player.play(DeviceFileSource(recordURL));
+        //         },
+        //       ),
+        //     ),
+        //     Container(
+        //       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        //       child: Text(
+        //         'تلميح',
+        //         style: TextStyle(fontSize: 30),
+        //       ),
+        //     )
+        //   ],
+        // ),
+        // SingleChildScrollView(
+        //   reverse: true,
+        //   child: Text(text),
+        // ),
         validatePronuciation(correctText),
         found
             ? ElevatedButton(
@@ -268,10 +361,10 @@ class _GameState extends State<Game> {
               found = false;
               text = '';
               if (index + 1 == 5) {
-                print('done game ');
+                print('done game ' + accumelatedPoints.toString());
                 FirebaseFirestore.instance
                     .collection('parent')
-                    .doc('a@gmail.com') //need update
+                    .doc(signedInUser.email)
                     .collection('children')
                     .doc(widget.childID)
                     .update({'points': child.points + accumelatedPoints});
@@ -314,7 +407,7 @@ class _GameState extends State<Game> {
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc('a@gmail.com') //update this
+        .doc(signedInUser.email)
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()
@@ -326,5 +419,30 @@ class _GameState extends State<Game> {
         // });
       }
     });
+  }
+
+  showHintVideo(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return Container(
+          child: Column(
+            children: [
+              const SizedBox(height: 8),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: BetterPlayer.network(
+                      'https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/practices%20videos%2FUntitled%20video%20-%20Made%20with%20Clipchamp%20(36).mp4?alt=media&token=651c3877-a08d-41dc-b981-5371aa18ba18',
+                      betterPlayerConfiguration: BetterPlayerConfiguration(
+                        autoPlay: true,
+                      )),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
