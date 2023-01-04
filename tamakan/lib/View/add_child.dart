@@ -378,6 +378,7 @@ class _AddChildState extends State<AddChild> {
           profilePictureChoosen = true;
           profilePicture = asset;
         });
+        Navigator.pop(context);
       },
       splashColor: Colors.white,
     );

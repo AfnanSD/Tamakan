@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:tamakan/View/edit_child_profile.dart';
 import 'package:tamakan/View/exchange_points.dart';
 import 'package:tamakan/View/manage_family.dart';
 import 'dart:ui' as ui;
@@ -196,7 +197,15 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () {}, //need update
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditChildProfile(
+                                                  childID: widget.childID),
+                                        ));
+                                  },
                                   child: Container(
                                     child: Center(child: Text('تعديل الحساب')),
                                     width: double.infinity,
@@ -248,7 +257,7 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc(signedInUser.email) //update this
+        .doc(signedInUser.email)
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()
