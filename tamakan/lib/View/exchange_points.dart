@@ -32,6 +32,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
 
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
+  late Coupon coupon;
 
   late List<CouponType> coupons = List<CouponType>.empty(growable: true);
   var readingCouponsData = true;
@@ -196,8 +197,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         print(value.docs.length);
         var found = false;
         for (var element in value.docs) {
-          Coupon coupon =
-              Coupon.fromJson(element.data()); //here is the copounID
+          coupon = Coupon.fromJson(element.data()); //here is the copounID
           if (coupon.childID.isEmpty) {
             FirebaseFirestore.instance
                 .collection('coupon')
@@ -284,6 +284,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
           'parent_email': signedInUser.email,
           'point': points,
           'coupon_name': couponName,
+          'coupon_ID': coupon.couponID,
         },
       }),
     );
