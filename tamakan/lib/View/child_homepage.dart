@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
 import 'package:tamakan/View/learning_map.dart';
+import 'package:tamakan/View/learning_map2.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';
@@ -105,7 +106,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LearningMap(
+                                        builder: (context) => LearningMap2(
                                               childId: child.childID,
                                             )));
                               },
