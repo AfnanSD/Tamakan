@@ -26,7 +26,7 @@ class _LearningMapState extends State<LearningMap> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => Game(
-                        practiceID: '21.5',
+                        practiceID: '51.5',
                         childID: widget.childId,
                       ),
                     ));

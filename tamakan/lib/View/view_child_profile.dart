@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:tamakan/View/edit_child_profile.dart';
 import 'package:tamakan/View/exchange_points.dart';
 import 'package:tamakan/View/manage_family.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -66,7 +67,7 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                         padding: EdgeInsets.all(20),
                         child: Text(
                           'ملف طفلي',
-                          style: TextStyle(fontSize: 30),
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       Image.asset(
@@ -152,86 +153,38 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                       Container(
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Color(0xff4ECDC4)),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ),
-                                    ),
+                            ButtonWidget(
+                              fun: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ExhcangePoints(childID: child.childID),
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ExhcangePoints(
-                                            childID: child.childID),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    child: Center(
-                                        child: Text('استبدال نقاط طفلي')),
-                                    width: double.infinity,
-                                  )),
+                                );
+                              },
+                              buttonLabel: 'استبدال نقاط طفلي',
+                              buttonColor: Color(0xff4ECDC4),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Color(0xff1A535C)),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditChildProfile(
-                                                  childID: widget.childID),
-                                        ));
-                                  },
-                                  child: Container(
-                                    child: Center(child: Text('تعديل الحساب')),
-                                    width: double.infinity,
-                                  )),
+                            ButtonWidget(
+                              fun: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EditChildProfile(
+                                          childID: widget.childID),
+                                    ));
+                              },
+                              buttonLabel: 'تعديل الحساب',
+                              buttonColor: Color(0xff1A535C),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Color(0xffFF6B6B)),
-                                    shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () => showCustomDialog(context),
-                                  child: Container(
-                                    child: Center(child: Text('حذف الحساب')),
-                                    width: double.infinity,
-                                  )),
-                            )
+                            ButtonWidget(
+                              fun: () {
+                                showCustomDialog(context);
+                              },
+                              buttonLabel: 'حذف الحساب',
+                              buttonColor: Color(0xffFF6B6B),
+                            ),
                           ],
                         ),
                       )
@@ -293,38 +246,64 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xffFF6B6B)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xffFF6B6B)),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                FirebaseFirestore.instance
+                                    .collection('parent')
+                                    .doc(signedInUser.email)
+                                    .collection('children')
+                                    .doc(child.childID)
+                                    .delete();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ManageFamily(),
+                                  ),
+                                );
+                              },
+                              child: Center(child: Text('تأكيد')),
                             ),
                           ),
                         ),
-                        onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection('parent')
-                              .doc(signedInUser.email)
-                              .collection('children')
-                              .doc(child.childID)
-                              .delete();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ManageFamily(),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(0xff4ECDC4)),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Center(child: Text('الغاء')),
                             ),
-                          );
-                        },
-                        child: Container(
-                          child: Center(child: Text('تأكيد')),
-                          width: 200,
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),

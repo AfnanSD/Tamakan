@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:tamakan/View/view_child_profile.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -81,7 +83,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                           padding: EdgeInsets.all(20),
                           child: Text(
                             'تعديل حساب طفلي',
-                            style: TextStyle(fontSize: 30),
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
                         Image.asset(
@@ -165,26 +167,10 @@ class _EditChildProfileState extends State<EditChildProfile> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0xffFF6B6B)),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                ),
-                              ),
-                              onPressed: submitData,
-                              child: Container(
-                                child: Center(child: Text('تعديل')),
-                                width: double.infinity,
-                              )),
-                        )
+                        ButtonWidget(
+                            fun: submitData,
+                            buttonLabel: 'تعديل',
+                            buttonColor: Color(0xffFF6B6B)),
                       ],
                     ),
                   ),
@@ -238,14 +224,14 @@ class _EditChildProfileState extends State<EditChildProfile> {
   }
 
   void selectProfilePic(BuildContext context) {
-    print(availableProfilePics
-            .toSet()
-            .difference(childrenPics.toSet())
-            .toList()
-            .toString() +
-        "888");
-    List<String> diff =
-        availableProfilePics.toSet().difference(childrenPics.toSet()).toList();
+    // print(availableProfilePics
+    //         .toSet()
+    //         .difference(childrenPics.toSet())
+    //         .toList()
+    //         .toString() +
+    //     "888");
+    // List<String> diff =
+    //     availableProfilePics.toSet().difference(childrenPics.toSet()).toList();
     showModalBottomSheet(
         context: context,
         builder: (_) {
@@ -257,27 +243,27 @@ class _EditChildProfileState extends State<EditChildProfile> {
                   crossAxisSpacing: 0,
                   maxCrossAxisExtent: 350),
               itemBuilder: (context, index) {
-                return slectProfilePicture(diff[index]);
+                return slectProfilePicture(availableProfilePics[index]);
               },
             ),
           );
         });
   }
 
-  Future<void> getChildrenProfilePics() async {
-    await FirebaseFirestore.instance
-        .collection('parent')
-        .doc(signedInUser.email)
-        .collection('children')
-        .get()
-        .then((value) {
-      for (var element in value.docs) {
-        childrenPics.add(element['profilePicture']);
-      }
-      childrenPics.remove(child.profilePicture);
-      print(childrenPics);
-    });
-  }
+  // Future<void> getChildrenProfilePics() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('parent')
+  //       .doc(signedInUser.email)
+  //       .collection('children')
+  //       .get()
+  //       .then((value) {
+  //     for (var element in value.docs) {
+  //       childrenPics.add(element['profilePicture']);
+  //     }
+  //     childrenPics.remove(child.profilePicture);
+  //     print(childrenPics);
+  //   });
+  // }
 
   Widget slectProfilePicture(String asset) {
     return InkWell(
@@ -331,6 +317,6 @@ class _EditChildProfileState extends State<EditChildProfile> {
         });
       }
     });
-    getChildrenProfilePics();
+    //getChildrenProfilePics();
   }
 }
