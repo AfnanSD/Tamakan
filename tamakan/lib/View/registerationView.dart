@@ -104,7 +104,7 @@ class _registerationviewState extends State<registerationview> {
                     width: 150,
                   ),
                   SizedBox(
-                    width: 140,
+                    width: 120,
                   ),
                   const Text(
                     "  تـمـكـــن",
