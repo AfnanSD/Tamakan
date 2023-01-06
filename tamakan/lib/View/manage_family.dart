@@ -48,11 +48,6 @@ class _ManageFamily extends State<ManageFamily> {
       textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          // title: const Center(
-          //   child: Text("      قائمة أطفالك",
-          //       style: TextStyle(
-          //           fontSize: 40, color: Color.fromARGB(255, 26, 83, 92))),
-          // ),
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',

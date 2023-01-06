@@ -39,6 +39,10 @@ class _AddChildState extends State<AddChild> {
   late User signedInUser;
 
   late List<String> childrenPics = List<String>.empty(growable: true);
+
+  late List<String> passwordPictureSequence = ['', ''];
+  int passwordPictureSequenceIndex = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -163,59 +167,78 @@ class _AddChildState extends State<AddChild> {
                       controller: _birthDateController,
                     ),
                   ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('كلمة السر لطفلك'),
-                              Text(
-                                !oneSelected && submit
-                                    ? 'الرجاء اختيار كلمة سر'
-                                    : '',
-                                style: TextStyle(
-                                  color: Theme.of(context).errorColor,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Column(
-                            children: [
-                              PassowordIconButton(
-                                  'assets/images/yellow-flower.png', 0),
-                              PassowordIconButton(
-                                  'assets/images/mushroom.png', 1),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              PassowordIconButton(
-                                  'assets/images/red-maple-leaf.png', 2),
-                              PassowordIconButton(
-                                  'assets/images/snowflake.png', 3),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Column(
-                            children: [
-                              PassowordIconButton(
-                                  'assets/images/snowy-pine-trees.png', 4),
-                              PassowordIconButton('assets/images/sun.png', 5),
-                            ],
-                          ),
-                        ],
-                      ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('كلمة السر لطفلك'),
+                            Text(
+                              !oneSelected && submit
+                                  ? 'الرجاء اختيار كلمة سر'
+                                  : '',
+                              style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ...passwordPictureSequence
+                                    .map((e) => Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            shape: BoxShape.circle),
+                                        height: 55,
+                                        width: 55,
+                                        margin: EdgeInsets.all(2),
+                                        padding: EdgeInsets.all(3),
+                                        child: (e != '')
+                                            ? Image.asset(
+                                                e,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Text('')))
+                                    .toList()
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        Column(
+                          children: [
+                            PassowordIconButton(
+                                'assets/images/yellow-flower.png', 0),
+                            PassowordIconButton(
+                                'assets/images/mushroom.png', 1),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            PassowordIconButton(
+                                'assets/images/red-maple-leaf.png', 2),
+                            PassowordIconButton(
+                                'assets/images/snowflake.png', 3),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: [
+                            PassowordIconButton(
+                                'assets/images/snowy-pine-trees.png', 4),
+                            PassowordIconButton('assets/images/sun.png', 5),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                   ButtonWidget(
@@ -260,7 +283,8 @@ class _AddChildState extends State<AddChild> {
         name: nameController.text,
         birthDate: birthDate!,
         profilePicture: profilePicture,
-        passwordPicture: passwordPicture,
+        passwordPicture1: passwordPictureSequence[0],
+        passwordPicture2: passwordPictureSequence[1],
         points: 0,
       );
 
@@ -314,8 +338,12 @@ class _AddChildState extends State<AddChild> {
         setState(() {
           selected.fillRange(0, 6, false);
           selected[index] = !selected[index];
-          oneSelected = true;
           passwordPicture = asset;
+          passwordPictureSequence[passwordPictureSequenceIndex] = asset;
+          oneSelected = passwordPictureSequence[1].isNotEmpty;
+          passwordPictureSequenceIndex++;
+          if (passwordPictureSequenceIndex == 2)
+            passwordPictureSequenceIndex = 0;
         });
       },
       splashColor: Colors.white,
