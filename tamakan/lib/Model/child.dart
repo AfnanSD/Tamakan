@@ -5,8 +5,8 @@ class Child {
   final String name;
   final DateTime birthDate;
   final String profilePicture;
-  final String passwordPicture1;
-  final String passwordPicture2;
+  final String? passwordPicture1;
+  final String? passwordPicture2;
   final int points;
 
   Child({
