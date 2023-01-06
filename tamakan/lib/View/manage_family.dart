@@ -48,11 +48,6 @@ class _ManageFamily extends State<ManageFamily> {
       textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text("      قائمة أطفالك",
-                style: TextStyle(
-                    fontSize: 40, color: Color.fromARGB(255, 26, 83, 92))),
-          ),
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',
@@ -66,83 +61,103 @@ class _ManageFamily extends State<ManageFamily> {
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
-        body: FutureBuilder(
-            future: getData(),
-            builder: (_, snapshot) {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (_, int index) {
-                  DocumentSnapshot data = snapshot.data[index];
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              //Theme.of(context).textTheme.headline6
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'قائمة أطفالك',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.80,
+                child: FutureBuilder(
+                    future: getData(),
+                    builder: (_, snapshot) {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, int index) {
+                          DocumentSnapshot data = snapshot.data[index];
 
-                  return Center(
-                    child: InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ViewChildProfile(
-                            childID: data["childID"], //update this
-                          ),
-                        ),
-                      ),
-                      child: Card(
-                        elevation: 20,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(20)),
-                        ),
-                        color: const Color.fromARGB(255, 244, 242, 201),
-                        clipBehavior: Clip.hardEdge,
-                        margin: EdgeInsets.all(20.0),
-                        child: Container(
-                          height: 150,
-                          width: 600,
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Image.asset(data["profilePicture"]),
-                              SizedBox(
-                                width: 10,
+                          return Center(
+                            child: InkWell(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewChildProfile(
+                                    childID: data["childID"], //update this
+                                  ),
+                                ),
                               ),
-                              Text("الاسم: " + data["name"] + "\n",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Color.fromARGB(255, 26, 83, 92))),
-                              SizedBox(
-                                height: 30,
+                              child: Card(
+                                elevation: 20,
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color:
+                                        Theme.of(context).colorScheme.outline,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                ),
+                                color: const Color.fromARGB(255, 244, 242, 201),
+                                clipBehavior: Clip.hardEdge,
+                                margin: EdgeInsets.all(20.0),
+                                child: Container(
+                                  height: 150,
+                                  width: 600,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(data["profilePicture"]),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text("الاسم: " + data["name"] + "\n",
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Color.fromARGB(
+                                                  255, 26, 83, 92))),
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Text(
+                                          "  \n عدد النقاط: " +
+                                              data["points"].toString(),
+                                          style: TextStyle(
+                                              fontSize: 25,
+                                              color: Color.fromARGB(
+                                                  255, 26, 83, 92))),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Text(
-                                  "  \n عدد النقاط: " +
-                                      data["points"].toString(),
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      color: Color.fromARGB(255, 26, 83, 92))),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
-            }),
+                            ),
+                          );
+                        },
+                      );
+                    }),
+              ),
+            ],
+          ),
+        ),
         floatingActionButton: waiting
             ? FloatingActionButton(onPressed: null)
             : FloatingActionButton(
                 child: Icon(Icons.add),
                 onPressed: () {
-                  if (childrenCount < 4) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const AddChild(),
-                      ),
-                    );
-                  } else {
-                    showCusomDialog();
-                  }
+                  // if (childrenCount < 4) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddChild(),
+                    ),
+                  );
+                  // } else {
+                  //   showCusomDialog();
+                  // }
                 }),
       ),
     );

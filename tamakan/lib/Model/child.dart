@@ -5,7 +5,8 @@ class Child {
   final String name;
   final DateTime birthDate;
   final String profilePicture;
-  final String passwordPicture;
+  final String? passwordPicture1;
+  final String? passwordPicture2;
   final int points;
 
   Child({
@@ -13,7 +14,8 @@ class Child {
     required this.name,
     required this.birthDate,
     required this.profilePicture,
-    required this.passwordPicture,
+    required this.passwordPicture1,
+    required this.passwordPicture2,
     required this.points,
   });
 
@@ -22,7 +24,8 @@ class Child {
       'birthDate': birthDate,
       'childID': childID,
       'name': name,
-      'passwordPicture': passwordPicture,
+      'passwordPicture1': passwordPicture1,
+      'passwordPicture2': passwordPicture2,
       'profilePicture': profilePicture,
       'points': points,
     };
@@ -33,7 +36,8 @@ class Child {
         name = json['name'],
         birthDate = json['birthDate'].toDate(),
         profilePicture = json['profilePicture'],
-        passwordPicture = json['passwordPicture'],
+        passwordPicture1 = json['passwordPicture1'],
+        passwordPicture2 = json['passwordPicture2'],
         points = json['points'];
   //progress here?
 }

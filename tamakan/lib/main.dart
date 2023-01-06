@@ -30,6 +30,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: createMaterialColor(Color(0xffFF6B6B)),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontSize: 30,
+              ),
+            ),
       ),
       routes: <String, WidgetBuilder>{
         //'/LearningMap': (BuildContext context) => const LearningMap(),

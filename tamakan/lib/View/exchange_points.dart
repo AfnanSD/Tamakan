@@ -77,7 +77,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                           child: Center(
                             child: Text(
                               'قائمة القسائم',
-                              style: TextStyle(fontSize: 30),
+                              style: Theme.of(context).textTheme.headline6,
                             ),
                           ),
                         ),
@@ -334,39 +334,63 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                     child: Text(
-                      'هل أنت متأكد من استبدال كوبون ${name} بـ ${couponPoints} ؟',
+                      'هل أنت متأكد من استبدال ${couponPoints} نقطة بقسيمة ${name} ؟',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xffFF6B6B)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color(0xffFF6B6B)),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              exchangeCoupon(name, amount, couponPoints);
+                              // SendEmail(name, couponPoints);
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ManageFamily(),
+                                ),
+                              );
+                            },
+                            child: Center(child: Text('تأكيد')),
                           ),
                         ),
                       ),
-                      onPressed: () {
-                        exchangeCoupon(name, amount, couponPoints);
-                        // SendEmail(name, couponPoints);
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ManageFamily(),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color(0xff4ECDC4)),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Center(child: Text('الغاء')),
                           ),
-                        );
-                      },
-                      child: Container(
-                        child: Center(child: Text('تأكيد')),
-                        width: 200,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
