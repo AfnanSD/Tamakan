@@ -1,12 +1,13 @@
-//google cloud version
 import 'dart:async';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
@@ -14,17 +15,32 @@ import 'package:sound_stream/sound_stream.dart';
 
 import '../Model/child.dart';
 
-class LessonView extends StatefulWidget {
-  const LessonView({super.key, required this.lessonID, required this.childID});
+//working but correct text is repated a lot
 
-  final String lessonID;
+class GameView extends StatefulWidget {
+  const GameView({super.key, required this.practiceID, required this.childID});
+
+  final String practiceID;
   final String childID;
 
   @override
-  State<LessonView> createState() => _LessonViewState();
+  State<GameView> createState() => _GameViewState();
 }
 
-class _LessonViewState extends State<LessonView> {
+class _GameViewState extends State<GameView> {
+  late List<int> lessonIDs = List<int>.empty(growable: true);
+  int index = 0;
+  late String recordURL;
+  late List<String> correctText = List<String>.empty(growable: true);
+  late String lesson = '';
+  bool found = false;
+  bool waiting = true;
+  late Child child;
+  var accumelatedPoints = 0;
+
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+
   final RecorderStream _recorder = RecorderStream();
   final player = AudioPlayer();
 
@@ -34,26 +50,11 @@ class _LessonViewState extends State<LessonView> {
   StreamSubscription<List<int>>? _audioStreamSubscription;
   BehaviorSubject<List<int>>? _audioStream;
 
-  List<String> correctText =
-      List<String>.empty(growable: true); //List<String>.empty(growable: true)
-  late String lesson = '';
-  late String title = '';
-  late String recordURL;
-  var found = false;
-
-  final _auth = FirebaseAuth.instance;
-  late User signedInUser;
-  late Child child;
-
-  String toValidate = '';
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _recorder.initialize();
-    getCorrectText(widget.lessonID);
-    getLessonData(widget.lessonID);
+    selectRandomLessons(widget.practiceID);
     getCurrentUser();
     readChildData(widget.childID);
   }
@@ -72,40 +73,26 @@ class _LessonViewState extends State<LessonView> {
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Center(
-                        child: Text(
-                      'الدرس $title',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    )),
-                    width: double.infinity,
-                  ),
+        body: waiting
+            ? Container()
+            : SingleChildScrollView(
+                child: practice(
+                  lessonIDs[index].toString(),
                 ),
               ),
-              practice(widget.lessonID),
-            ],
-          ),
-        ),
       ),
     );
   }
 
   Widget practice(String id) {
+    getLessonData(id);
+    getCorrectText(id);
     return Column(
       children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 30),
+          child: gameStatusBar(), //from index
+        ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
@@ -178,7 +165,7 @@ class _LessonViewState extends State<LessonView> {
               ),
             ),
           ),
-          onTap: () => showHintVideo(context),
+          onTap: null,
         ),
         Center(
           child: Column(
@@ -190,6 +177,29 @@ class _LessonViewState extends State<LessonView> {
                 ),
             ],
           ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            print(index.toString() + " index");
+
+            setState(() {
+              found = false;
+              text = '';
+              if (index + 1 == 5) {
+                print('done game ' + accumelatedPoints.toString());
+                FirebaseFirestore.instance
+                    .collection('parent')
+                    .doc(signedInUser.email)
+                    .collection('children')
+                    .doc(widget.childID)
+                    .update({'points': child.points + accumelatedPoints});
+                Navigator.of(context).pop();
+              } else {
+                index++;
+              }
+            });
+          },
+          child: const Text('nexttt'),
         ),
         ElevatedButton(
           onPressed: () {
@@ -256,10 +266,7 @@ class _LessonViewState extends State<LessonView> {
       setState(() {
         recognizing = false;
       });
-      print(text + " befor");
-      print(correctText);
-      toValidate = text;
-      validatePronuciation(correctText, toValidate);
+      validatePronuciation(correctText, text);
     });
   }
 
@@ -274,7 +281,6 @@ class _LessonViewState extends State<LessonView> {
 
   void validatePronuciation(List correctText, String text) {
     text = text.trim();
-    print(widget.lessonID);
     print('validate');
     print(correctText);
     print(text);
@@ -311,6 +317,54 @@ class _LessonViewState extends State<LessonView> {
     //     ),
     //   );
     //print(found);
+  }
+
+  Future getLessonData(String id) async {
+    await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .get()
+        .then((value) {
+      setState(() {
+        recordURL = value['lessonRecord'];
+        lesson = value['lesson'];
+      });
+    });
+  }
+
+  Future getCorrectText(String id) async {
+    QuerySnapshot qs = await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .collection('correctText')
+        .get();
+    for (var element in qs.docs) {
+      correctText.add(element['text']);
+    }
+  }
+
+  Widget gameStatusBar() {
+    int completed = 0;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: lessonIDs
+          .map(
+            (e) => ((index == 5) || (completed++ < index))
+                ? new Container(
+                    color: Colors.green,
+                    height: 8,
+                    width: 80,
+                    margin: EdgeInsets.all(10),
+                  )
+                : new Container(
+                    color: Colors.grey,
+                    height: 8,
+                    width: 80,
+                    margin: EdgeInsets.all(10),
+                  ),
+          )
+          .toList(),
+    );
   }
 
   void showCustomDialog(BuildContext context) {
@@ -425,18 +479,7 @@ class _LessonViewState extends State<LessonView> {
                     width: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LessonView(
-                              lessonID:
-                                  (int.parse(widget.lessonID) + 1).toString(),
-                              childID: widget.childID),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Row(
                       children: [
                         Icon(Icons.play_arrow),
@@ -456,29 +499,24 @@ class _LessonViewState extends State<LessonView> {
     );
   }
 
-  showHintVideo(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return Container(
-          child: Column(
-            children: [
-              const SizedBox(height: 8),
-              Expanded(
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: BetterPlayer.network(
-                      'https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/practices%20videos%2FUntitled%20video%20-%20Made%20with%20Clipchamp%20(36).mp4?alt=media&token=651c3877-a08d-41dc-b981-5371aa18ba18',
-                      betterPlayerConfiguration: BetterPlayerConfiguration(
-                        autoPlay: true,
-                      )),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+  Future<void> selectRandomLessons(String practiceID) async {
+    double prev = 0;
+    await FirebaseFirestore.instance
+        .collection('practice')
+        .doc(practiceID)
+        .get()
+        .then((value) {
+      prev = double.parse(value['prev']);
+    });
+    double pID = double.parse(practiceID);
+    while (lessonIDs.length < 5) {
+      int num = Random().nextInt(pID.ceil() - prev.ceil()) + prev.ceil();
+      if (!lessonIDs.contains(num) && num != 0) lessonIDs.add(num);
+    }
+    print(lessonIDs);
+    setState(() {
+      waiting = false;
+    });
   }
 
   void getCurrentUser() {
@@ -506,31 +544,6 @@ class _LessonViewState extends State<LessonView> {
         //   readingData = false;
         // });
       }
-    });
-  }
-
-  Future getCorrectText(String id) async {
-    QuerySnapshot qs = await FirebaseFirestore.instance
-        .collection('lesson')
-        .doc(id)
-        .collection('correctText')
-        .get();
-    for (var element in qs.docs) {
-      correctText.add(element['text']);
-    }
-  }
-
-  Future getLessonData(String id) async {
-    await FirebaseFirestore.instance
-        .collection('lesson')
-        .doc(id)
-        .get()
-        .then((value) {
-      setState(() {
-        recordURL = value['lessonRecord'];
-        lesson = value['lesson'];
-        title = value['title'];
-      });
     });
   }
 }
