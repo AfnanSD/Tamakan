@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_speech/google_speech.dart';
@@ -21,12 +23,25 @@ class _AudioRecognizeMicState extends State<AudioRecognizeMic> {
   String text = '';
   StreamSubscription<List<int>>? _audioStreamSubscription;
   BehaviorSubject<List<int>>? _audioStream;
+  List<String> correctText = List<String>.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
 
     _recorder.initialize();
+    getCorrectText('4');
+  }
+
+  Future getCorrectText(String id) async {
+    QuerySnapshot qs = await FirebaseFirestore.instance
+        .collection('lesson')
+        .doc(id)
+        .collection('correctText')
+        .get();
+    for (var element in qs.docs) {
+      correctText.add(element['text']);
+    }
   }
 
   void streamingRecognize() async {
@@ -84,11 +99,16 @@ class _AudioRecognizeMicState extends State<AudioRecognizeMic> {
   }
 
   RecognitionConfig _getConfig() => RecognitionConfig(
-      encoding: AudioEncoding.LINEAR16,
-      model: RecognitionModel.basic, //basic
-      enableAutomaticPunctuation: true,
-      sampleRateHertz: 16000,
-      languageCode: 'ar-SA'); //en-US -- ar-SA
+        encoding: AudioEncoding.LINEAR16,
+        model: RecognitionModel.basic, //basic
+        enableAutomaticPunctuation: true,
+        sampleRateHertz: 16000,
+        languageCode: 'ar-SA',
+        speechContexts: [
+          SpeechContext(correctText), //['سين', 'س', 'سا']
+        ],
+        useEnhanced: true,
+      ); //en-US -- ar-SA
 
   @override
   Widget build(BuildContext context) {
