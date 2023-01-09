@@ -355,17 +355,9 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                               ),
                             ),
                             onPressed: () {
-                              exchangeCoupon(name, amount, couponPoints);
-                              // SendEmail(name, couponPoints);
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ManageFamily(),
-                                ),
-                              );
+                              Navigator.pop(context);
                             },
-                            child: Center(child: Text('تأكيد')),
+                            child: Center(child: Text('الغاء')),
                           ),
                         ),
                       ),
@@ -384,9 +376,17 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
+                              exchangeCoupon(name, amount, couponPoints);
+                              // SendEmail(name, couponPoints);
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ManageFamily(),
+                                ),
+                              );
                             },
-                            child: Center(child: Text('الغاء')),
+                            child: Center(child: Text('تأكيد')),
                           ),
                         ),
                       ),
