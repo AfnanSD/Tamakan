@@ -16,6 +16,8 @@ import 'package:tamakan/View/loginView.dart';
 import 'package:tamakan/View/registerationView.dart';
 import 'package:tamakan/View/welcomeView.dart';
 
+import 'View/learning_map3.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
