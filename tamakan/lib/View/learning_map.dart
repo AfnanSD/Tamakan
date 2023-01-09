@@ -63,6 +63,17 @@ class _LearningMapState extends State<LearningMap> {
                               lessonID: '1',
                             )));
               }),
+              ElevatedButton(
+              child: Text('lesson google mic version - مركبة'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LessonView(
+                              childID: widget.childId,
+                              lessonID: '29',
+                            )));
+              }),
           ElevatedButton(
               child: Text('game google mic version'),
               onPressed: () {

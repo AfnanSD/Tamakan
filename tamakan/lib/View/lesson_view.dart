@@ -209,7 +209,7 @@ class _LessonViewState extends State<LessonView> {
         sampleRateHertz: 16000,
         languageCode: 'ar-SA',
         speechContexts: [
-          SpeechContext(correctText), //['سين', 'س', 'سا']
+          SpeechContext(correctText), // correctText
         ],
         useEnhanced: true,
       ); //en-US -- ar-SA
