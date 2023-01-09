@@ -4,6 +4,7 @@ import 'package:tamakan/View/child_homepage.dart';
 
 import 'package:tamakan/View/game.dart';
 import 'package:tamakan/View/learning_map.dart';
+import 'package:tamakan/View/levels.dart';
 import 'package:tamakan/View/parent_homepage.dart';
 import 'package:tamakan/View/temp.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
         '/registerview': (BuildContext context) => registerationview(),
         '/ParentProfile': (BuildContext context) => ParentHomePage(),
       },
-      home: const registerationview(), //MyHomePage(),
+      home: levels(childID: "PSBoA0MpAB8oZXI0KqoQ"),
+      //MyHomePage(),
       builder: EasyLoading.init(),
     );
   }

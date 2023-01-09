@@ -9,6 +9,7 @@ import 'package:get/route_manager.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
 import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/learning_map2.dart';
+import 'package:tamakan/View/levels.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';
@@ -106,8 +107,8 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LearningMap(
-                                              childId: child.childID,
+                                        builder: (context) => levels(
+                                              childID: child.childID,
                                             )));
                               },
                               child: Card(
