@@ -28,6 +28,26 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
 
   late List<Coupon> coupons = List<Coupon>.empty(growable: true);
 
+  List<List<Color>> shades = [
+    [
+      Color(0xff4ECDC4),
+      Color.fromARGB(255, 208, 235, 234),
+    ],
+    [
+      Color(0xff1A535C),
+      Color.fromARGB(255, 195, 219, 223),
+    ],
+    [
+      Color(0xffFF6B6B),
+      Color.fromARGB(255, 242, 204, 204),
+    ],
+    [
+      Color.fromARGB(255, 255, 217, 63),
+      Color(0xffFFE66D),
+      Color.fromARGB(255, 255, 248, 213),
+    ],
+  ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -82,12 +102,40 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
-                                child: ListTile(
-                                  title: Text(coupons[index].name),
-                                  subtitle: Text(
-                                      'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}\n رقم الكوبون: ${coupons[index].couponID}'),
-                                  leading:
-                                      Image.network(coupons[index].pictureURL),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: shades[index % 4],
+                                        begin: Alignment.centerRight,
+                                        end: Alignment.centerLeft,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: ListTile(
+                                    title: Text(
+                                      coupons[index].name,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    subtitle: Text(
+                                      'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}\n رقم الكوبون: ${coupons[index].couponID}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    leading: Container(
+                                      padding: const EdgeInsets.all(7),
+                                      decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        coupons[index].pictureURL,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
