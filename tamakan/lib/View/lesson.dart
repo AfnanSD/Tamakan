@@ -382,7 +382,7 @@ class _LessonState extends State<Lesson> {
           .doc(widget.childID)
           .update({
         'points': child.points + 5,
-        'CurrentLevel': child.CurrentLevel + 1
+        'CurrentLevel': child.CurrentLevel! + 1
       });
       print(child.points + 5);
       print(child.CurrentLevel);

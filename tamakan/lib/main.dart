@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         '/registerview': (BuildContext context) => registerationview(),
         '/ParentProfile': (BuildContext context) => ParentHomePage(),
       },
-      home: levels(childID: "PSBoA0MpAB8oZXI0KqoQ"),
+      home: registerationview(), //levels(childID: "PSBoA0MpAB8oZXI0KqoQ"),
       //MyHomePage(),
       builder: EasyLoading.init(),
     );
