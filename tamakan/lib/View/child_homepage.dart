@@ -106,7 +106,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LearningMap2(
+                                        builder: (context) => LearningMap(
                                               childId: child.childID,
                                             )));
                               },
