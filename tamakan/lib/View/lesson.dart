@@ -393,7 +393,7 @@ class _LessonState extends State<Lesson> {
             .doc(signedInUser.email)
             .collection('children')
             .doc(widget.childID)
-            .update({'CurrentLevel': child.CurrentLevel + 1});
+            .update({'CurrentLevel': child.CurrentLevel! + 1});
       }
       print(child.CurrentLevel);
 

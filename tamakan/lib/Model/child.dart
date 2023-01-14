@@ -8,7 +8,7 @@ class Child {
   final String? passwordPicture1;
   final String? passwordPicture2;
   final int points;
-  final int CurrentLevel;
+  final int? CurrentLevel;
 
   Child({
     required this.childID,

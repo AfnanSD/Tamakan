@@ -6,8 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
@@ -292,13 +290,15 @@ class _GameViewState extends State<GameView> {
     //   found = true;
     // }
     if (correctText.contains(text)) {
-      showCustomDialog(context);
-      FirebaseFirestore.instance
-          .collection('parent')
-          .doc(signedInUser.email)
-          .collection('children')
-          .doc(widget.childID)
-          .update({'points': child.points + 5});
+      //showCustomDialog(context);
+
+      //after ending!
+      // FirebaseFirestore.instance
+      //     .collection('parent')
+      //     .doc(signedInUser.email)
+      //     .collection('children')
+      //     .doc(widget.childID)
+      //     .update({'points': child.points + 5});
       print(child.points + 5);
       // return const Text(
       //   'true',

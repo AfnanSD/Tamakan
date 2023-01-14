@@ -34,8 +34,7 @@ class _LessonViewState extends State<LessonView> {
   StreamSubscription<List<int>>? _audioStreamSubscription;
   BehaviorSubject<List<int>>? _audioStream;
 
-  List<String> correctText =
-      List<String>.empty(growable: true); //List<String>.empty(growable: true)
+  List<String> correctText = List<String>.empty(growable: true);
   late String lesson = '';
   late String title = '';
   late String recordURL;
@@ -129,29 +128,16 @@ class _LessonViewState extends State<LessonView> {
         ),
         InkWell(
           child: Card(
-            color: recognizing ? Color(0xffF7FFF7) : Colors.white,
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-              child: Image.asset(
-                'assets/images/mic.png',
-                scale: 1.2,
-              ),
-            ),
-          ),
-          onTap: recognizing ? stopRecording : streamingRecognize,
-        ),
-        InkWell(
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+              height: 100,
+              width: double.infinity,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 105, vertical: 20),
               child: Image.asset(
                 'assets/images/listen.png',
                 scale: 5,
@@ -179,6 +165,27 @@ class _LessonViewState extends State<LessonView> {
             ),
           ),
           onTap: () => showHintVideo(context),
+        ),
+        InkWell(
+          onTap: recognizing ? stopRecording : streamingRecognize,
+          child: Card(
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            color: recognizing ? const Color(0xffF7FFF7) : Colors.white,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              height: 100,
+              width: double.infinity,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 105, vertical: 20),
+              child: Image.asset(
+                'assets/images/mic.png',
+                scale: 1.2,
+              ),
+            ),
+          ),
         ),
         Center(
           child: Column(
