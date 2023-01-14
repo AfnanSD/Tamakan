@@ -368,6 +368,80 @@ class _GameState extends State<Game> {
                     .collection('children')
                     .doc(widget.childID)
                     .update({'points': child.points + accumelatedPoints});
+                /////Ruba
+                if (widget.practiceID == 7.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 8});
+                } else if (widget.practiceID == 13.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 14});
+                } else if (widget.practiceID == 21.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 22});
+                } else if (widget.practiceID == 28.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 29});
+                } else if (widget.practiceID == 36.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 37});
+                } else if (widget.practiceID == 44.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 45});
+                } else if (widget.practiceID == 51.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 52});
+                } else if (widget.practiceID == 57.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 58});
+                } else if (widget.practiceID == 63.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 64});
+                } else if (widget.practiceID == 70.5) {
+                  FirebaseFirestore.instance
+                      .collection('parent')
+                      .doc(signedInUser.email)
+                      .collection('children')
+                      .doc(widget.childID)
+                      .update({'CurrentLevel': 71});
+                }
+
+                ///
                 Navigator.of(context).pop();
               } else {
                 index++;
