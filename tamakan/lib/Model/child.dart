@@ -8,6 +8,7 @@ class Child {
   final String? passwordPicture1;
   final String? passwordPicture2;
   final int points;
+  final int CurrentLevel;
 
   Child({
     required this.childID,
@@ -17,6 +18,7 @@ class Child {
     required this.passwordPicture1,
     required this.passwordPicture2,
     required this.points,
+    required this.CurrentLevel,
   });
 
   Map<String, dynamic> toJson() {
@@ -28,6 +30,7 @@ class Child {
       'passwordPicture2': passwordPicture2,
       'profilePicture': profilePicture,
       'points': points,
+      'CurrentLevel': CurrentLevel
     };
   }
 
@@ -38,6 +41,7 @@ class Child {
         profilePicture = json['profilePicture'],
         passwordPicture1 = json['passwordPicture1'],
         passwordPicture2 = json['passwordPicture2'],
-        points = json['points'];
+        points = json['points'],
+        CurrentLevel = json['CurrentLevel'];
   //progress here?
 }

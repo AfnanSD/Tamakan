@@ -286,6 +286,7 @@ class _AddChildState extends State<AddChild> {
         passwordPicture1: passwordPictureSequence[0],
         passwordPicture2: passwordPictureSequence[1],
         points: 0,
+        CurrentLevel: 1,
       );
 
       await docRef.set(child.toJson());
