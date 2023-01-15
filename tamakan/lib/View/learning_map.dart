@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tamakan/View/game.dart';
+import 'package:tamakan/View/game_view.dart';
 import 'package:tamakan/View/google_speech_mic.dart';
 import 'package:tamakan/View/lesson.dart';
 import 'package:tamakan/View/lesson_view.dart';
@@ -60,6 +61,17 @@ class _LearningMapState extends State<LearningMap> {
                         builder: (context) => LessonView(
                               childID: widget.childId,
                               lessonID: '1',
+                            )));
+              }),
+          ElevatedButton(
+              child: Text('game google mic version'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GameView(
+                              childID: widget.childId,
+                              practiceID: '7.5',
                             )));
               }),
         ],

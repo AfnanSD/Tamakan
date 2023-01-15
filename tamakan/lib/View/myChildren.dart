@@ -210,21 +210,18 @@ class _myChildren extends State<myChildren> {
                                             // ),
                                             Column(
                                               children: [
-                                                Container(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            20.0),
-                                                    child: PassowordIconButton(
-                                                        'assets/images/yellow-flower.png',
-                                                        setState),
-                                                  ),
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      20.0),
+                                                  child: PassowordIconButton(
+                                                      'assets/images/snowy-pine-trees.png',
+                                                      setState),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(
                                                       20.0),
                                                   child: PassowordIconButton(
-                                                      'assets/images/mushroom.png',
+                                                      'assets/images/sun.png',
                                                       setState),
                                                 ),
                                               ],
@@ -255,18 +252,21 @@ class _myChildren extends State<myChildren> {
                                             ),
                                             Column(
                                               children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      20.0),
-                                                  child: PassowordIconButton(
-                                                      'assets/images/snowy-pine-trees.png',
-                                                      setState),
+                                                Container(
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            20.0),
+                                                    child: PassowordIconButton(
+                                                        'assets/images/yellow-flower.png',
+                                                        setState),
+                                                  ),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.all(
                                                       20.0),
                                                   child: PassowordIconButton(
-                                                      'assets/images/sun.png',
+                                                      'assets/images/mushroom.png',
                                                       setState),
                                                 ),
                                               ],
