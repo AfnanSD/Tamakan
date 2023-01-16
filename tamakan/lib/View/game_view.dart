@@ -26,6 +26,9 @@ class GameView extends StatefulWidget {
 }
 
 class _GameViewState extends State<GameView> {
+  final RecorderStream _recorder = RecorderStream();
+  final player = AudioPlayer();
+
   late List<int> lessonIDs = List<int>.empty(growable: true);
   int index = 0;
   late String recordURL;
@@ -38,9 +41,6 @@ class _GameViewState extends State<GameView> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
 
-  final RecorderStream _recorder = RecorderStream();
-  final player = AudioPlayer();
-
   bool recognizing = false;
   bool recognizeFinished = false;
   String text = '';
@@ -48,6 +48,7 @@ class _GameViewState extends State<GameView> {
   BehaviorSubject<List<int>>? _audioStream;
 
   var correct = false;
+  var getCorrectTextOnce = false;
 
   @override
   void initState() {
@@ -70,23 +71,36 @@ class _GameViewState extends State<GameView> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: waiting
-            ? Container()
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
             : SingleChildScrollView(
-                child: practice(
-                  lessonIDs[index].toString(),
-                ),
+                child: index < 5
+                    ? practice(
+                        lessonIDs[index].toString(),
+                      )
+                    : practice(lessonIDs.last.toString()),
               ),
       ),
     );
   }
 
+  void getOnce(String id) {
+    print(getCorrectTextOnce.toString() + ' getonce');
+    if (!getCorrectTextOnce) {
+      getLessonData(id);
+      getCorrectText(id);
+      getCorrectTextOnce = true;
+    }
+  }
+
   Widget practice(String id) {
-    getLessonData(id);
-    //correctText.clear();
-    getCorrectText(id);
+    getOnce(id);
+    //getLessonData(id);
+    //getCorrectText(id);
     return Column(
       children: [
         Container(
@@ -94,7 +108,7 @@ class _GameViewState extends State<GameView> {
           child: gameStatusBar(), //from index
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           width: double.infinity,
           child: Card(
             elevation: 4,
@@ -105,10 +119,11 @@ class _GameViewState extends State<GameView> {
               padding: const EdgeInsets.all(100),
               child: CircleAvatar(
                 maxRadius: 130,
-                backgroundColor: Color(0xff4ECDC4), //4ECDC4
+                backgroundColor: const Color(0xff4ECDC4), //4ECDC4
                 child: Text(
                   lesson,
-                  style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
+                  style:
+                      const TextStyle(color: Color(0xffFFE66D), fontSize: 100),
                 ),
               ),
             ),
@@ -154,6 +169,7 @@ class _GameViewState extends State<GameView> {
         //   },
         // ),
         InkWell(
+          onTap: null,
           child: Card(
             margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             elevation: 4,
@@ -169,7 +185,6 @@ class _GameViewState extends State<GameView> {
               ),
             ),
           ),
-          onTap: null,
         ),
         Center(
           child: Column(
@@ -187,19 +202,21 @@ class _GameViewState extends State<GameView> {
             print(index.toString() + " index");
 
             setState(() {
-              text = '';
-              if (index + 1 == 5) {
-                print('done game ' + accumelatedPoints.toString());
-                FirebaseFirestore.instance
-                    .collection('parent')
-                    .doc(signedInUser.email)
-                    .collection('children')
-                    .doc(widget.childID)
-                    .update({'points': child.points + accumelatedPoints});
-                Navigator.of(context).pop();
-              } else {
-                index++;
-              }
+              index++; //?
+              getCorrectTextOnce = false;
+              // text = '';
+              // if (index + 1 == 5) {
+              //   print('done game ' + accumelatedPoints.toString());
+              //   FirebaseFirestore.instance
+              //       .collection('parent')
+              //       .doc(signedInUser.email)
+              //       .collection('children')
+              //       .doc(widget.childID)
+              //       .update({'points': child.points + accumelatedPoints});
+              //   Navigator.of(context).pop();
+              // } else {
+              //   index++;
+              // }
             });
           },
           child: const Text('nexttt'),
@@ -291,9 +308,23 @@ class _GameViewState extends State<GameView> {
     if (correctText.contains(text)) {
       correct = true;
       print('correct');
+      print('index before incrementing ' + index.toString());
+      if (index < 4) {
+        showGoodDialog(context);
+        setState(() {
+          index++;
+          getCorrectTextOnce = false;
+        });
+        print('not complete ' + index.toString());
+      } else {
+        //make not closable
+        print('complete');
+        showCustomDialog(context);
+      }
+
       //showCustomDialog(context);
 
-      //after ending!
+      //after ending! with cusotn dialog
       // FirebaseFirestore.instance
       //     .collection('parent')
       //     .doc(signedInUser.email)
@@ -301,21 +332,22 @@ class _GameViewState extends State<GameView> {
       //     .doc(widget.childID)
       //     .update({'points': child.points + 5});
       //print(child.points + 5);
-      setState(() {
-        if (index + 1 != 5) {
-          //correctText.clear();
-          index++;
-        } else {
-          print('done game ' + accumelatedPoints.toString());
-          FirebaseFirestore.instance
-              .collection('parent')
-              .doc(signedInUser.email)
-              .collection('children')
-              .doc(widget.childID)
-              .update({'points': child.points + accumelatedPoints});
-          Navigator.pop(context);
-        }
-      });
+      // setState(() {
+      //   if (index + 1 != 5) {
+      //     //correctText.clear();
+      //     index++;
+      //     getCorrectTextOnce = false;
+      //   } else {
+      //     print('done game ' + accumelatedPoints.toString());
+      //     FirebaseFirestore.instance
+      //         .collection('parent')
+      //         .doc(signedInUser.email)
+      //         .collection('children')
+      //         .doc(widget.childID)
+      //         .update({'points': child.points + accumelatedPoints});
+      //     Navigator.pop(context);
+      //   }
+      // });
       // return const Text(
       //   'true',
       //   style: TextStyle(
@@ -323,6 +355,8 @@ class _GameViewState extends State<GameView> {
       //     fontWeight: FontWeight.bold,
       //   ),
       // );
+    } else {
+      showBadDialog(context);
     }
     // else
     //   return Text(
@@ -335,6 +369,7 @@ class _GameViewState extends State<GameView> {
   }
 
   Future getLessonData(String id) async {
+    print('hereeee');
     await FirebaseFirestore.instance
         .collection('lesson')
         .doc(id)
@@ -348,7 +383,8 @@ class _GameViewState extends State<GameView> {
   }
 
   Future getCorrectText(String id) async {
-    //correctText.clear();
+    print('here again');
+    correctText.clear();
     QuerySnapshot qs = await FirebaseFirestore.instance
         .collection('lesson')
         .doc(id)
@@ -561,6 +597,68 @@ class _GameViewState extends State<GameView> {
         // });
       }
     });
+  }
+
+  void showGoodDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text(
+                  'أحسنت',
+                  style: TextStyle(fontSize: 30),
+                ),
+                Icon(
+                  Icons.thumb_up,
+                  color: Colors.green,
+                  size: 60,
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showBadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text(
+                  'حاول مرة أخرى',
+                  style: TextStyle(fontSize: 30),
+                ),
+                Icon(
+                  Icons.thumb_down,
+                  color: Colors.red,
+                  size: 60,
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

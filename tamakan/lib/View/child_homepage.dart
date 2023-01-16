@@ -105,13 +105,18 @@ class _ChildHomePageState extends State<ChildHomePage> {
                             InkWell(
                               onTap: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => levels(
-                                              childID: child.childID,
-                                            )));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LearningMap(childId: widget.childID)
+                                      // levels(
+                                      //   childID: child.childID,
+                                      // ),
+                                      ),
+                                );
                               },
                               child: Card(
+                                color: Color.fromARGB(255, 252, 200, 200),
                                 child: Container(
                                   height: 150,
                                   width: 250,
@@ -129,7 +134,6 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                     ],
                                   ),
                                 ),
-                                color: Color.fromARGB(255, 252, 200, 200),
                               ),
                             )
                           ],
