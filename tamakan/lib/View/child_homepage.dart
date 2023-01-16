@@ -108,7 +108,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          LearningMap(childId: widget.childID)
+                                          levels(childID: widget.childID)
                                       // levels(
                                       //   childID: child.childID,
                                       // ),
