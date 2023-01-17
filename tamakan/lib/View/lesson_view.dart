@@ -11,6 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
+import 'package:tamakan/View/levels.dart';
 
 import '../Model/child.dart';
 
@@ -170,7 +171,9 @@ class _LessonViewState extends State<LessonView> {
           onTap: recognizing ? stopRecording : streamingRecognize,
           child: Card(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            color: recognizing ? const Color(0xffF7FFF7) : Colors.white,
+            color: recognizing
+                ? const Color.fromARGB(255, 223, 255, 223)
+                : Colors.white,
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -187,39 +190,40 @@ class _LessonViewState extends State<LessonView> {
             ),
           ),
         ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              if (recognizeFinished)
-                _RecognizeContent(
-                  text: text,
-                ),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            showCustomDialog(context);
-            //Navigator.of(context).pop();
-          },
-          child: const Text('testing dialog'),
-        )
+
+        //for testing only
+        // Center(
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: <Widget>[
+        //       if (recognizeFinished)
+        //         _RecognizeContent(
+        //           text: text,
+        //         ),
+        //     ],
+        //   ),
+        // ),
+        // ElevatedButton(
+        //   onPressed: () {
+        //     showCustomDialog(context);
+        //   },
+        //   child: const Text('testing dialog'),
+        // )
       ],
     );
   }
 
   RecognitionConfig _getConfig() => RecognitionConfig(
         encoding: AudioEncoding.LINEAR16,
-        model: RecognitionModel.basic, //basic
+        model: RecognitionModel.basic,
         enableAutomaticPunctuation: false,
         sampleRateHertz: 16000,
         languageCode: 'ar-SA',
         speechContexts: [
-          SpeechContext(correctText), // correctText
+          SpeechContext(correctText),
         ],
         useEnhanced: true,
-      ); //en-US -- ar-SA
+      );
 
   void streamingRecognize() async {
     _audioStream = BehaviorSubject<List<int>>();
@@ -285,13 +289,7 @@ class _LessonViewState extends State<LessonView> {
     print('validate');
     print(correctText);
     print(text);
-    print(text.length);
-    //print(text[0] + '-' + text[1] + '-' + text[2] + '-');
-    print('validate2');
 
-    // if (correctText.contains(text)) {
-    //   found = true;
-    // }
     if (correctText.contains(text)) {
       showCustomDialog(context);
       FirebaseFirestore.instance
@@ -299,8 +297,7 @@ class _LessonViewState extends State<LessonView> {
           .doc(signedInUser.email)
           .collection('children')
           .doc(widget.childID)
-          .update({'points': child.points + 5});
-      print(child.points + 5);
+          .update({'points': child.points + 3});
 
       ///Ruba
       ///
@@ -313,23 +310,40 @@ class _LessonViewState extends State<LessonView> {
             .update({'CurrentLevel': child.CurrentLevel + 1});
       }
       print(child.CurrentLevel);
-      // return const Text(
-      //   'true',
-      //   style: TextStyle(
-      //     color: Colors.green,
-      //     fontWeight: FontWeight.bold,
-      //   ),
-      // );
+    } else {
+      showBadDialog(context);
     }
-    // else
-    //   return Text(
-    //     'false',
-    //     style: TextStyle(
-    //       color: Colors.red,
-    //       fontWeight: FontWeight.bold,
-    //     ),
-    //   );
-    //print(found);
+  }
+
+  void showBadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Text(
+                  'حاول مرة أخرى',
+                  style: TextStyle(fontSize: 30),
+                ),
+                Icon(
+                  Icons.thumb_down,
+                  color: Colors.red,
+                  size: 60,
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   void showCustomDialog(BuildContext context) {
@@ -340,7 +354,7 @@ class _LessonViewState extends State<LessonView> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: Color(0xffFFFBEC),
+          backgroundColor: const Color.fromARGB(255, 249, 248, 245),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -396,7 +410,7 @@ class _LessonViewState extends State<LessonView> {
                 ),
               ),
               Text(
-                '5',
+                '3',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -427,8 +441,14 @@ class _LessonViewState extends State<LessonView> {
                       primary: Color(0xff4ECDC4),
                     ),
                     onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      // Navigator.pop(context);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                levels(childID: widget.childID),
+                          ));
                     },
                     child: Row(
                       children: [
@@ -458,7 +478,7 @@ class _LessonViewState extends State<LessonView> {
                     },
                     child: Row(
                       children: [
-                        Icon(Icons.play_arrow),
+                        Icon(Icons.arrow_back),
                         SizedBox(
                           width: 10,
                         ),

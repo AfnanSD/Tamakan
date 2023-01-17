@@ -43,15 +43,11 @@ class _ChildHomePageState extends State<ChildHomePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',
               scale: 0.5,
-            ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),
@@ -107,12 +103,12 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          levels(childID: widget.childID)
-                                      // levels(
-                                      //   childID: child.childID,
-                                      // ),
-                                      ),
+                                    builder: (context) =>
+                                        // LearningMap(childId: widget.childID)
+                                        levels(
+                                      childID: child.childID,
+                                    ),
+                                  ),
                                 );
                               },
                               child: Card(
@@ -128,8 +124,8 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                         scale: 1.8,
                                       ),
                                       Text(
-                                        'الدروس',
-                                        style: TextStyle(fontSize: 30),
+                                        'الدروس\nو التحديات',
+                                        style: TextStyle(fontSize: 25),
                                       ),
                                     ],
                                   ),
@@ -173,7 +169,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () => print('parent'), //need update
+                              onTap: () => Navigator.pop(context), //need update
                               child: Card(
                                   child: Container(
                                     height: 150,
