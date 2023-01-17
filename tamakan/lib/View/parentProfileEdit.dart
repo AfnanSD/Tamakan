@@ -59,7 +59,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
               MaterialPageRoute(builder: (context) => parentprofileview()));
         },
         child: Text(
-          "تعديل",
+          "حفظ التعديلات",
           textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 25,
@@ -144,13 +144,10 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                             height: 40,
                           ),
 
-                          const Text(
+                          Text(
                             '  تعديل الملف الشخصي ',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 35,
-                                color: Color.fromARGB(255, 71, 81, 80),
-                                fontWeight: FontWeight.bold),
+                            style: Theme.of(context).textTheme.headline6,
                           ),
 
                           const SizedBox(
@@ -168,7 +165,8 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                   child: SingleChildScrollView(
                                       child: Center(
                                           child: Container(
-                                  height: 750,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
                                   width: 600,
                                   margin: const EdgeInsets.symmetric(
                                     horizontal: 40,

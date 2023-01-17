@@ -17,6 +17,7 @@ import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tamakan/View/widgets/lable_grey.dart';
 
 class parentprofileview extends StatefulWidget {
   const parentprofileview({super.key});
@@ -314,7 +315,8 @@ class _parentprofileviewState extends State<parentprofileview> {
                           child: SingleChildScrollView(
                             child: Center(
                               child: Container(
-                                height: 750,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
                                 width: 600,
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 40,
@@ -340,50 +342,45 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       CrossAxisAlignment.stretch,
                                   children: [
                                     // name
-                                    label(inputLabel: 'الإسم'),
-                                    TextInputField(
-                                      enabled: false,
-                                      initilVlue: userModel!.name,
+                                    Row(
+                                      children: [
+                                        label(inputLabel: 'الإسم'),
+                                        Text(": "),
+                                        labelGrey(inputLabel: userModel!.name),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     //email
-                                    label(inputLabel: 'البريد الإلكتروني'),
-                                    TextInputField(
-                                      enabled: false,
-                                      initilVlue: userModel!.email,
+                                    Row(
+                                      children: [
+                                        label(inputLabel: 'البريد الإلكتروني'),
+                                        Text(": "),
+                                        labelGrey(inputLabel: userModel!.email),
+                                      ],
                                     ),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     //GENDER
-                                    label(inputLabel: 'الجنس'),
-                                    TextInputField(
-                                      enabled: false,
-                                      initilVlue: userModel!.gender,
-                                    ),
-
+                                    Row(children: [
+                                      label(inputLabel: 'الجنس'),
+                                      Text(": "),
+                                      labelGrey(inputLabel: userModel!.gender),
+                                    ]),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     // birthdate
-                                    label(inputLabel: 'تاريخ الميلاد'),
-                                    TextInputField(
-                                      enabled: false,
-                                      initilVlue: userModel!.birthdate,
-                                    ),
+                                    Row(children: [
+                                      label(inputLabel: 'تاريخ الميلاد'),
+                                      Text(": "),
+                                      labelGrey(
+                                          inputLabel: userModel!.birthdate),
+                                    ]),
                                     SizedBox(
-                                      height: 15,
-                                    ),
-                                    label(inputLabel: 'كلمة المرور'),
-                                    TextInputField(
-                                      initilVlue: userModel!.password,
-                                      enabled: false,
-                                      obsecure: true,
-                                    ),
-                                    SizedBox(
-                                      height: 20,
+                                      height: 45,
                                     ),
                                     updataButton,
                                     SizedBox(

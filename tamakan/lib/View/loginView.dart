@@ -28,8 +28,8 @@ class loginview extends StatelessWidget {
           // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           // minWidth: MediaQuery.of(context).size.width,
           onPressed: () async {
-            Future<bool> user = AuthController()
-                .login(_emailController.text, _passwordController.text);
+            Future<bool> user = AuthController().login(
+                _emailController.text.trim(), _passwordController.text.trim());
             print(user);
             if (await user) {
               Navigator.pushNamed(context, '/ParentProfile');
@@ -76,7 +76,7 @@ class loginview extends StatelessWidget {
                       width: 120,
                     ),
                     const Text(
-                      "  اهــلاََ مـجـدداََ",
+                      "  اهــلاََ بــك",
                       style: TextStyle(
                           fontSize: 50,
                           color: Color.fromARGB(255, 71, 81, 80),

@@ -73,9 +73,9 @@ class _registerationviewState extends State<registerationview> {
             minWidth: MediaQuery.of(context).size.width,
             onPressed: () async {
               Future<bool> user = AuthController().register(
-                _nameController.text,
-                _emailController.text,
-                _passwordController.text,
+                _nameController.text.trim(),
+                _emailController.text.trim(),
+                _passwordController.text.trim(),
                 gender,
                 _dateController.text,
               );
@@ -289,7 +289,7 @@ class _registerationviewState extends State<registerationview> {
                                         );
                                       },
                                       initialDate: DateTime.now(),
-                                      firstDate: DateTime(1900),
+                                      firstDate: DateTime(1930),
                                       lastDate: DateTime.now());
                                   //if Cancel
                                   if (newDate == null) return;
