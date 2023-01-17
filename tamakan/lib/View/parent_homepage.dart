@@ -35,8 +35,7 @@ class ParentHomePage extends StatelessWidget {
               height: 25,
             ),
             Text("ماذا تود أن تفعل اليوم؟",
-                style: TextStyle(
-                    fontSize: 40, color: Color.fromARGB(255, 26, 83, 92))),
+                style: Theme.of(context).textTheme.headline6),
             SizedBox(
               width: 10,
               height: 10,
@@ -49,7 +48,7 @@ class ParentHomePage extends StatelessWidget {
                         builder: (context) =>
                             const myChildren())), // need update
                 child: Card(
-                  elevation: 20,
+                  elevation: 4,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       color: Theme.of(context).colorScheme.outline,
@@ -69,8 +68,7 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(
-                            'يمكنك الانتقال الى الواجهة المخصصة للأطفال \nمن هنا!',
+                        Text('الانتقال الى الواجهة المخصصة للأطفال',
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Color.fromARGB(255, 26, 83, 92))),
@@ -88,7 +86,7 @@ class ParentHomePage extends StatelessWidget {
                         builder: (context) =>
                             const parentprofileview())), // need update
                 child: Card(
-                  elevation: 20,
+                  elevation: 4,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       color: Theme.of(context).colorScheme.outline,
@@ -108,8 +106,7 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text(
-                            'يمكنك الاطلاع على ملفك الشخصي والتعديل عليه \nمن هنا!',
+                        Text('الاطلاع على ملفك الشخصي والتعديل عليه',
                             style: TextStyle(
                                 fontSize: 24,
                                 color: Color.fromARGB(255, 26, 83, 92))),
@@ -127,7 +124,7 @@ class ParentHomePage extends StatelessWidget {
                         builder: (context) =>
                             const ManageFamily())), // need update
                 child: Card(
-                  elevation: 20,
+                  elevation: 4,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
                       color: Theme.of(context).colorScheme.outline,
@@ -147,7 +144,7 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text('يمكنك إدارة أفراد عائلتك من هنا!',
+                        Text('إدارة أفراد عائلتك',
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Color.fromARGB(255, 26, 83, 92))),

@@ -48,7 +48,7 @@ class _parentprofileviewState extends State<parentprofileview> {
   Widget build(BuildContext context) {
     //updata button
     final updataButton = Material(
-      elevation: 10,
+      elevation: 4,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromRGBO(255, 230, 109, 1),
       child: MaterialButton(
@@ -61,7 +61,7 @@ class _parentprofileviewState extends State<parentprofileview> {
           "تعديل",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 25,
+              fontSize: 18,
               color: Color.fromARGB(255, 71, 81, 80),
               fontWeight: FontWeight.bold),
         ),
@@ -70,7 +70,7 @@ class _parentprofileviewState extends State<parentprofileview> {
 
     //cancel button
     final cancelButton = Material(
-      elevation: 10,
+      elevation: 4,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromARGB(255, 76, 180, 184),
       child: MaterialButton(
@@ -104,7 +104,7 @@ class _parentprofileviewState extends State<parentprofileview> {
           "حذف حسابي",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 25,
+              fontSize: 18,
               color: Color.fromARGB(255, 71, 81, 80),
               fontWeight: FontWeight.bold),
         ),
@@ -291,13 +291,10 @@ class _parentprofileviewState extends State<parentprofileview> {
                   //   height: 20,
                   // ),
 
-                  const Text(
-                    '   الملف الشخصي ',
+                  Text(
+                    'الملف الشخصي',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 35,
-                        color: Color.fromARGB(255, 71, 81, 80),
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headline6,
                   ),
 
                   const SizedBox(

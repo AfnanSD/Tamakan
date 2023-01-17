@@ -61,7 +61,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
           backgroundColor: Color(0xffFF6B6B),
         ),
         body: readingChildData || readingCouponsData
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Center(
                 child: Column(
                   children: [

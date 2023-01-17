@@ -88,7 +88,7 @@ class _ManageFamily extends State<ManageFamily> {
                                 ),
                               ),
                               child: Card(
-                                elevation: 20,
+                                elevation: 4,
                                 shape: RoundedRectangleBorder(
                                   side: BorderSide(
                                     color:

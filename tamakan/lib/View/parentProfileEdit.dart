@@ -47,7 +47,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
   Widget build(BuildContext context) {
     //updata button
     final updataButton = Material(
-      elevation: 10,
+      elevation: 4,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromRGBO(255, 230, 109, 1),
       child: MaterialButton(
@@ -62,7 +62,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
           "حفظ التعديلات",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 25,
+              fontSize: 18,
               color: Color.fromARGB(255, 71, 81, 80),
               fontWeight: FontWeight.bold),
         ),
@@ -94,7 +94,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
     */
 //delete button
     final deleteButton = Material(
-      elevation: 10,
+      elevation: 4,
       borderRadius: BorderRadius.circular(30),
       color: Color(0xffFF6B6B),
       child: MaterialButton(
@@ -107,7 +107,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
           "حذف حسابي",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 25,
+              fontSize: 18,
               color: Color.fromARGB(255, 71, 81, 80),
               fontWeight: FontWeight.bold),
         ),
@@ -145,7 +145,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                           ),
 
                           Text(
-                            '  تعديل الملف الشخصي ',
+                            'تعديل الملف الشخصي',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headline6,
                           ),
