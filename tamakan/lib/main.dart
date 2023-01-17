@@ -17,6 +17,7 @@ import 'package:tamakan/View/registerationView.dart';
 import 'package:tamakan/View/welcomeView.dart';
 
 import 'View/learning_map3.dart';
+import 'View/parentProfileView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/loginview': (BuildContext context) => loginview(),
         '/registerview': (BuildContext context) => registerationview(),
         '/ParentProfile': (BuildContext context) => ParentHomePage(),
+        '/parentprofileview': (BuildContext context) => parentprofileview(),
       },
       home: const registerationview(), //MyHomePage(),
       builder: EasyLoading.init(),

@@ -14,6 +14,7 @@ import 'package:tamakan/View/deleteAccountView.dart';
 import 'package:tamakan/View/parentHome.dart';
 import 'package:tamakan/View/parentProfileView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,7 +47,17 @@ class _parentprofileEditState extends State<parentprofileEdit> {
   @override
   Widget build(BuildContext context) {
     //updata button
-    final updataButton = Material(
+    final updataButton = ButtonWidget(
+      fun: () async {
+        AuthController().editProfile(userModel!.name, userModel!.email,
+            userModel!.password, userModel!.gender, userModel!.birthdate);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => parentprofileview()));
+      },
+      buttonLabel: 'حفظ التعديلات',
+      buttonColor: Color(0xff4ECDC4),
+    );
+    /*final updataButton = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromRGBO(255, 230, 109, 1),
@@ -67,7 +78,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
               fontWeight: FontWeight.bold),
         ),
       ),
-    );
+    );*/
 
     //cancel button
     /*
@@ -93,25 +104,13 @@ class _parentprofileEditState extends State<parentprofileEdit> {
     );
     */
 //delete button
-    final deleteButton = Material(
-      elevation: 10,
-      borderRadius: BorderRadius.circular(30),
-      color: Color(0xffFF6B6B),
-      child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        onPressed: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const deleteAccount()))
-        },
-        child: Text(
-          "حذف حسابي",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 25,
-              color: Color.fromARGB(255, 71, 81, 80),
-              fontWeight: FontWeight.bold),
-        ),
-      ),
+    final deleteButton = ButtonWidget(
+      fun: () => {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const deleteAccount()))
+      },
+      buttonLabel: 'حذف حسابي',
+      buttonColor: Color(0xffFF6B6B),
     );
 
     return Directionality(
@@ -167,7 +166,8 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                           child: Container(
                                   height:
                                       MediaQuery.of(context).size.height * 0.8,
-                                  width: 600,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
                                   margin: const EdgeInsets.symmetric(
                                     horizontal: 40,
                                     vertical: 20,
@@ -228,7 +228,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                                   width: 1.0,
                                                   style: BorderStyle.solid,
                                                   color: Color.fromARGB(
-                                                      115, 60, 69, 69)),
+                                                      115, 0, 0, 0)),
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10.0)),
                                             )),
@@ -294,7 +294,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                                                 enabledBorder: OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                         color: Color.fromARGB(
-                                                            115, 60, 69, 69)),
+                                                            115, 7, 7, 7)),
                                                     borderRadius: BorderRadius.all(
                                                         Radius.circular(10))),
                                                 //FOCUSED BORDER: CLICKED BY USER

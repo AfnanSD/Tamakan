@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/welcomeView.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 
 bool _value = false;
 
@@ -33,11 +34,6 @@ class _deleteAccountState extends State<deleteAccount> {
               child: Container(
                 padding: const EdgeInsets.all(30.0),
                 constraints: BoxConstraints.expand(),
-                // decoration: const BoxDecoration(
-                //   image: DecorationImage(
-                //       image: AssetImage("./images/^^.png"),
-                //       fit: BoxFit.cover),
-                // ),
                 child: Column(
                   children: [
                     SizedBox(
@@ -45,18 +41,40 @@ class _deleteAccountState extends State<deleteAccount> {
                     ),
                     Text(
                       ' حذف حسابي',
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: Color.fromARGB(255, 71, 81, 80),
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     SizedBox(
                       height: 50,
                     ),
                     Expanded(
-                      child: SingleChildScrollView(
+                        child: SingleChildScrollView(
+                            child: Center(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(0, 5),
+                                  blurRadius: 10,
+                                  spreadRadius: 1,
+                                  color: Colors.grey[300]!)
+                            ]),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 15,
+                            ),
                             Image(
                               height: 100,
                               image: AssetImage('assets/images/sadFace.png'),
@@ -183,74 +201,62 @@ class _deleteAccountState extends State<deleteAccount> {
                             ),
 
                             ///cancel button
-                            Container(
-                              margin:
-                                  const EdgeInsets.only(right: 190, left: 190),
-                              child: Material(
-                                elevation: 2,
-                                borderRadius: BorderRadius.circular(30),
-                                color: Color.fromRGBO(255, 230, 109, 1),
-                                child: MaterialButton(
-                                  padding:
-                                      EdgeInsets.fromLTRB(110, 10, 110, 10),
-                                  minWidth: MediaQuery.of(context).size.width,
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, '/ParentProfile');
-                                  },
-                                  child: Text(
-                                    "إلغاء",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color.fromARGB(255, 71, 81, 80),
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const SizedBox(
-                              height: 20,
+                            ButtonWidget(
+                              fun: () => {
+                                Navigator.pushNamed(
+                                    context, '/parentprofileview')
+                              },
+                              buttonLabel: 'إلغاء',
+                              buttonColor: Color(0xff4ECDC4),
                             ),
 
                             ///delete button
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding:
-                                      EdgeInsets.fromLTRB(110, 10, 110, 10),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
+                            Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Color(0xffFF6B6B)),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ),
+                                    ),
                                   ),
-                                  primary: Color(0xffFF6B6B),
-                                ),
-                                onPressed: _value == true
-                                    ? () {
-                                        AuthController().deleteUser(FirebaseAuth
-                                            .instance.currentUser!.email
-                                            .toString());
-                                        print("user id: ");
-                                        print(FirebaseAuth
-                                            .instance.currentUser!.uid);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    welcomeView()));
-                                      }
-                                    : null,
-                                child: Text(" حذف الحساب",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Color.fromARGB(255, 71, 81, 80),
-                                        fontWeight: FontWeight.bold))),
+                                  onPressed: _value == true
+                                      ? () {
+                                          AuthController().deleteUser(
+                                              FirebaseAuth
+                                                  .instance.currentUser!.email
+                                                  .toString());
+                                          print("user id: ");
+                                          print(FirebaseAuth
+                                              .instance.currentUser!.uid);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      welcomeView()));
+                                        }
+                                      : null,
+                                  child: Container(
+                                    padding: EdgeInsets.all(7),
+                                    child: Center(
+                                        child: Text(
+                                      "حذف الحساب",
+                                      style: TextStyle(fontSize: 18),
+                                      //style: TextStyle(color: Color.fromARGB(255, 71, 81, 80)),
+                                    )),
+                                    width: double.infinity,
+                                  ),
+                                )),
                           ],
                         ),
                       ),
-                    ),
+                    ))),
                   ],
                 ),
               ),

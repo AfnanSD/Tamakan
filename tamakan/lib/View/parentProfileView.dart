@@ -14,6 +14,7 @@ import 'package:tamakan/View/deleteAccountView.dart';
 import 'package:tamakan/View/parentHome.dart';
 import 'package:tamakan/View/parentProfileEdit.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,7 +48,15 @@ class _parentprofileviewState extends State<parentprofileview> {
   @override
   Widget build(BuildContext context) {
     //updata button
-    final updataButton = Material(
+    final updataButton = ButtonWidget(
+        fun: () => {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => parentprofileEdit()))
+            },
+        buttonLabel: ' تعديل',
+        buttonColor: Color(0xff4ECDC4));
+
+    final updataButton1 = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromRGBO(255, 230, 109, 1),
@@ -90,7 +99,15 @@ class _parentprofileviewState extends State<parentprofileview> {
       ),
     );
 //delete button
-    final deleteButton = Material(
+    final deleteButton = ButtonWidget(
+      fun: () => {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const deleteAccount()))
+      },
+      buttonLabel: 'حذف حسابي',
+      buttonColor: Color(0xffFF6B6B),
+    );
+    final deleteButton1 = Material(
       elevation: 10,
       borderRadius: BorderRadius.circular(30),
       color: Color(0xffFF6B6B),
@@ -291,14 +308,9 @@ class _parentprofileviewState extends State<parentprofileview> {
                   //   height: 20,
                   // ),
 
-                  const Text(
-                    '   الملف الشخصي ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 35,
-                        color: Color.fromARGB(255, 71, 81, 80),
-                        fontWeight: FontWeight.bold),
-                  ),
+                  Text('   الملف الشخصي ',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline6),
 
                   const SizedBox(
                     height: 15,
@@ -317,7 +329,7 @@ class _parentprofileviewState extends State<parentprofileview> {
                               child: Container(
                                 height:
                                     MediaQuery.of(context).size.height * 0.6,
-                                width: 600,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 40,
                                   vertical: 20,
@@ -383,9 +395,9 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       height: 45,
                                     ),
                                     updataButton,
-                                    SizedBox(
-                                      height: 15,
-                                    ),
+                                    // SizedBox(
+                                    //   height: 15,
+                                    // ),
 
                                     deleteButton,
                                   ],

@@ -18,9 +18,9 @@ class labelGrey extends StatelessWidget {
           Text(
             ' ${inputLabel}',
             style: TextStyle(
-                color: Color.fromARGB(255, 153, 159, 158),
+                color: Color(0xff1A535C), //Color.fromARGB(255, 153, 159, 158),
                 fontWeight: FontWeight.bold,
-                fontSize: 25),
+                fontSize: 23),
           ),
         ],
       ),
