@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import 'package:tamakan/View/view_child_profile.dart';
+import 'package:tamakan/View/child_profile.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'dart:ui' as ui;
 
@@ -60,11 +60,6 @@ class _EditChildProfileState extends State<EditChildProfile> {
             Image.asset(
               'assets/images/droppedlogo.png',
               scale: 0.5,
-            ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),
@@ -201,7 +196,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => ViewChildProfile(childID: widget.childID),
+          builder: (context) => ChildProfile(childID: widget.childID),
         ),
       );
     }

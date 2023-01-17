@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import 'package:tamakan/View/view_child_profile.dart';
+import 'package:tamakan/View/child_profile.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -53,11 +53,6 @@ class _ManageFamily extends State<ManageFamily> {
               'assets/images/droppedlogo.png',
               scale: 0.5,
             ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
-            ),
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
@@ -87,7 +82,7 @@ class _ManageFamily extends State<ManageFamily> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ViewChildProfile(
+                                  builder: (context) => ChildProfile(
                                     childID: data["childID"], //update this
                                   ),
                                 ),

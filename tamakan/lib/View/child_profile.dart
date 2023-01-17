@@ -11,16 +11,16 @@ import 'dart:ui' as ui;
 
 import '../Model/child.dart';
 
-class ViewChildProfile extends StatefulWidget {
-  const ViewChildProfile({super.key, required this.childID});
+class ChildProfile extends StatefulWidget {
+  const ChildProfile({super.key, required this.childID});
 
   final String childID;
 
   @override
-  State<ViewChildProfile> createState() => _ViewChildProfileState();
+  State<ChildProfile> createState() => _ChildProfileState();
 }
 
-class _ViewChildProfileState extends State<ViewChildProfile> {
+class _ChildProfileState extends State<ChildProfile> {
   var readingData = true;
   late Child child;
 
@@ -45,11 +45,6 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
             Image.asset(
               'assets/images/droppedlogo.png',
               scale: 0.5,
-            ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),

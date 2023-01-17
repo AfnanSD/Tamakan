@@ -57,11 +57,6 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
               'assets/images/droppedlogo.png',
               scale: 0.5,
             ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
-            ),
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
@@ -84,46 +79,50 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                         ChildPoints(child: child),
                       ],
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.8,
-                      child: ListView.builder(
-                        itemCount: coupons.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Card(
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: ListTile(
-                                title: Text(coupons[index].name),
-                                subtitle: Text(
-                                    'استبدل ${coupons[index].points} نقطة \n${coupons[index].description}'),
-                                leading:
-                                    Image.network(coupons[index].pictureURL),
-                                trailing: TextButton(
-                                    onPressed: () {
-                                      if (child.points >=
-                                          coupons[index].points) {
-                                        showConfirmationDialog(
-                                          coupons[index].name,
-                                          coupons[index].amount,
-                                          coupons[index].points,
-                                        );
-                                      } else {
-                                        showNotEnoughPointsDialof(
-                                            coupons[index].points);
-                                      }
-                                    },
-                                    child: Text('استبدال')),
-                              ),
+                    coupons.length == 0
+                        ? Center(
+                            child: Text('لا توجد كوبونات حاليا'),
+                          )
+                        : Container(
+                            height: MediaQuery.of(context).size.height * 0.8,
+                            child: ListView.builder(
+                              itemCount: coupons.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  child: Card(
+                                    elevation: 4,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: ListTile(
+                                      title: Text(coupons[index].name),
+                                      subtitle: Text(
+                                          'استبدل ${coupons[index].points} نقطة \n${coupons[index].description}'),
+                                      leading: Image.network(
+                                          coupons[index].pictureURL),
+                                      trailing: TextButton(
+                                          onPressed: () {
+                                            if (child.points >=
+                                                coupons[index].points) {
+                                              showConfirmationDialog(
+                                                coupons[index].name,
+                                                coupons[index].amount,
+                                                coupons[index].points,
+                                              );
+                                            } else {
+                                              showNotEnoughPointsDialof(
+                                                  coupons[index].points);
+                                            }
+                                          },
+                                          child: Text('استبدال')),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
                   ],
                 ),
               ),
