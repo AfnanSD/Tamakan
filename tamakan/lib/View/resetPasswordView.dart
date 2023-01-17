@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
@@ -22,9 +24,23 @@ class resetPasswordView extends StatelessWidget {
       color: Color.fromRGBO(255, 230, 109, 1),
       child: MaterialButton(
         // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        // minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          AuthController().resetpass(_emailController.text.trim());
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () async {
+          try {
+            EasyLoading.show(status: '..انتظر قليلًا');
+            await FirebaseAuth.instance
+                .sendPasswordResetEmail(email: _emailController.text.trim());
+            EasyLoading.dismiss();
+            EasyLoading.showSuccess(
+                'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+            if (_emailController.text.trim() != null) {
+              Navigator.pushNamed(context, '/registerview');
+            }
+          } catch (e) {
+            print(e);
+            EasyLoading.dismiss();
+            EasyLoading.showError('الرجاء التحقق من صلاحية البريد الإلكتروني');
+          }
         },
         child: Text(
           "إرسـال",
@@ -123,6 +139,23 @@ class resetPasswordView extends StatelessWidget {
                             height: 40,
                           ),
                           resetButton,
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          TextButton(
+                            child: const Text(
+                              ' العودة للرئيسية',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 71, 81, 80),
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.right,
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/registerview');
+                            },
+                          ),
                         ],
                       ),
                     ],
@@ -131,7 +164,7 @@ class resetPasswordView extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 110,
+              height: 80,
             ),
           ],
         ),

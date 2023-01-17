@@ -190,7 +190,8 @@ class AuthController extends GetxController {
           password.isNotEmpty &&
           !password.trim().isEmpty) {
         UserCredential value = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+            .signInWithEmailAndPassword(
+                email: email.trim(), password: password.trim());
         // if (value != null) {
         //   return value;
         // }
@@ -238,7 +239,7 @@ class AuthController extends GetxController {
   Future resetpass(String email) async {
     try {
       EasyLoading.show(status: '..انتظر قليلًا');
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
       EasyLoading.dismiss();
       EasyLoading.showSuccess(
           'تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');

@@ -301,6 +301,17 @@ class _LessonViewState extends State<LessonView> {
           .doc(widget.childID)
           .update({'points': child.points + 5});
       print(child.points + 5);
+
+      ///Ruba
+      if (widget.lessonID == child.CurrentLevel) {
+        FirebaseFirestore.instance
+            .collection('parent')
+            .doc(signedInUser.email)
+            .collection('children')
+            .doc(widget.childID)
+            .update({'CurrentLevel': child.CurrentLevel + 1});
+      }
+      print(child.CurrentLevel);
       // return const Text(
       //   'true',
       //   style: TextStyle(

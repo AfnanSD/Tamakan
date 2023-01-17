@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tamakan/Model/child.dart';
-import 'package:tamakan/View/game.dart';
-import 'package:tamakan/View/lesson.dart';
+import 'package:tamakan/View/game_view.dart';
+import 'package:tamakan/View/lesson_view.dart';
 
 Color lightBlue = Color.fromARGB(255, 213, 247, 245);
 Color red = Color(0xffFF6B6B);
@@ -50,7 +50,7 @@ class _level3State extends State<level3> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Game(
+                          builder: (context) => GameView(
                             practiceID: '21.5',
                             childID: widget.childId,
                           ),
@@ -82,7 +82,7 @@ class _level3State extends State<level3> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Lesson(
+                                        builder: (context) => LessonView(
                                               lessonID: '21',
                                               childID: widget.childId,
                                             )));
@@ -153,7 +153,7 @@ class _level3State extends State<level3> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Lesson(
+                                    builder: (context) => LessonView(
                                           lessonID: '20',
                                           childID: widget.childId,
                                         )));
@@ -217,7 +217,7 @@ class _level3State extends State<level3> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Lesson(
+                                    builder: (context) => LessonView(
                                           lessonID: '19',
                                           childID: widget.childId,
                                         )));
@@ -289,7 +289,7 @@ class _level3State extends State<level3> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Lesson(
+                                        builder: (context) => LessonView(
                                               lessonID: '18',
                                               childID: widget.childId,
                                             )));
@@ -368,7 +368,7 @@ class _level3State extends State<level3> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Lesson(
+                                      builder: (context) => LessonView(
                                             lessonID: '14',
                                             childID: widget.childId,
                                           )));
@@ -441,7 +441,7 @@ class _level3State extends State<level3> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Lesson(
+                                          builder: (context) => LessonView(
                                                 lessonID: '15',
                                                 childID: widget.childId,
                                               )));
@@ -508,7 +508,7 @@ class _level3State extends State<level3> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Lesson(
+                                        builder: (context) => LessonView(
                                               lessonID: '16',
                                               childID: widget.childId,
                                             )));
@@ -576,7 +576,7 @@ class _level3State extends State<level3> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Lesson(
+                                        builder: (context) => LessonView(
                                               lessonID: '17',
                                               childID: widget.childId,
                                             )));

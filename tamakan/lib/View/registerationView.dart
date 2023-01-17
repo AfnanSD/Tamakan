@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 
 class registerationview extends StatefulWidget {
@@ -40,7 +41,27 @@ class _registerationviewState extends State<registerationview> {
 
   @override
   Widget build(BuildContext context) {
-//Sign up button
+//Sign up button not fit
+    // final signupButton = ButtonWidget(
+    //   fun: () async {
+    //           Future<bool> user = AuthController().register(
+    //             _nameController.text,
+    //             _emailController.text,
+    //             _passwordController.text,
+    //             gender,
+    //             _dateController.text,
+    //           );
+    //           print(user);
+    //           if (await user) {
+    //             Navigator.pushNamed(context, '/ParentProfile');
+    //           } else {
+    //             Navigator.pop(context);
+    //           }
+    //         },
+    //   buttonLabel: 'إنشاء حساب',
+    //   buttonColor: Color.fromRGBO(255, 230, 109, 1),
+    // );
+    //Sign up button
     final signupButton = Container(
         margin: const EdgeInsets.only(right: 100, left: 100),
         child: Material(
@@ -66,7 +87,7 @@ class _registerationviewState extends State<registerationview> {
               }
             },
             child: Text(
-              "إنـشـاء",
+              " إنـشـاء حـسـاب",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 25,
@@ -81,6 +102,7 @@ class _registerationviewState extends State<registerationview> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height * 1.1,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/b2.png"),
@@ -94,28 +116,28 @@ class _registerationviewState extends State<registerationview> {
               SizedBox(
                 height: 15,
               ),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                // crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Image.asset(
-                    'assets/images/logo3.png',
-                    height: 150,
-                    width: 150,
-                  ),
-                  SizedBox(
-                    width: 120,
-                  ),
-                  const Text(
-                    "  تـمـكـــن",
-                    style: TextStyle(
-                        fontSize: 50,
-                        color: Color.fromARGB(255, 71, 81, 80),
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.right,
-                  ),
-                ],
-              ),
+              Container(
+                  height: MediaQuery.of(context).size.height * .1,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/logo3.png',
+                        height: 150,
+                        width: 150,
+                      ),
+                      SizedBox(
+                        width: 120,
+                      ),
+                      const Text(
+                        "  تـمـكـــن",
+                        style: TextStyle(
+                            fontSize: 50,
+                            color: Color.fromARGB(255, 71, 81, 80),
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.right,
+                      ),
+                    ],
+                  )),
               SizedBox(
                 height: 10,
               ),
@@ -327,7 +349,7 @@ class _registerationviewState extends State<registerationview> {
                                 style: TextStyle(
                                     decoration: TextDecoration.underline,
                                     fontSize: 25,
-                                    color: Color.fromARGB(255, 71, 81, 80),
+                                    color: Color(0xffFF6B6B),
                                     fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.right,
                               ),
