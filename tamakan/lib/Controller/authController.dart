@@ -63,24 +63,24 @@ class AuthController extends GetxController {
     String name,
     String email,
     String password,
+    String password2,
     String? gender,
     String bDate,
   ) async {
+    RegExp regexname = RegExp(r'^.{2,}$');
+
     try {
       /////////////////////////////////////////////// if sumbit with all is empty
-      /*
+
       if (name.isEmpty ||
           email.isEmpty ||
           password.isEmpty ||
-          weight.isEmpty ||
-          height.isEmpty ||
+          password2.isEmpty ||
           bDate.isEmpty)
-        ;
+        EasyLoading.showError('الرجاء إدخال جميع المعلومات المطلوبة');
       else
-        EasyLoading.showError('الرجاء إدخال جميع المعلومات المطلوبة');*/
 
       ///validation to name
-      RegExp regexname = RegExp(r'^.{2,}$');
 
       if (name.isEmpty || name.trim().isEmpty)
         EasyLoading.showError("الرجاء أدخال الأسم");
@@ -120,6 +120,10 @@ class AuthController extends GetxController {
       } else if (!isPasswordCompliant2(password)) {
         EasyLoading.showError('    الرجاء إدخال كلمة مرور تحتوي على 8 خانات');
       } else
+      ////////////////////////////////////////////////// validation to password2
+      // if (!identical(password, password2)) {
+      //   EasyLoading.showError("يجب ان تكون كلمات المرور متطابقة");
+      // } else
       ////validation to birthdate
       if (bDate.isEmpty || bDate.trim().isEmpty) {
         EasyLoading.showError("الرجاء أدخال تاريخ الميلاد");
@@ -129,7 +133,8 @@ class AuthController extends GetxController {
       if (name.isNotEmpty &&
           email.isNotEmpty &&
           password.isNotEmpty &&
-          bDate.isNotEmpty) {
+          bDate.isNotEmpty &&
+          identical(password, password2)) {
         UserCredential credential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         UserModel user = UserModel(

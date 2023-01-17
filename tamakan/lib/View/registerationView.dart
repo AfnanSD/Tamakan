@@ -32,6 +32,7 @@ class _registerationviewState extends State<registerationview> {
   TextEditingController _dateController = TextEditingController();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
+  TextEditingController _password2Controller = new TextEditingController();
 
   final List<String> genders = [
     'أنثى',
@@ -76,6 +77,7 @@ class _registerationviewState extends State<registerationview> {
                 _nameController.text.trim(),
                 _emailController.text.trim(),
                 _passwordController.text.trim(),
+                _password2Controller.text.trim(),
                 gender,
                 _dateController.text,
               );
@@ -83,7 +85,7 @@ class _registerationviewState extends State<registerationview> {
               if (await user) {
                 Navigator.pushNamed(context, '/ParentProfile');
               } else {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, '/registerview');
               }
             },
             child: Text(
@@ -102,7 +104,6 @@ class _registerationviewState extends State<registerationview> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
-          height: MediaQuery.of(context).size.height * 1.1,
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/b2.png"),
@@ -117,35 +118,34 @@ class _registerationviewState extends State<registerationview> {
                 height: 15,
               ),
               Container(
-                  height: MediaQuery.of(context).size.height * .1,
                   child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/logo3.png',
-                        height: 150,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 120,
-                      ),
-                      const Text(
-                        "  تـمـكـــن",
-                        style: TextStyle(
-                            fontSize: 50,
-                            color: Color.fromARGB(255, 71, 81, 80),
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.right,
-                      ),
-                    ],
-                  )),
+                children: [
+                  Image.asset(
+                    'assets/images/logo3.png',
+                    height: 150,
+                    width: 150,
+                  ),
+                  SizedBox(
+                    width: 120,
+                  ),
+                  const Text(
+                    "  تـمـكـــن",
+                    style: TextStyle(
+                        fontSize: 50,
+                        color: Color.fromARGB(255, 71, 81, 80),
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.right,
+                  ),
+                ],
+              )),
               SizedBox(
                 height: 10,
               ),
               SingleChildScrollView(
                 child: Center(
                   child: Container(
-                    height: 750,
-                    width: 600,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    width: MediaQuery.of(context).size.height * 0.8,
                     margin: const EdgeInsets.symmetric(
                       horizontal: 40,
                       vertical: 20,
@@ -288,9 +288,9 @@ class _registerationviewState extends State<registerationview> {
                                           child: child!,
                                         );
                                       },
-                                      initialDate: DateTime.now(),
+                                      initialDate: DateTime(2000),
                                       firstDate: DateTime(1930),
-                                      lastDate: DateTime.now());
+                                      lastDate: DateTime(2010));
                                   //if Cancel
                                   if (newDate == null) return;
                                   //if OK
@@ -322,16 +322,17 @@ class _registerationviewState extends State<registerationview> {
                           //myIcon: Icons.lock,
                           obsecure: true,
                         ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        // TextInputField(
-                        //   controller: _passwordController,
-                        //   myLabelText: 'تأكيد الرقم السري',
-                        //   myHintText: '',
-                        //   //myIcon: Icons.lock,
-                        //   obsecure: true,
-                        // ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        label(inputLabel: 'تأكيد كلمة المرور '),
+                        TextInputField(
+                          controller: _password2Controller,
+                          myLabelText: 'تأكيد كلمة المرور ',
+                          myHintText:
+                              'يجب ان تكون متطابقة مع كلمه المرور اعلاه',
+                          obsecure: true,
+                        ),
                         //SIGN UP BUTTON
                         SizedBox(
                           height: 25,

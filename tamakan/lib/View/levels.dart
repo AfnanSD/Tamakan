@@ -35,6 +35,7 @@ class levels extends StatefulWidget {
 class _levelsState extends State<levels> {
   var readingData = true;
   late Child child;
+  late String level;
 
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
@@ -48,6 +49,26 @@ class _levelsState extends State<levels> {
 
   @override
   Widget build(BuildContext context) {
+    if (child.CurrentLevel < 8)
+      level = "الاول";
+    else if (child.CurrentLevel < 14)
+      level = "الثاني";
+    else if (child.CurrentLevel < 22)
+      level = "الثالث";
+    else if (child.CurrentLevel < 29)
+      level = "الرابع";
+    else if (child.CurrentLevel < 37)
+      level = "الخامس";
+    else if (child.CurrentLevel < 45)
+      level = "السادس";
+    else if (child.CurrentLevel < 52)
+      level = "السابع";
+    else if (child.CurrentLevel < 58)
+      level = "الثامن";
+    else if (child.CurrentLevel < 64)
+      level = "التاسع";
+    else
+      level = "العاشر";
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -97,8 +118,11 @@ class _levelsState extends State<levels> {
                       //     )
                       //   ],
                       // ),
+
                       Text(
-                        "اي مرحلة وصلت يابطل!",
+                        " احسنت لقد وصلت للمستوى " +
+                            '${level}' +
+                            " هيا استمر !",
                         style: TextStyle(
                             fontSize: 30,
                             color: Color.fromARGB(255, 67, 65, 65)),
@@ -107,434 +131,465 @@ class _levelsState extends State<levels> {
                       SizedBox(
                         height: 45,
                       ),
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                      Container(
+                          height: MediaQuery.of(context).size.height * 1.8,
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Column(
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level1(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/first.png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level1(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/first.png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  SizedBox(
+                                    height: 45,
+                                    width: 45,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level2(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset('assets/images/s .png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 45,
                                 width: 45,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level2(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/s .png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level3(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset('assets/images/t .png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level3(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/t .png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                                  SizedBox(
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level4(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/four.png',
+                                          height: 800,
+                                          width: 800,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 45,
                                 width: 45,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level4(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/four.png',
-                                      height: 800,
-                                      width: 800,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level5(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/five.png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level5(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/five.png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                                  SizedBox(
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level6(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/six.png',
+                                          height: 800,
+                                          width: 800,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 45,
                                 width: 45,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level6(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/six.png',
-                                      height: 800,
-                                      width: 800,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level7(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/seven.png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level7(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/seven.png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                                  SizedBox(
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level8(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/eight.png',
+                                          height: 800,
+                                          width: 800,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 45,
                                 width: 45,
                               ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level8(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/eight.png',
-                                      height: 800,
-                                      width: 800,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level9(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/nine.png',
+                                          height: 600,
+                                          width: 600,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level9(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/nine.png',
-                                      height: 600,
-                                      width: 600,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
+                                  SizedBox(
+                                    height: 45,
+                                    width: 45,
                                   ),
-                                ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => level10(
+                                                    CurrentLevel:
+                                                        child.CurrentLevel,
+                                                    childId: child.childID,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 250,
+                                      width: 220,
+                                      child: Image.asset(
+                                          'assets/images/ten.png',
+                                          height: 800,
+                                          width: 800,
+                                          fit: BoxFit.cover),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius:
+                                                15.0, // soften the shadow
+                                            spreadRadius:
+                                                5.0, //extend the shadow
+                                            offset: Offset(
+                                              5.0, // Move to right 5  horizontally
+                                              5.0, // Move to bottom 5 Vertically
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 45,
-                                width: 45,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => level10(
-                                                CurrentLevel:
-                                                    child.CurrentLevel,
-                                                childId: child.childID,
-                                              )));
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 250,
-                                  width: 220,
-                                  child: Image.asset('assets/images/ten.png',
-                                      height: 800,
-                                      width: 800,
-                                      fit: BoxFit.cover),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 15.0, // soften the shadow
-                                        spreadRadius: 5.0, //extend the shadow
-                                        offset: Offset(
-                                          5.0, // Move to right 5  horizontally
-                                          5.0, // Move to bottom 5 Vertically
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              )
                             ],
-                          ),
-                          SizedBox(
-                            height: 45,
-                          )
-                        ],
-                      ),
+                          )),
                     ],
                   ),
                 ),

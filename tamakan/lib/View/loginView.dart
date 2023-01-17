@@ -186,7 +186,7 @@ class loginview extends StatelessWidget {
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       fontSize: 20,
-                                      color: Color.fromARGB(255, 71, 81, 80),
+                                      color: Color(0xffFF6B6B),
                                       fontWeight: FontWeight.bold),
                                   textAlign: TextAlign.right,
                                 ),
