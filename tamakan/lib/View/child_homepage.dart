@@ -107,12 +107,12 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          levels(childID: widget.childID)
-                                      // levels(
-                                      //   childID: child.childID,
-                                      // ),
-                                      ),
+                                    builder: (context) =>
+                                        // LearningMap(childId: widget.childID)
+                                        levels(
+                                      childID: child.childID,
+                                    ),
+                                  ),
                                 );
                               },
                               child: Card(

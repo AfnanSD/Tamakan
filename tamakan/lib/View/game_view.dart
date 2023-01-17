@@ -13,8 +13,6 @@ import 'package:sound_stream/sound_stream.dart';
 
 import '../Model/child.dart';
 
-//working but correct text is repated a lot
-
 class GameView extends StatefulWidget {
   const GameView({super.key, required this.practiceID, required this.childID});
 
@@ -89,7 +87,6 @@ class _GameViewState extends State<GameView> {
   }
 
   void getOnce(String id) {
-    print(getCorrectTextOnce.toString() + ' getonce');
     if (!getCorrectTextOnce) {
       getLessonData(id);
       getCorrectText(id);
@@ -99,12 +96,10 @@ class _GameViewState extends State<GameView> {
 
   Widget practice(String id) {
     getOnce(id);
-    //getLessonData(id);
-    //getCorrectText(id);
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 30),
+          margin: const EdgeInsets.symmetric(vertical: 30),
           child: gameStatusBar(), //from index
         ),
         Container(
@@ -119,7 +114,7 @@ class _GameViewState extends State<GameView> {
               padding: const EdgeInsets.all(100),
               child: CircleAvatar(
                 maxRadius: 130,
-                backgroundColor: const Color(0xff4ECDC4), //4ECDC4
+                backgroundColor: const Color(0xff4ECDC4),
                 child: Text(
                   lesson,
                   style:
@@ -171,7 +166,7 @@ class _GameViewState extends State<GameView> {
         InkWell(
           onTap: null,
           child: Card(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -186,123 +181,110 @@ class _GameViewState extends State<GameView> {
             ),
           ),
         ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              if (recognizeFinished)
-                _RecognizeContent(
-                  text: text,
-                ),
-            ],
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            print(index.toString() + " index");
 
-            setState(() {
-              index++; //?
-              getCorrectTextOnce = false;
-              // text = '';
-              // if (index + 1 == 5) {
-              //   print('done game ' + accumelatedPoints.toString());
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'points': child.points + accumelatedPoints});
-
-              /////Ruba
-              // if (widget.practiceID == 7.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 8});
-              // } else if (widget.practiceID == 13.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 14});
-              // } else if (widget.practiceID == 21.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 22});
-              // } else if (widget.practiceID == 28.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 29});
-              // } else if (widget.practiceID == 36.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 37});
-              // } else if (widget.practiceID == 44.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 45});
-              // } else if (widget.practiceID == 51.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 52});
-              // } else if (widget.practiceID == 57.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 58});
-              // } else if (widget.practiceID == 63.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 64});
-              // } else if (widget.practiceID == 70.5) {
-              //   FirebaseFirestore.instance
-              //       .collection('parent')
-              //       .doc(signedInUser.email)
-              //       .collection('children')
-              //       .doc(widget.childID)
-              //       .update({'CurrentLevel': 71});
-              // }
-
-              ///
-              //   Navigator.of(context).pop();
-              // } else {
-              //   index++;
-              // }
-            });
-          },
-          child: const Text('nexttt'),
-        ),
+        //for testing only
+        // Center(
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //     children: <Widget>[
+        //       if (recognizeFinished)
+        //         _RecognizeContent(
+        //           text: text,
+        //         ),
+        //     ],
+        //   ),
+        // ),
         // ElevatedButton(
         //   onPressed: () {
-        //     showCustomDialog(context);
-        //     //Navigator.of(context).pop();
+        //     setState(() {
+        //       index++; //?
+        //       getCorrectTextOnce = false;
+        //       // text = '';
+        //       // if (index + 1 == 5) {
+        //       //   print('done game ' + accumelatedPoints.toString());
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'points': child.points + accumelatedPoints});
+
+        //       /////Ruba
+        //       // if (widget.practiceID == 7.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 8});
+        //       // } else if (widget.practiceID == 13.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 14});
+        //       // } else if (widget.practiceID == 21.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 22});
+        //       // } else if (widget.practiceID == 28.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 29});
+        //       // } else if (widget.practiceID == 36.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 37});
+        //       // } else if (widget.practiceID == 44.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 45});
+        //       // } else if (widget.practiceID == 51.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 52});
+        //       // } else if (widget.practiceID == 57.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 58});
+        //       // } else if (widget.practiceID == 63.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 64});
+        //       // } else if (widget.practiceID == 70.5) {
+        //       //   FirebaseFirestore.instance
+        //       //       .collection('parent')
+        //       //       .doc(signedInUser.email)
+        //       //       .collection('children')
+        //       //       .doc(widget.childID)
+        //       //       .update({'CurrentLevel': 71});
+        //       // }
+        //     });
         //   },
-        //   child: const Text('testing dialog'),
-        // )
+        //   child: const Text('next'),
+        // ),
       ],
     );
   }
@@ -317,7 +299,7 @@ class _GameViewState extends State<GameView> {
           SpeechContext(correctText),
         ],
         useEnhanced: true,
-      ); //en-US -- ar-SA
+      );
 
   void streamingRecognize() async {
     _audioStream = BehaviorSubject<List<int>>();
@@ -382,69 +364,28 @@ class _GameViewState extends State<GameView> {
 
     if (correctText.contains(text)) {
       correct = true;
-      print('correct');
-      print('index before incrementing ' + index.toString());
       if (index < 4) {
         showGoodDialog(context);
         setState(() {
           index++;
           getCorrectTextOnce = false;
         });
-        print('not complete ' + index.toString());
       } else {
         //make not closable
-        print('complete');
         showCustomDialog(context);
+        FirebaseFirestore.instance
+            .collection('parent')
+            .doc(signedInUser.email)
+            .collection('children')
+            .doc(widget.childID)
+            .update({'points': child.points + 5});
       }
-
-      //showCustomDialog(context);
-
-      //after ending! with cusotn dialog
-      // FirebaseFirestore.instance
-      //     .collection('parent')
-      //     .doc(signedInUser.email)
-      //     .collection('children')
-      //     .doc(widget.childID)
-      //     .update({'points': child.points + 5});
-      //print(child.points + 5);
-      // setState(() {
-      //   if (index + 1 != 5) {
-      //     //correctText.clear();
-      //     index++;
-      //     getCorrectTextOnce = false;
-      //   } else {
-      //     print('done game ' + accumelatedPoints.toString());
-      //     FirebaseFirestore.instance
-      //         .collection('parent')
-      //         .doc(signedInUser.email)
-      //         .collection('children')
-      //         .doc(widget.childID)
-      //         .update({'points': child.points + accumelatedPoints});
-      //     Navigator.pop(context);
-      //   }
-      // });
-      // return const Text(
-      //   'true',
-      //   style: TextStyle(
-      //     color: Colors.green,
-      //     fontWeight: FontWeight.bold,
-      //   ),
-      // );
     } else {
       showBadDialog(context);
     }
-    // else
-    //   return Text(
-    //     'false',
-    //     style: TextStyle(
-    //       color: Colors.red,
-    //       fontWeight: FontWeight.bold,
-    //     ),
-    //   );
   }
 
   Future getLessonData(String id) async {
-    print('hereeee');
     await FirebaseFirestore.instance
         .collection('lesson')
         .doc(id)
@@ -458,7 +399,6 @@ class _GameViewState extends State<GameView> {
   }
 
   Future getCorrectText(String id) async {
-    print('here again');
     correctText.clear();
     QuerySnapshot qs = await FirebaseFirestore.instance
         .collection('lesson')
@@ -530,7 +470,7 @@ class _GameViewState extends State<GameView> {
                         ),
                         Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
                             Image.asset(
@@ -544,40 +484,40 @@ class _GameViewState extends State<GameView> {
                   ),
                 ],
               ),
-              Text(
+              const Text(
                 'أحسنت',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 ),
               ),
-              Text(
+              const Text(
                 'لقد اجتزت الدرس بنجاح',
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              Text(
+              const Text(
                 '5',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 '! مجموع النقاط التي حصلت عليها',
                 style: TextStyle(
                   fontSize: 15,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Image.asset(
                 'assets/images/trophy.png',
                 scale: 1.3,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -593,7 +533,7 @@ class _GameViewState extends State<GameView> {
                       Navigator.pop(context);
                     },
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.home),
                         SizedBox(
                           width: 20,
@@ -602,21 +542,21 @@ class _GameViewState extends State<GameView> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Icon(Icons.play_arrow),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('الدرس التالي'),
-                      ],
-                    ),
-                  )
+                  // ElevatedButton(
+                  //   onPressed: () {},
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(Icons.arrow_back),
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Text('الدرس التالي'),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               )
             ],
