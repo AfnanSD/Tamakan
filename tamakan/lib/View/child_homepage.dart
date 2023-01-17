@@ -10,6 +10,8 @@ import 'package:tamakan/View/child_coupons_view.dart';
 import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/learning_map2.dart';
 import 'package:tamakan/View/levels.dart';
+import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';
@@ -26,6 +28,7 @@ class ChildHomePage extends StatefulWidget {
 class _ChildHomePageState extends State<ChildHomePage> {
   var readingData = true;
   late Child child;
+  late String parentPassword;
 
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
@@ -34,6 +37,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    getCurrentUserData();
     readChildData(widget.childID);
   }
 
@@ -42,6 +46,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: <Widget>[
@@ -50,10 +55,10 @@ class _ChildHomePageState extends State<ChildHomePage> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: readingData
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Center(
@@ -62,13 +67,13 @@ class _ChildHomePageState extends State<ChildHomePage> {
                   children: [
                     ChildPoints(child: child),
                     Image.asset(child.profilePicture),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(
                       'مرحبا ${child.name} \n متحمس للبدء؟\nهيا لنتعلم معا', //girl or boy!
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Column(
@@ -86,17 +91,18 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                     child: Row(
                                       children: [
                                         Image.asset('assets/images/book.png'),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
-                                        Text(
+                                        const Text(
                                           'القرآن',
                                           style: TextStyle(fontSize: 30),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  color: Color.fromARGB(255, 213, 247, 245)),
+                                  color:
+                                      const Color.fromARGB(255, 213, 247, 245)),
                             ),
                             InkWell(
                               onTap: () {
@@ -112,7 +118,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                 );
                               },
                               child: Card(
-                                color: Color.fromARGB(255, 252, 200, 200),
+                                color: const Color.fromARGB(255, 252, 200, 200),
                                 child: Container(
                                   height: 150,
                                   width: 250,
@@ -123,7 +129,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                         'assets/images/location.png',
                                         scale: 1.8,
                                       ),
-                                      Text(
+                                      const Text(
                                         'الدروس\nو التحديات',
                                         style: TextStyle(fontSize: 25),
                                       ),
@@ -155,22 +161,25 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                         'assets/images/coupon.png',
                                         scale: 4.5,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
-                                      Text(
+                                      const Text(
                                         'قسائمي',
                                         style: TextStyle(fontSize: 30),
                                       ),
                                     ],
                                   ),
                                 ),
-                                color: Color.fromARGB(255, 244, 235, 192),
+                                color: const Color.fromARGB(255, 244, 235, 192),
                               ),
                             ),
                             InkWell(
-                              onTap: () => Navigator.pop(context), //need update
+                              onTap: () =>
+                                  parentPasswordDialog(context), //need update
                               child: Card(
+                                  color:
+                                      const Color.fromARGB(255, 213, 247, 245),
                                   child: Container(
                                     height: 150,
                                     width: 250,
@@ -178,17 +187,16 @@ class _ChildHomePageState extends State<ChildHomePage> {
                                     child: Row(
                                       children: [
                                         Image.asset('assets/images/hand.png'),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
-                                        Text(
+                                        const Text(
                                           'والدي',
                                           style: TextStyle(fontSize: 30),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  color: Color.fromARGB(255, 213, 247, 245)),
+                                  )),
                             ),
                           ],
                         )
@@ -227,5 +235,88 @@ class _ChildHomePageState extends State<ChildHomePage> {
         });
       }
     });
+  }
+
+  parentPasswordDialog(BuildContext context) {
+    final _passwordController = TextEditingController();
+    var errorMessage = '';
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) => Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    ': الرجاء إدخال كلمة مرور الوالد',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  Text(
+                    errorMessage,
+                    style: TextStyle(color: Theme.of(context).errorColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextInputField(
+                    controller: _passwordController,
+                    obsecure: true,
+                    myLabelText: 'كلمة المرور',
+                    myHintText: '********',
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (_passwordController.text == parentPassword) {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      } else {
+                        setState(() {
+                          errorMessage = 'كلمة المرور خاطئة';
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      child: Center(
+                          child: Text(
+                        'تأكيد',
+                        style: TextStyle(fontSize: 15),
+                        //style: TextStyle(color: Color.fromARGB(255, 71, 81, 80)),
+                      )),
+                      width: 200,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> getCurrentUserData() async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc(signedInUser.email)
+        .get()
+        .then((value) => parentPassword = value['password']);
   }
 }

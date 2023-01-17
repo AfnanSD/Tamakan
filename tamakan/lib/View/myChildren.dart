@@ -120,180 +120,190 @@ class _myChildren extends State<myChildren> {
                                   builder: (_) {
                                     passwordPictureSequence[0] = '';
                                     passwordPictureSequence[1] = '';
+                                    String errorMessage = '';
                                     return StatefulBuilder(
-                                      builder: (context, setState) => Container(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(20),
-                                          child: Column(
-                                            children: [
-                                              const Text(
-                                                'أدخل كلمة السر الخاصة بك',
-                                                style: TextStyle(
-                                                    fontSize: 25,
-                                                    color: Color.fromARGB(
-                                                        255, 26, 83, 92)),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      print('validate');
-                                                      print(
-                                                          passwordPictureSequence[
-                                                              0]);
-                                                      print(
-                                                          passwordPictureSequence[
-                                                              1]);
-                                                      print(data[
-                                                          'passwordPicture1']);
-                                                      if (passwordPictureSequence[
-                                                                  0] ==
-                                                              data[
-                                                                  'passwordPicture1'] &&
-                                                          passwordPictureSequence[
-                                                                  1] ==
-                                                              data[
-                                                                  'passwordPicture2']) {
-                                                        Navigator.pushReplacement(
-                                                            context,
-                                                            MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  ChildHomePage(
-                                                                      childID: data[
-                                                                          'childID']),
-                                                            ));
-                                                      }
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.navigate_before,
-                                                      color: Colors.green,
+                                      builder: (context, setState) => Padding(
+                                        padding: EdgeInsets.all(20),
+                                        child: Column(
+                                          children: [
+                                            const Text(
+                                              'أدخل كلمة السر الخاصة بك',
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  color: Color.fromARGB(
+                                                      255, 26, 83, 92)),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {
+                                                    print('validate');
+                                                    print(
+                                                        passwordPictureSequence[
+                                                            0]);
+                                                    print(
+                                                        passwordPictureSequence[
+                                                            1]);
+                                                    print(data[
+                                                        'passwordPicture1']);
+                                                    if (passwordPictureSequence[
+                                                                0] ==
+                                                            data[
+                                                                'passwordPicture1'] &&
+                                                        passwordPictureSequence[
+                                                                1] ==
+                                                            data[
+                                                                'passwordPicture2']) {
+                                                      Navigator.pushReplacement(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ChildHomePage(
+                                                                    childID: data[
+                                                                        'childID']),
+                                                          ));
+                                                    } else {
+                                                      setState(
+                                                        () {
+                                                          errorMessage =
+                                                              'كلمة السر خاطئة';
+                                                        },
+                                                      );
+                                                    }
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.navigate_before,
+                                                    color: Colors.green,
+                                                  ),
+                                                ),
+                                                ...passwordPictureSequence
+                                                    .reversed
+                                                    .map((e) => Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Colors
+                                                                    .grey[200],
+                                                                shape: BoxShape
+                                                                    .circle),
+                                                        height: 55,
+                                                        width: 55,
+                                                        margin: const EdgeInsets
+                                                            .all(2),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(3),
+                                                        child: (e != '')
+                                                            ? Image.asset(
+                                                                e,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              )
+                                                            : Text('')))
+                                                    .toList(),
+                                              ],
+                                            ),
+                                            Text(
+                                              errorMessage,
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .errorColor),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // Column(
+                                                //   crossAxisAlignment:
+                                                //       CrossAxisAlignment.start,
+                                                //   children: [
+                                                //     SizedBox(
+                                                //       height: 200,
+                                                //     ),
+                                                //     Text(
+                                                //       'أدخل كلمة السر الخاصة بك',
+                                                //       style: TextStyle(
+                                                //           fontSize: 25,
+                                                //           color: Color.fromARGB(
+                                                //               255, 26, 83, 92)),
+                                                //     ),
+                                                //   ],
+                                                // ),
+                                                // SizedBox(
+                                                //   width: 40,
+                                                // ),
+                                                Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
+                                                      child: PassowordIconButton(
+                                                          'assets/images/snowy-pine-trees.png',
+                                                          setState),
                                                     ),
-                                                  ),
-                                                  ...passwordPictureSequence
-                                                      .reversed
-                                                      .map((e) => Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color:
-                                                                      Colors.grey[
-                                                                          200],
-                                                                  shape: BoxShape
-                                                                      .circle),
-                                                          height: 55,
-                                                          width: 55,
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .all(2),
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(3),
-                                                          child: (e != '')
-                                                              ? Image.asset(
-                                                                  e,
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                )
-                                                              : Text('')))
-                                                      .toList(),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  // Column(
-                                                  //   crossAxisAlignment:
-                                                  //       CrossAxisAlignment.start,
-                                                  //   children: [
-                                                  //     SizedBox(
-                                                  //       height: 200,
-                                                  //     ),
-                                                  //     Text(
-                                                  //       'أدخل كلمة السر الخاصة بك',
-                                                  //       style: TextStyle(
-                                                  //           fontSize: 25,
-                                                  //           color: Color.fromARGB(
-                                                  //               255, 26, 83, 92)),
-                                                  //     ),
-                                                  //   ],
-                                                  // ),
-                                                  // SizedBox(
-                                                  //   width: 40,
-                                                  // ),
-                                                  Column(
-                                                    children: [
-                                                      Padding(
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
+                                                      child: PassowordIconButton(
+                                                          'assets/images/sun.png',
+                                                          setState),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
+                                                      child: PassowordIconButton(
+                                                          'assets/images/red-maple-leaf.png',
+                                                          setState),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
+                                                      child: PassowordIconButton(
+                                                          'assets/images/snowflake.png',
+                                                          setState),
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Container(
+                                                      child: Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .all(20.0),
                                                         child: PassowordIconButton(
-                                                            'assets/images/snowy-pine-trees.png',
+                                                            'assets/images/yellow-flower.png',
                                                             setState),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(20.0),
-                                                        child: PassowordIconButton(
-                                                            'assets/images/sun.png',
-                                                            setState),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(20.0),
-                                                        child: PassowordIconButton(
-                                                            'assets/images/red-maple-leaf.png',
-                                                            setState),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(20.0),
-                                                        child: PassowordIconButton(
-                                                            'assets/images/snowflake.png',
-                                                            setState),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Container(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(20.0),
-                                                          child: PassowordIconButton(
-                                                              'assets/images/yellow-flower.png',
-                                                              setState),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(20.0),
-                                                        child: PassowordIconButton(
-                                                            'assets/images/mushroom.png',
-                                                            setState),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              20.0),
+                                                      child: PassowordIconButton(
+                                                          'assets/images/mushroom.png',
+                                                          setState),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     );

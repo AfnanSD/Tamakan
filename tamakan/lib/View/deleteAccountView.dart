@@ -171,12 +171,9 @@ class _deleteAccountState extends State<deleteAccount> {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
 
                             const SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             ////////////////check the result
                             CheckboxListTile(
@@ -197,7 +194,7 @@ class _deleteAccountState extends State<deleteAccount> {
                               },
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
 
                             ///cancel button
@@ -247,7 +244,8 @@ class _deleteAccountState extends State<deleteAccount> {
                                     child: Center(
                                         child: Text(
                                       "حذف الحساب",
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.white),
                                       //style: TextStyle(color: Color.fromARGB(255, 71, 81, 80)),
                                     )),
                                     width: double.infinity,
