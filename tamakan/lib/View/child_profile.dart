@@ -7,20 +7,23 @@ import 'package:tamakan/View/edit_child_profile.dart';
 import 'package:tamakan/View/exchange_points.dart';
 import 'package:tamakan/View/manage_family.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
+import 'package:tamakan/View/widgets/child_points.dart';
+import 'package:tamakan/View/widgets/labels.dart';
+import 'package:tamakan/View/widgets/lable_grey.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
 
-class ViewChildProfile extends StatefulWidget {
-  const ViewChildProfile({super.key, required this.childID});
+class ChildProfile extends StatefulWidget {
+  const ChildProfile({super.key, required this.childID});
 
   final String childID;
 
   @override
-  State<ViewChildProfile> createState() => _ViewChildProfileState();
+  State<ChildProfile> createState() => _ChildProfileState();
 }
 
-class _ViewChildProfileState extends State<ViewChildProfile> {
+class _ChildProfileState extends State<ChildProfile> {
   var readingData = true;
   late Child child;
 
@@ -46,150 +49,128 @@ class _ViewChildProfileState extends State<ViewChildProfile> {
               'assets/images/droppedlogo.png',
               scale: 0.5,
             ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
-            ),
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),
         body: readingData
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Text(
-                          'ملف طفلي',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      Image.asset(
-                        child.profilePicture,
-                        scale: 1.2,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 100,
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'اسم الطفل :',
-                                style: TextStyle(fontSize: 15),
-                              ),
+            : Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Center(
+                            child: Text(
+                              'ملف طفلي',
+                              style: Theme.of(context).textTheme.headline6,
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                initialValue: child.name,
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()),
-                                enabled: false,
-                              ),
-                            )
-                          ],
+                          ),
                         ),
+                        ChildPoints(child: child),
+                      ],
+                    ),
+                    Image.asset(
+                      child.profilePicture,
+                      scale: 1.2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Card(
+                      margin: const EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 100,
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'تاريح الميلاد :',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                initialValue:
-                                    DateFormat.yMd().format(child.birthDate),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()),
-                                enabled: false,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 100,
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'نقاط طفلي :',
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                            Expanded(
-                              child: TextFormField(
-                                initialValue: child.points.toString(),
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder()),
-                                enabled: false,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Column(
-                          children: [
-                            ButtonWidget(
-                              fun: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ExhcangePoints(childID: child.childID),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Text(
+                                    'اسم الطفل :',
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                );
-                              },
-                              buttonLabel: 'استبدال نقاط طفلي',
-                              buttonColor: Color(0xff4ECDC4),
+                                ),
+                                Text(
+                                  child.name,
+                                  style: const TextStyle(fontSize: 20),
+                                )
+                              ],
                             ),
-                            ButtonWidget(
-                              fun: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EditChildProfile(
-                                          childID: widget.childID),
-                                    ));
-                              },
-                              buttonLabel: 'تعديل الحساب',
-                              buttonColor: Color(0xff1A535C),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Text(
+                                    'تاريح الميلاد :',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Text(
+                                  DateFormat.yMd().format(child.birthDate),
+                                  style: const TextStyle(fontSize: 20),
+                                )
+                              ],
                             ),
-                            ButtonWidget(
-                              fun: () {
-                                showCustomDialog(context);
-                              },
-                              buttonLabel: 'حذف الحساب',
-                              buttonColor: Color(0xffFF6B6B),
-                            ),
-                          ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    Column(
+                      children: [
+                        ButtonWidget(
+                          fun: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ExhcangePoints(childID: child.childID),
+                              ),
+                            );
+                          },
+                          buttonLabel: 'استبدال نقاط طفلي',
+                          buttonColor: Color(0xff4ECDC4),
                         ),
-                      )
-                    ],
-                  ),
+                        ButtonWidget(
+                          fun: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditChildProfile(childID: widget.childID),
+                                ));
+                          },
+                          buttonLabel: 'تعديل الحساب',
+                          buttonColor: Color(0xff1A535C),
+                        ),
+                        ButtonWidget(
+                          fun: () {
+                            showCustomDialog(context);
+                          },
+                          buttonLabel: 'حذف الحساب',
+                          buttonColor: Color(0xffFF6B6B),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
       ),

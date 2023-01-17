@@ -73,7 +73,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
           "حفظ التعديلات",
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontSize: 25,
+              fontSize: 18,
               color: Color.fromARGB(255, 71, 81, 80),
               fontWeight: FontWeight.bold),
         ),
@@ -144,7 +144,7 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                           ),
 
                           Text(
-                            '  تعديل الملف الشخصي ',
+                            'تعديل الملف الشخصي',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headline6,
                           ),
