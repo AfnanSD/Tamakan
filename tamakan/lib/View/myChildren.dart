@@ -150,7 +150,7 @@ class _myChildren extends State<myChildren> {
                                                             1] ==
                                                         data[
                                                             'passwordPicture2']) {
-                                                  Navigator.push(
+                                                  Navigator.pushReplacement(
                                                       context,
                                                       MaterialPageRoute(
                                                         builder: (context) =>

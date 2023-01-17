@@ -127,7 +127,9 @@ class _GameViewState extends State<GameView> {
         InkWell(
           onTap: recognizing ? stopRecording : streamingRecognize,
           child: Card(
-            color: recognizing ? const Color(0xffF7FFF7) : Colors.white,
+            color: recognizing
+                ? const Color.fromARGB(255, 223, 255, 223)
+                : Colors.white,
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             elevation: 4,
             shape: RoundedRectangleBorder(
@@ -372,6 +374,7 @@ class _GameViewState extends State<GameView> {
         });
       } else {
         //make not closable
+        index++;
         showCustomDialog(context);
         FirebaseFirestore.instance
             .collection('parent')
@@ -414,23 +417,25 @@ class _GameViewState extends State<GameView> {
     int completed = 0;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: lessonIDs
-          .map(
-            (e) => ((index == 5) || (completed++ < index))
-                ? new Container(
-                    color: Colors.green,
-                    height: 8,
-                    width: 80,
-                    margin: EdgeInsets.all(10),
+      children: [
+        ...lessonIDs
+            .map((e) => ((index == 5) || (completed++ < index))
+                ? const Icon(
+                    Icons.star,
+                    color: Color.fromRGBO(255, 230, 109, 1),
+                    size: 50,
                   )
-                : new Container(
+                : const Icon(
+                    Icons.star,
                     color: Colors.grey,
-                    height: 8,
-                    width: 80,
-                    margin: EdgeInsets.all(10),
-                  ),
-          )
-          .toList(),
+                    size: 50,
+                  ))
+            .toList(),
+        Image.asset(
+          'assets/images/trophy.png',
+          scale: 1.3,
+        ),
+      ],
     );
   }
 
@@ -442,7 +447,7 @@ class _GameViewState extends State<GameView> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: Color(0xffFFFBEC),
+          backgroundColor: const Color.fromARGB(255, 249, 248, 245),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -450,37 +455,35 @@ class _GameViewState extends State<GameView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Image.asset(
-                              'assets/images/star1.png',
-                              scale: 1.7,
-                            ),
-                          ],
-                        ),
-                        Image.asset(
-                          'assets/images/star2.png',
-                          scale: 1.5,
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            Image.asset(
-                              'assets/images/star3.png',
-                              scale: 1.7,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Image.asset(
+                            'assets/images/star1.png',
+                            scale: 1.7,
+                          ),
+                        ],
+                      ),
+                      Image.asset(
+                        'assets/images/star2.png',
+                        scale: 1.5,
+                      ),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Image.asset(
+                            'assets/images/star3.png',
+                            scale: 1.7,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -492,7 +495,7 @@ class _GameViewState extends State<GameView> {
                 ),
               ),
               const Text(
-                'لقد اجتزت الدرس بنجاح',
+                'لقد اجتزت التحدي بنجاح',
                 style: TextStyle(
                   fontSize: 20,
                 ),
@@ -520,45 +523,28 @@ class _GameViewState extends State<GameView> {
               const SizedBox(
                 height: 20,
               ),
-              Row(
-                //crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff4ECDC4),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff4ECDC4),
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.home),
+                    SizedBox(
+                      width: 20,
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    },
-                    child: Row(
-                      children: const [
-                        Icon(Icons.home),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text('الخريطة'),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  // ElevatedButton(
-                  //   onPressed: () {},
-                  //   child: Row(
-                  //     children: [
-                  //       Icon(Icons.arrow_back),
-                  //       SizedBox(
-                  //         width: 10,
-                  //       ),
-                  //       Text('الدرس التالي'),
-                  //     ],
-                  //   ),
-                  // )
-                ],
-              )
+                    Text('الخريطة'),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
             ],
           ),
         );

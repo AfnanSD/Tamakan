@@ -28,24 +28,11 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
 
   late List<Coupon> coupons = List<Coupon>.empty(growable: true);
 
-  List<List<Color>> shades = [
-    [
-      Color(0xff4ECDC4),
-      Color.fromARGB(255, 208, 235, 234),
-    ],
-    [
-      Color(0xff1A535C),
-      Color.fromARGB(255, 195, 219, 223),
-    ],
-    [
-      Color(0xffFF6B6B),
-      Color.fromARGB(255, 242, 204, 204),
-    ],
-    [
-      Color.fromARGB(255, 255, 217, 63),
-      Color(0xffFFE66D),
-      Color.fromARGB(255, 255, 248, 213),
-    ],
+  List<Color> shades = const [
+    Color(0xff4ECDC4),
+    Color(0xff1A535C),
+    Color(0xffFF6B6B),
+    Color(0xffFFE66D),
   ];
 
   @override
@@ -67,11 +54,6 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
             Image.asset(
               'assets/images/droppedlogo.png',
               scale: 0.5,
-            ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),
@@ -106,11 +88,12 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 10),
                                   decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: shades[index % 4],
-                                        begin: Alignment.centerRight,
-                                        end: Alignment.centerLeft,
-                                      ),
+                                      color: shades[index % 4],
+                                      // gradient: LinearGradient(
+                                      //   colors: shades[index % 4],
+                                      //   begin: Alignment.centerRight,
+                                      //   end: Alignment.centerLeft,
+                                      // ),
                                       borderRadius: BorderRadius.circular(15)),
                                   child: ListTile(
                                     title: Text(
