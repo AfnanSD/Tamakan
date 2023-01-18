@@ -83,91 +83,89 @@ class _ManageFamily extends State<ManageFamily> {
                           child: Text("حدث خطأ ما ...."),
                         );
                       }
-                                    if (snapshot.hasData) {
-
-                      if (reqts.isEmpty) {
-                        return Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Text(
-                                'لم تقم بإضافة أطفالك بعد',
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, int index) {
-                          DocumentSnapshot data = snapshot.data[index];
-
+                      if (snapshot.hasData) {
+                        if (reqts.isEmpty) {
                           return Center(
-                            child: InkWell(
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ChildProfile(
-                                    childID: data["childID"], //update this
-                                  ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text(
+                                  'لم تقم بإضافة أطفالك بعد',
+                                  textAlign: TextAlign.center,
                                 ),
-                              ),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  side: BorderSide(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
-                                ),
-                                color: const Color.fromARGB(255, 244, 242, 201),
-                                clipBehavior: Clip.hardEdge,
-                                margin: EdgeInsets.all(20.0),
-                                child: Container(
-                                  height: 150,
-                                  width: 600,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(data["profilePicture"]),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text("الاسم: " + data["name"] + "\n",
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Color.fromARGB(
-                                                  255, 26, 83, 92))),
-                                      SizedBox(
-                                        height: 30,
-                                      ),
-                                      Text(
-                                          "  \n عدد النقاط: " +
-                                              data["points"].toString(),
-                                          style: TextStyle(
-                                              fontSize: 25,
-                                              color: Color.fromARGB(
-                                                  255, 26, 83, 92))),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                              ],
                             ),
                           );
-                        }, 
-                      );
-                                    }
-                                    else return Text("data");
-                                    
+                        }
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, int index) {
+                            DocumentSnapshot data = snapshot.data[index];
+
+                            return Center(
+                              child: InkWell(
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChildProfile(
+                                      childID: data["childID"], //update this
+                                    ),
+                                  ),
+                                ),
+                                child: Card(
+                                  elevation: 4,
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      color:
+                                          Theme.of(context).colorScheme.outline,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                  ),
+                                  color:
+                                      const Color.fromARGB(255, 244, 242, 201),
+                                  clipBehavior: Clip.hardEdge,
+                                  margin: EdgeInsets.all(20.0),
+                                  child: Container(
+                                    height: 150,
+                                    width: 600,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(data["profilePicture"]),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text("الاسم: " + data["name"] + "\n",
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: Color.fromARGB(
+                                                    255, 26, 83, 92))),
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Text(
+                                            "  \n عدد النقاط: " +
+                                                data["points"].toString(),
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: Color.fromARGB(
+                                                    255, 26, 83, 92))),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else
+                        return Text("");
                     }),
               ),
             ],
           ),
         ),
-  
         floatingActionButton: waiting
             ? FloatingActionButton(onPressed: null)
             : FloatingActionButton(

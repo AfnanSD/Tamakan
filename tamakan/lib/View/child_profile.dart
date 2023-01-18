@@ -8,8 +8,6 @@ import 'package:tamakan/View/exchange_points.dart';
 import 'package:tamakan/View/manage_family.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
-import 'package:tamakan/View/widgets/labels.dart';
-import 'package:tamakan/View/widgets/lable_grey.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -50,7 +48,7 @@ class _ChildProfileState extends State<ChildProfile> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: readingData
             ? const Center(
@@ -147,7 +145,7 @@ class _ChildProfileState extends State<ChildProfile> {
                             );
                           },
                           buttonLabel: 'استبدال نقاط طفلي',
-                          buttonColor: Color(0xff4ECDC4),
+                          buttonColor: const Color(0xff4ECDC4),
                         ),
                         ButtonWidget(
                           fun: () {
@@ -159,14 +157,14 @@ class _ChildProfileState extends State<ChildProfile> {
                                 ));
                           },
                           buttonLabel: 'تعديل الحساب',
-                          buttonColor: Color(0xff1A535C),
+                          buttonColor: const Color(0xff1A535C),
                         ),
                         ButtonWidget(
                           fun: () {
                             showCustomDialog(context);
                           },
                           buttonLabel: 'حذف الحساب',
-                          buttonColor: Color(0xffFF6B6B),
+                          buttonColor: const Color(0xffFF6B6B),
                         ),
                       ],
                     )
@@ -273,7 +271,9 @@ class _ChildProfileState extends State<ChildProfile> {
                                     .collection('children')
                                     .doc(child.childID)
                                     .delete();
-                                Navigator.push(
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const ManageFamily(),

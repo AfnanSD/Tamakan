@@ -51,8 +51,9 @@ class _parentprofileEditState extends State<parentprofileEdit> {
       fun: () async {
         AuthController().editProfile(userModel!.name, userModel!.email,
             userModel!.password, userModel!.gender, userModel!.birthdate);
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => parentprofileview()));
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => parentprofileview()));
+        Navigator.pop(context);
       },
       buttonLabel: 'حفظ التعديلات',
       buttonColor: Color(0xff4ECDC4),

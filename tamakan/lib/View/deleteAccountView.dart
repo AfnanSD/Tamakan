@@ -200,10 +200,11 @@ class _deleteAccountState extends State<deleteAccount> {
 
                             ///cancel button
                             ButtonWidget(
-                              fun: () => {
-                                Navigator.pushNamed(
-                                    context, '/parentprofileview')
-                              },
+                              fun: () => Navigator.pop(context),
+                              // {
+                              //   Navigator.pushNamed(
+                              //       context, '/parentprofileview')
+                              // },
                               buttonLabel: 'إلغاء',
                               buttonColor: Color(0xff4ECDC4),
                             ),

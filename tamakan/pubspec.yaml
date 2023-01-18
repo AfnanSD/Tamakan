@@ -59,8 +59,8 @@ dependencies:
   image_picker: ^0.8.6
   level_map: ^0.2.0
   responsive_sizer: ^3.1.1
-  just_audio: ^0.9.31
   quran: ^1.2.0
+  just_audio: ^0.9.31
 
 dev_dependencies:
   flutter_test:
