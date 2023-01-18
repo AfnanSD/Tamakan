@@ -139,9 +139,9 @@ class _parentprofileEditState extends State<parentprofileEdit> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [],
                           ),
-                          const SizedBox(
-                            height: 40,
-                          ),
+                          // const SizedBox(
+                          //   height: 40,
+                          // ),
 
                           Text(
                             'تعديل الملف الشخصي',

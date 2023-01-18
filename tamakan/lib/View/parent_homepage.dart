@@ -20,6 +20,7 @@ class ParentHomePage extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',

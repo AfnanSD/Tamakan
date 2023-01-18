@@ -47,6 +47,122 @@ class _parentprofileviewState extends State<parentprofileview> {
 
   @override
   Widget build(BuildContext context) {
+    final lougout = ButtonWidget(
+        fun: () => {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StatefulBuilder(
+                    builder: (context, setState) {
+                      return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0)),
+                          titlePadding: const EdgeInsets.all(0),
+                          title: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
+                                color: Color(0xffFF6B6B)),
+                            width: 300,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 25.0),
+                              child: Text(
+                                '! تحذير',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 239, 235, 208),
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                          scrollable: true,
+                          content: Container(
+                            child: Form(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'هل أنت متأكد من تسجيل الخروج؟',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              color: Color(0xffFF6B6B)),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 30),
+                                          child: Text(
+                                            'إلغاء',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      ///////
+                                      TextButton(
+                                        onPressed: () async {
+                                          try {
+                                            await FirebaseAuth.instance
+                                                .signOut();
+                                            EasyLoading.showSuccess(
+                                                '!تم تسجيل الخروج بنجاح');
+                                            EasyLoading.dismiss();
+                                            Navigator.pushNamed(
+                                                context, '/registerview');
+                                          } catch (e) {
+                                            print(e);
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              color: Color(0xffFF6B6B)),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 30),
+                                          child: Text(
+                                            'خروج',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ));
+                    },
+                  );
+                },
+              )
+            },
+        buttonLabel: ' تسجيل الخروج',
+        buttonColor: Color(0xff1A535C));
     //updata button
     final updataButton = ButtonWidget(
         fun: () => {
@@ -153,166 +269,9 @@ class _parentprofileviewState extends State<parentprofileview> {
               // ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20.0)),
-                                      titlePadding: const EdgeInsets.all(0),
-                                      title: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20)),
-                                            color: Color(0xffFF6B6B)),
-                                        width: 300,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 15.0, horizontal: 25.0),
-                                          child: Text(
-                                            '! تحذير',
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 239, 235, 208),
-                                              fontSize: 20,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      scrollable: true,
-                                      content: Container(
-                                        child: Form(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                'هل أنت متأكد من تسجيل الخروج؟',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 17,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          20)),
-                                                          color: Color(
-                                                              0xffFF6B6B)),
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 5,
-                                                          horizontal: 30),
-                                                      child: Text(
-                                                        'إلغاء',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  ///////
-                                                  TextButton(
-                                                    onPressed: () async {
-                                                      try {
-                                                        await FirebaseAuth
-                                                            .instance
-                                                            .signOut();
-                                                        EasyLoading.showSuccess(
-                                                            '!تم تسجيل الخروج بنجاح');
-                                                        EasyLoading.dismiss();
-                                                        Navigator.pushNamed(
-                                                            context,
-                                                            '/registerview');
-                                                      } catch (e) {
-                                                        print(e);
-                                                      }
-                                                      // AuthController()
-                                                      //     .logout();
-                                                    },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          20)),
-                                                          color: Color(
-                                                              0xffFF6B6B)),
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          vertical: 5,
-                                                          horizontal: 30),
-                                                      child: Text(
-                                                        'خروج',
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 20.0),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ));
-                                },
-                              );
-                            },
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.logout,
-                              size: 30,
-                            ),
-                            Text(
-                              'تسجيل الخروج',
-                              style: TextStyle(fontSize: 17),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-
-                  Text(
-                    'الملف الشخصي',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
+                  Text('   الملف الشخصي ',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline6),
 
                   const SizedBox(
                     height: 15,
@@ -397,10 +356,7 @@ class _parentprofileviewState extends State<parentprofileview> {
                                       height: 45,
                                     ),
                                     updataButton,
-                                    // SizedBox(
-                                    //   height: 15,
-                                    // ),
-
+                                    lougout,
                                     deleteButton,
                                   ],
                                 ),
