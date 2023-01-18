@@ -37,38 +37,16 @@ class _levelsState extends State<levels> {
   late Child child;
   late String level;
 
-  final _auth = FirebaseAuth.instance;
-  late User signedInUser;
-
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurrentUser();
     readChildData(widget.childID);
+    currentLevel(widget.childID);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (child.CurrentLevel < 8)
-      level = "الاول";
-    else if (child.CurrentLevel < 14)
-      level = "الثاني";
-    else if (child.CurrentLevel < 22)
-      level = "الثالث";
-    else if (child.CurrentLevel < 29)
-      level = "الرابع";
-    else if (child.CurrentLevel < 37)
-      level = "الخامس";
-    else if (child.CurrentLevel < 45)
-      level = "السادس";
-    else if (child.CurrentLevel < 52)
-      level = "السابع";
-    else if (child.CurrentLevel < 58)
-      level = "الثامن";
-    else if (child.CurrentLevel < 64)
-      level = "التاسع";
-    else
-      level = "العاشر";
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -118,16 +96,32 @@ class _levelsState extends State<levels> {
                       //     )
                       //   ],
                       // ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "احسنت لقد وصلت للمستوى ",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Color.fromARGB(255, 67, 65, 65)),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              " $level ",
+                              style: TextStyle(
+                                  fontSize: 30, color: Color(0xffFF6B6B)),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              " هيا استمر !",
+                              style: TextStyle(
+                                  fontSize: 30,
+                                  color: Color.fromARGB(255, 67, 65, 65)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ]),
 
-                      Text(
-                        " احسنت لقد وصلت للمستوى " +
-                            '${level}' +
-                            " هيا استمر !",
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Color.fromARGB(255, 67, 65, 65)),
-                        textAlign: TextAlign.center,
-                      ),
                       SizedBox(
                         height: 45,
                       ),
@@ -160,7 +154,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 1 &&
+                                                child.CurrentLevel <= 7
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -202,7 +199,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 8 &&
+                                                child.CurrentLevel <= 13
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -249,7 +249,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 14 &&
+                                                child.CurrentLevel <= 21
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -292,7 +295,10 @@ class _levelsState extends State<levels> {
                                           width: 800,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 22 &&
+                                                child.CurrentLevel <= 28
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -340,7 +346,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 29 &&
+                                                child.CurrentLevel <= 36
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -383,7 +392,10 @@ class _levelsState extends State<levels> {
                                           width: 800,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 37 &&
+                                                child.CurrentLevel <= 44
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -431,7 +443,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 45 &&
+                                                child.CurrentLevel <= 51
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -474,7 +489,10 @@ class _levelsState extends State<levels> {
                                           width: 800,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 52 &&
+                                                child.CurrentLevel <= 57
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -522,7 +540,10 @@ class _levelsState extends State<levels> {
                                           width: 600,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 58 &&
+                                                child.CurrentLevel <= 63
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -565,7 +586,10 @@ class _levelsState extends State<levels> {
                                           width: 800,
                                           fit: BoxFit.cover),
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: child.CurrentLevel >= 64 &&
+                                                child.CurrentLevel <= 70
+                                            ? Color.fromARGB(255, 253, 233, 210)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(20),
                                         boxShadow: [
                                           BoxShadow(
@@ -598,21 +622,10 @@ class _levelsState extends State<levels> {
     );
   }
 
-  void getCurrentUser() {
-    try {
-      final user = _auth.currentUser;
-      if (user != null) {
-        signedInUser = user;
-      }
-    } catch (e) {
-      EasyLoading.showError("حدث خطأ ما ....");
-    }
-  }
-
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc(signedInUser.email) //update this
+        .doc(FirebaseAuth.instance.currentUser!.email) //update this
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()
@@ -624,5 +637,40 @@ class _levelsState extends State<levels> {
         });
       }
     });
+  }
+
+  Future<void> currentLevel(String childID) async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc(FirebaseAuth.instance.currentUser!.email) //update this
+        .collection('children')
+        .where('childID', isEqualTo: childID)
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        child = Child.fromJson(element.data());
+      }
+    });
+
+    if (child.CurrentLevel >= 1 && child.CurrentLevel <= 7)
+      level = "الاول";
+    else if (child.CurrentLevel >= 8 && child.CurrentLevel <= 13)
+      level = "الثاني";
+    else if (child.CurrentLevel >= 14 && child.CurrentLevel <= 21)
+      level = "الثالث";
+    else if (child.CurrentLevel >= 22 && child.CurrentLevel <= 28)
+      level = "الرابع";
+    else if (child.CurrentLevel >= 29 && child.CurrentLevel <= 36)
+      level = "الخامس";
+    else if (child.CurrentLevel >= 37 && child.CurrentLevel <= 44)
+      level = "السادس";
+    else if (child.CurrentLevel >= 45 && child.CurrentLevel <= 51)
+      level = "السابع";
+    else if (child.CurrentLevel >= 52 && child.CurrentLevel <= 57)
+      level = "الثامن";
+    else if (child.CurrentLevel >= 58 && child.CurrentLevel <= 63)
+      level = "التاسع";
+    else
+      level = "العاشر";
   }
 }

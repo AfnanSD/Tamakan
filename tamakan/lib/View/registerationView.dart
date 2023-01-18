@@ -20,7 +20,7 @@ class registerationview extends StatefulWidget {
 }
 
 class _registerationviewState extends State<registerationview> {
-  late String p;
+  String p = "";
   //The variables that are going to store the values entered by the parent(user)
 
   DateTime date = DateTime(
@@ -115,9 +115,6 @@ class _registerationviewState extends State<registerationview> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 15,
-              ),
               Container(
                   child: Row(
                 children: [
