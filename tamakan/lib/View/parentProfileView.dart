@@ -130,7 +130,7 @@ class _parentprofileviewState extends State<parentprofileview> {
                                                 '!تم تسجيل الخروج بنجاح');
                                             EasyLoading.dismiss();
                                             Navigator.pushNamed(
-                                                context, '/registerview');
+                                                context, '/loginview');
                                           } catch (e) {
                                             print(e);
                                           }
