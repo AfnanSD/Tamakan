@@ -68,9 +68,9 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text('الانتقال الى الواجهة المخصصة للأطفال',
+                        Text('واجهة الأطفال',
                             style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 35,
                                 color: Color.fromARGB(255, 26, 83, 92))),
                       ],
                     ),
@@ -106,9 +106,9 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text('الاطلاع على ملفك الشخصي والتعديل عليه',
+                        Text('الملف الشخصي',
                             style: TextStyle(
-                                fontSize: 24,
+                                fontSize: 35,
                                 color: Color.fromARGB(255, 26, 83, 92))),
                       ],
                     ),
@@ -144,9 +144,9 @@ class ParentHomePage extends StatelessWidget {
                         SizedBox(
                           width: 10,
                         ),
-                        Text('إدارة أفراد عائلتك',
+                        Text('إدارة العائلة',
                             style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 35,
                                 color: Color.fromARGB(255, 26, 83, 92))),
                       ],
                     ),

@@ -13,6 +13,8 @@ import 'package:tamakan/View/levels.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
+import 'package:tamakan/View/quranMap.dart';
+
 
 import '../Model/child.dart';
 
@@ -82,7 +84,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () => print('quran'), // need update
+                              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Quran_map(),)), // need update
                               child: Card(
                                   child: Container(
                                     height: 150,

@@ -73,16 +73,18 @@ class _ManageFamily extends State<ManageFamily> {
                     future: getData(),
                     builder: (_, snapshot) {
                       final reqts = snapshot.data;
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
+                      // if (snapshot.connectionState == ConnectionState.waiting) {
+                      //   return Center(
+                      //     child: CircularProgressIndicator(),
+                      //   );
+                      // }
                       if (snapshot.hasError) {
                         return Center(
                           child: Text("حدث خطأ ما ...."),
                         );
                       }
+                                    if (snapshot.hasData) {
+
                       if (reqts.isEmpty) {
                         return Center(
                           child: Column(
@@ -155,13 +157,17 @@ class _ManageFamily extends State<ManageFamily> {
                               ),
                             ),
                           );
-                        },
+                        }, 
                       );
+                                    }
+                                    else return Text("data");
+                                    
                     }),
               ),
             ],
           ),
         ),
+  
         floatingActionButton: waiting
             ? FloatingActionButton(onPressed: null)
             : FloatingActionButton(
