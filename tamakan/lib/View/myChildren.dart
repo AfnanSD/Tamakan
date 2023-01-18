@@ -108,6 +108,30 @@ class _myChildren extends State<myChildren> {
               child: FutureBuilder(
                   future: getData(),
                   builder: (_, snapshot) {
+                    final reqts = snapshot.data;
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text("حدث خطأ ما ...."),
+                      );
+                    }
+                    if (reqts.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              'لم تقم بإضافة أطفالك بعد',
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (_, int index) {
