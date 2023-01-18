@@ -65,81 +65,104 @@ class _level1State extends State<level1> {
                       shadowColor: black),
                 ),
               ]),
-              SizedBox(height: 60),
+              SizedBox(
+                height: 60,
+              ),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 200),
-                  child: Row(
-                    children: [
-                      ElevatedButton(
-                        child: Text(
-                          '7',
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: red,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: widget.CurrentLevel >= 7
-                            ? () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LessonView(
-                                              lessonID: '7',
-                                              childID: widget.childId,
-                                            )));
-                              }
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: lightBlue,
-                            fixedSize: const Size(50, 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            shadowColor: black),
-                      )
-                    ],
-                  )),
-              widget.CurrentLevel >= 8
-                  ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 160),
-                      child: Row(children: [
-                        Image.asset(
-                          'assets/images/star1.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Image.asset(
-                          'assets/images/star3.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Image.asset(
-                          'assets/images/star2.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                      ]))
-                  : Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 160),
-                      child: Row(children: [
-                        Image.asset(
-                          'assets/images/star1gray.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Image.asset(
-                          'assets/images/star2gray.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Image.asset(
-                          'assets/images/star1gray.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                      ])),
+                padding: const EdgeInsets.only(
+                  right: 40,
+                ),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 0),
+                            child: Row(
+                              children: [
+                                ElevatedButton(
+                                  child: Text(
+                                    '7',
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color: red,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: widget.CurrentLevel >= 7
+                                      ? () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LessonView(
+                                                        lessonID: '7',
+                                                        childID: widget.childId,
+                                                      )));
+                                        }
+                                      : null,
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: lightBlue,
+                                      fixedSize: const Size(50, 50),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      shadowColor: black),
+                                ),
+                              ],
+                            )),
+                        widget.CurrentLevel >= 8
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 70),
+                                child: Row(children: [
+                                  Image.asset(
+                                    'assets/images/star1.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  Image.asset(
+                                    'assets/images/star3.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  Image.asset(
+                                    'assets/images/star2.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                ]))
+                            : Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 70),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/star1gray.png',
+                                      width: 40,
+                                      height: 40,
+                                    ),
+                                    Image.asset(
+                                      'assets/images/star2gray.png',
+                                      width: 40,
+                                      height: 40,
+                                    ),
+                                    Image.asset(
+                                      'assets/images/star1gray.png',
+                                      width: 40,
+                                      height: 40,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                      ],
+                    ),
+                    // SizedBox(
+                    //   width: 60,
+                    // ),
+                  ],
+                ),
+              ),
               SizedBox(height: 40),
               Row(children: [
-                SizedBox(width: 280),
+                SizedBox(width: 240),
                 Column(children: [
                   ElevatedButton(
                     child: Text(
@@ -203,7 +226,7 @@ class _level1State extends State<level1> {
                           ),
                         ]),
                 ]),
-                SizedBox(width: 120),
+                SizedBox(width: 20),
                 Column(children: [
                   ElevatedButton(
                     child: Text(
@@ -272,7 +295,7 @@ class _level1State extends State<level1> {
                 height: 35,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -424,7 +447,7 @@ class _level1State extends State<level1> {
                                 ),
                               ]),
                   ]),
-                  SizedBox(width: 75),
+                  SizedBox(width: 20),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -491,7 +514,7 @@ class _level1State extends State<level1> {
                                 ),
                               ]),
                       ]),
-                  SizedBox(width: 75),
+                  SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,

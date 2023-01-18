@@ -456,7 +456,7 @@ class _LessonViewState extends State<LessonView> {
                         SizedBox(
                           width: 20,
                         ),
-                        Text('الخريطة'),
+                        Text('المراحل'),
                       ],
                     ),
                   ),

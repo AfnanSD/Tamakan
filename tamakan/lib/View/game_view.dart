@@ -10,6 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
+import 'package:tamakan/View/levels.dart';
 
 import '../Model/child.dart';
 
@@ -310,70 +311,70 @@ class _GameViewState extends State<GameView> {
             .update({'points': child.points + 5});
 
         /////Ruba
-        if (int.parse(widget.practiceID) == 7.5) {
+        if (double.parse(widget.practiceID) == 7.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 8});
-        } else if (int.parse(widget.practiceID) == 13.5) {
+        } else if (double.parse(widget.practiceID) == 13.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 14});
-        } else if (int.parse(widget.practiceID) == 21.5) {
+        } else if (double.parse(widget.practiceID) == 21.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 22});
-        } else if (int.parse(widget.practiceID) == 28.5) {
+        } else if (double.parse(widget.practiceID) == 28.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 29});
-        } else if (int.parse(widget.practiceID) == 36.5) {
+        } else if (double.parse(widget.practiceID) == 36.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 37});
-        } else if (int.parse(widget.practiceID) == 44.5) {
+        } else if (double.parse(widget.practiceID) == 44.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 45});
-        } else if (int.parse(widget.practiceID) == 51.5) {
+        } else if (double.parse(widget.practiceID) == 51.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 52});
-        } else if (int.parse(widget.practiceID) == 57.5) {
+        } else if (double.parse(widget.practiceID) == 57.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 58});
-        } else if (int.parse(widget.practiceID) == 63.5) {
+        } else if (double.parse(widget.practiceID) == 63.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 64});
-        } else if (int.parse(widget.practiceID) == 70.5) {
+        } else if (double.parse(widget.practiceID) == 70.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
@@ -529,8 +530,13 @@ class _GameViewState extends State<GameView> {
                   primary: Color(0xff4ECDC4),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  // Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => levels(childID: widget.childID),
+                      ));
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -539,7 +545,7 @@ class _GameViewState extends State<GameView> {
                     SizedBox(
                       width: 20,
                     ),
-                    Text('الخريطة'),
+                    Text('المراحل'),
                   ],
                 ),
               ),
