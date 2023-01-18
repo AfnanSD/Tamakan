@@ -20,6 +20,7 @@ class registerationview extends StatefulWidget {
 }
 
 class _registerationviewState extends State<registerationview> {
+  late String p;
   //The variables that are going to store the values entered by the parent(user)
 
   DateTime date = DateTime(
@@ -185,6 +186,21 @@ class _registerationviewState extends State<registerationview> {
                           controller: _nameController,
                           myLabelText: 'الإسم',
                           myHintText: 'مثل: أمل',
+                          validator: (name) {
+                            RegExp regexname = RegExp(r'^.{2,}$');
+                            if (name!.isEmpty || name.trim().isEmpty)
+                              return "الرجاء أدخال الأسم";
+                            else if (!regexname.hasMatch(name)) {
+                              return "يجب ان يحتوي الأسم على حرفين على الأقل";
+                            } else if (!RegExp(r"^[\p{L} ,.'-]*$",
+                                    caseSensitive: false,
+                                    unicode: true,
+                                    dotAll: true)
+                                .hasMatch(name)) {
+                              return "يجب ان يحتوي الأسم على أحرف فقط";
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(
                           height: 15,
@@ -242,10 +258,16 @@ class _registerationviewState extends State<registerationview> {
                             child: Container(
                               margin:
                                   const EdgeInsets.only(right: 100, left: 100),
-                              child: TextField(
+                              child: TextFormField(
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.black54),
                                 controller: _dateController,
+                                validator: (bDate) {
+                                  if (bDate!.isEmpty || bDate.trim().isEmpty) {
+                                    return "الرجاء أدخال تاريخ الميلاد";
+                                  }
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -308,7 +330,20 @@ class _registerationviewState extends State<registerationview> {
                           controller: _emailController,
                           myLabelText: 'البريد الإلكتروني',
                           myHintText: 'admin@gmail.com',
-                          //myIcon: Icons.mail,
+                          validator: (email) {
+                            Pattern pattern =
+                                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                            RegExp regexemail = RegExp(pattern.toString());
+
+                            if (email!.isEmpty || email.trim().isEmpty) {
+                              return "الرجاء إدخال بريدك الإلكتروني";
+                            }
+
+                            if (!regexemail.hasMatch(email)) {
+                              return 'بريدك الإلكتروني غير صحيح';
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(
                           height: 15,
@@ -319,8 +354,24 @@ class _registerationviewState extends State<registerationview> {
                           myLabelText: 'كلمة المرور',
                           myHintText:
                               ' يجب ان تحتوي على الاقل من عشرة خانات من الارقام و الاحرف',
-                          //myIcon: Icons.lock,
                           obsecure: true,
+                          validator: (password) {
+                            print(password);
+                            p = password!;
+                            RegExp regexpass = new RegExp(r'^.{8,}$');
+                            if (password!.isEmpty || password.trim().isEmpty) {
+                              return "الرجاء تعيين كلمة مرور";
+                            }
+                            if (password.length < 8) {
+                              return 'الرجاء إدخال كلمة مرور تحتوي على 8 خانات';
+                            }
+                            if (!(password.contains(new RegExp(r'[A-Z]')) &&
+                                password.contains(new RegExp(r'[0-9]')) &&
+                                password.contains(new RegExp(r'[a-z]')))) {
+                              return 'الرجاء إدخال كلمة مرور تحتوي على حرف كبير وصغير ورقم';
+                            }
+                            return null;
+                          },
                         ),
                         SizedBox(
                           height: 15,
@@ -332,6 +383,14 @@ class _registerationviewState extends State<registerationview> {
                           myHintText:
                               'يجب ان تكون متطابقة مع كلمه المرور اعلاه',
                           obsecure: true,
+                          validator: (passward2) {
+                            print("ppp" + p);
+                            print(passward2);
+                            if (p != passward2) {
+                              return "يجب ان تكون كلمات المرور متطابقة";
+                            }
+                            return null;
+                          },
                         ),
                         //SIGN UP BUTTON
                         SizedBox(

@@ -6,7 +6,6 @@ class TextInputField extends StatelessWidget {
   final String? myHintText;
   final String? initilVlue;
   final bool? enabled;
-  //final IconData myIcon;
   final bool obsecure;
   final String? Function(String?)? validator;
   final Function? onCallBack;
@@ -20,6 +19,7 @@ class TextInputField extends StatelessWidget {
       this.onCallBack,
       this.initilVlue,
       this.enabled,
+
       //required this.myIcon,
       this.obsecure = false})
       : super(key: key);
@@ -31,6 +31,8 @@ class TextInputField extends StatelessWidget {
         child: Container(
           margin: const EdgeInsets.only(right: 100, left: 100),
           child: TextFormField(
+            //autovalidateMode: AutovalidateMode.always,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             initialValue: initilVlue,
             obscureText: obsecure,
             validator: validator,

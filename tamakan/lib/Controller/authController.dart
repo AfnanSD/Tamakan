@@ -29,7 +29,6 @@ class AuthController extends GetxController {
     bool hasUppercase = password.contains(new RegExp(r'[A-Z]'));
     bool hasDigits = password.contains(new RegExp(r'[0-9]'));
     bool hasLowercase = password.contains(new RegExp(r'[a-z]'));
-    //bool hasMinLength = password.length >= minLength;
 
     return hasDigits & hasUppercase & hasLowercase;
   }
@@ -67,66 +66,11 @@ class AuthController extends GetxController {
     String? gender,
     String bDate,
   ) async {
-    RegExp regexname = RegExp(r'^.{2,}$');
-
     try {
-      /////////////////////////////////////////////// if sumbit with all is empty
-
-      if (name.isEmpty ||
-          email.isEmpty ||
-          password.isEmpty ||
-          password2.isEmpty ||
-          bDate.isEmpty)
-        EasyLoading.showError('الرجاء إدخال جميع المعلومات المطلوبة');
-      else
-
-      ///validation to name
-
-      if (name.isEmpty || name.trim().isEmpty)
-        EasyLoading.showError("الرجاء أدخال الأسم");
-      else if (!regexname.hasMatch(name)) {
-        EasyLoading.showError("يجب ان يحتوي الأسم على حرفين على الأقل");
-      } else if (!RegExp(r"^[\p{L} ,.'-]*$",
-              caseSensitive: false, unicode: true, dotAll: true)
-          .hasMatch(name)) {
-        EasyLoading.showError("يجب ان يحتوي الأسم على أحرف فقط");
-      } /*else if (name.length > 10) {
-        EasyLoading.showError("الأسم المدخل غير صحيح");
-      } */
-      else
-
-        ///validation to email
-
-        Pattern pattern =
-            r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-      RegExp regexemail = RegExp(pattern.toString());
-
-      if (email.isEmpty || email.trim().isEmpty) {
-        EasyLoading.showError("الرجاء إدخال بريدك الإلكتروني");
-      }
-
-      if (!regexemail.hasMatch(email)) {
-        EasyLoading.showError('بريدك الإلكتروني غير صحيح');
-      } else
-        ////////////////////////////////////////////////// validation to password
-        RegExp regexpass = new RegExp(r'^.{8,}$');
-      if (password.isEmpty || password.trim().isEmpty) {
-        EasyLoading.showError("الرجاء تعيين كلمة مرور");
-      }
-
-      if (!isPasswordCompliant(password)) {
-        EasyLoading.showError(
-            'الرجاء إدخال كلمة مرور تحتوي على حرف كبير وصغير ورقم');
-      } else if (!isPasswordCompliant2(password)) {
-        EasyLoading.showError('    الرجاء إدخال كلمة مرور تحتوي على 8 خانات');
-      } else
-      ////////////////////////////////////////////////// validation to password2
-      // if (!identical(password, password2)) {
-      //   EasyLoading.showError("يجب ان تكون كلمات المرور متطابقة");
-      // } else
       ////validation to birthdate
       if (bDate.isEmpty || bDate.trim().isEmpty) {
         EasyLoading.showError("الرجاء أدخال تاريخ الميلاد");
+        return false;
       } else
 
       /// All good
@@ -134,7 +78,7 @@ class AuthController extends GetxController {
           email.isNotEmpty &&
           password.isNotEmpty &&
           bDate.isNotEmpty &&
-          identical(password, password2)) {
+          (password == password2)) {
         UserCredential credential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         UserModel user = UserModel(
@@ -182,7 +126,6 @@ class AuthController extends GetxController {
       EasyLoading.showError(_message);
       return false;
     }
-    return false;
   }
 
 //USER LOGIN
