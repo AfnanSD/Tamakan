@@ -38,6 +38,29 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_storage: ^11.0.7
   firebase_core: ^2.4.0
+  cloud_firestore: ^4.2.0
+  audioplayers: ^1.1.1
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
+  google_speech: ^2.1.1
+  permission_handler: ^10.2.0
+  downloads_path_provider_28: ^0.1.2
+  loading_indicator: ^3.1.0
+  rxdart: ^0.27.7
+  sound_stream: ^0.3.0
+  intl: ^0.18.0
+  better_player: ^0.0.83
+  font_awesome_flutter: ^10.3.0
+  firebase_auth: ^4.2.1
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+  url_launcher: ^6.1.7
+  flutter_profile_picture: ^2.0.0
+  image_picker: ^0.8.6
+  level_map: ^0.2.0
+  responsive_sizer: ^3.1.1
+  quran: ^1.2.0
+  just_audio: ^0.9.31
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +85,57 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+   - assets/images/road.jpg
+   - assets/images/first.png
+   - assets/images/s .png
+   - assets/images/t .png
+   - assets/images/four.png 
+   - assets/images/five.png
+   - assets/images/six.png
+   - assets/images/seven.png
+   - assets/images/eight.png
+   - assets/images/nine.png
+   - assets/images/ten.png
+   - assets/images/droppedlogo.png
+   - assets/images/tutle.png
+   - assets/images/mapbackground.png
+   - assets/images/panda.png
+   - assets/images/logo3.png
+   - assets/images/star1gray.png
+   - assets/images/star2gray.png
+   - assets/images/b2.png
+   - assets/images/background.png
+   - assets/images/lightbulb.png
+   - assets/images/mic.png
+   - assets/images/trophy.png
+   - assets/images/star1.png
+   - assets/images/star2.png
+   - assets/images/star3.png
+   - assets/images/crocodile.png
+   - assets/images/lion.png
+   - assets/images/owl.png
+   - assets/images/pigeon.png
+   - assets/images/hand.png
+   - assets/images/book.png
+   - assets/images/location.png
+   - assets/images/mushroom.png
+   - assets/images/red-maple-leaf.png
+   - assets/images/snowflake.png
+   - assets/images/snowy-pine-trees.png
+   - assets/images/sun.png
+   - assets/images/yellow-flower.png
+   - assets/images/listen.png
+   - assets/images/welcome.png
+   - assets/images/sadFace.png
+   - assets/images/resetpassword.png
+   - assets/images/password.png
+   - assets/images/login.png
+   - assets/images/register.png
+   - assets/images/r3.png
+   - assets/images/rabbit.png
+   - assets/images/coupon.png
+   - assets/test_service_account.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
