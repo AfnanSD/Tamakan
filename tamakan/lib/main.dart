@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tamakan/View/child_homepage.dart';
 
-import 'package:tamakan/View/game.dart';
-import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/parent_homepage.dart';
-import 'package:tamakan/View/temp.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -51,7 +48,7 @@ class MyApp extends StatelessWidget {
         '/ParentProfile': (BuildContext context) => ParentHomePage(),
         '/parentprofileview': (BuildContext context) => parentprofileview(),
       },
-      home:  loginview(), //MyHomePage(),
+      home: loginview(), //MyHomePage(),
       builder: EasyLoading.init(),
     );
   }

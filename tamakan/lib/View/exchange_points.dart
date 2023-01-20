@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -334,7 +336,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                     child: Text(
                       'هل أنت متأكد من استبدال ${couponPoints} نقطة بقسيمة ${name} ؟',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ),
                   Row(
@@ -345,7 +347,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                           child: ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xffFF6B6B)),
+                                  const Color(0xffFF6B6B)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -356,7 +358,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Center(child: Text('الغاء')),
+                            child: const Center(child: Text('الغاء')),
                           ),
                         ),
                       ),
@@ -366,7 +368,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                           child: ElevatedButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0xff4ECDC4)),
+                                  const Color(0xff4ECDC4)),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -385,7 +387,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                                 ),
                               );
                             },
-                            child: Center(child: Text('تأكيد')),
+                            child: const Center(child: Text('تأكيد')),
                           ),
                         ),
                       ),

@@ -7,21 +7,20 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
-import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/learning_map2.dart';
-import 'package:tamakan/View/level1.dart';
-import 'package:tamakan/View/level10.dart';
-import 'package:tamakan/View/level2.dart';
-import 'package:tamakan/View/level3.dart';
-import 'package:tamakan/View/level4.dart';
-import 'package:tamakan/View/level5.dart';
-import 'package:tamakan/View/level6.dart';
-import 'package:tamakan/View/level7.dart';
-import 'package:tamakan/View/level8.dart';
-import 'package:tamakan/View/level9.dart';
+import 'package:tamakan/View/levels/level1.dart';
+import 'package:tamakan/View/levels/level10.dart';
+import 'package:tamakan/View/levels/level2.dart';
+import 'package:tamakan/View/levels/level3.dart';
+import 'package:tamakan/View/levels/level4.dart';
+import 'package:tamakan/View/levels/level5.dart';
+import 'package:tamakan/View/levels/level6.dart';
+import 'package:tamakan/View/levels/level7.dart';
+import 'package:tamakan/View/levels/level8.dart';
+import 'package:tamakan/View/levels/level9.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
-import '../Model/child.dart';
+import '../../Model/child.dart';
 
 class levels extends StatefulWidget {
   const levels({super.key, required this.childID});

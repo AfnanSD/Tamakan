@@ -1,20 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/route_manager.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
-import 'package:tamakan/View/learning_map.dart';
-import 'package:tamakan/View/learning_map2.dart';
-import 'package:tamakan/View/levels.dart';
+import 'package:tamakan/View/levels/levels.dart';
+import 'package:tamakan/View/resetPasswordView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
-import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 import 'package:tamakan/View/quranMap.dart';
-
 
 import '../Model/child.dart';
 
@@ -84,7 +77,10 @@ class _ChildHomePageState extends State<ChildHomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             InkWell(
-                              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => Quran_map(),)), // need update
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Quran_map(),
+                              )), // need update
                               child: Card(
                                   child: Container(
                                     height: 150,
@@ -177,8 +173,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
                               ),
                             ),
                             InkWell(
-                              onTap: () =>
-                                  parentPasswordDialog(context), //need update
+                              onTap: () => parentPasswordDialog(context),
                               child: Card(
                                   color:
                                       const Color.fromARGB(255, 213, 247, 245),
@@ -240,7 +235,7 @@ class _ChildHomePageState extends State<ChildHomePage> {
   }
 
   parentPasswordDialog(BuildContext context) {
-    final _passwordController = TextEditingController();
+    final passwordController = TextEditingController();
     var errorMessage = '';
     showDialog(
       context: context,
@@ -268,43 +263,92 @@ class _ChildHomePageState extends State<ChildHomePage> {
                     height: 20,
                   ),
                   TextInputField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     obsecure: true,
                     myLabelText: 'كلمة المرور',
                     myHintText: '********',
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: Container(
+                          padding: const EdgeInsets.all(7),
+                          width: 170,
+                          child: const Center(
+                            child: Text(
+                              'إلغاء',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () {
-                      if (_passwordController.text == parentPassword) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      } else {
-                        setState(() {
-                          errorMessage = 'كلمة المرور خاطئة';
-                        });
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(7),
-                      child: Center(
-                          child: Text(
-                        'تأكيد',
-                        style: TextStyle(fontSize: 15),
-                        //style: TextStyle(color: Color.fromARGB(255, 71, 81, 80)),
-                      )),
-                      width: 200,
-                    ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color(0xff4ECDC4)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (passwordController.text == parentPassword) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          } else {
+                            setState(() {
+                              errorMessage = 'كلمة المرور خاطئة';
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(7),
+                          width: 170,
+                          child: const Center(
+                            child: Text(
+                              'تأكيد',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => resetPasswordView(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'هل نسيت كلمة المرور؟',
+                        style: TextStyle(fontSize: 17),
+                      )),
                 ],
               ),
             ),

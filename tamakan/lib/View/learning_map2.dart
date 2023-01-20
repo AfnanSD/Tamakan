@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tamakan/View/game.dart';
 import 'package:tamakan/View/google_speech_mic.dart';
-import 'package:tamakan/View/lesson.dart';
 
 bool pass = false;
 Color lightBlue = Color.fromARGB(255, 213, 247, 245);
@@ -56,13 +54,13 @@ class _LearningMap2State extends State<LearningMap2> {
                           ),
                           onPressed: pass == false
                               ? () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Lesson(
-                                                lessonID: '1',
-                                                childID: widget.childId,
-                                              )));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => Lesson(
+                                  //               lessonID: '1',
+                                  //               childID: widget.childId,
+                                  //             )));
                                 }
                               : null,
                           style: ElevatedButton.styleFrom(
@@ -128,13 +126,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == false
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '2',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '2',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -200,13 +198,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == false
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '3',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '3',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -272,13 +270,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == true
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '4',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '4',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -344,13 +342,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == true
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '5',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '5',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -416,13 +414,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == true
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '6',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '6',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -488,13 +486,13 @@ class _LearningMap2State extends State<LearningMap2> {
                       ),
                       onPressed: pass == true
                           ? () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lesson(
-                                            lessonID: '7',
-                                            childID: widget.childId,
-                                          )));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => Lesson(
+                              //               lessonID: '7',
+                              //               childID: widget.childId,
+                              //             )));
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -556,14 +554,14 @@ class _LearningMap2State extends State<LearningMap2> {
                         scale: 0.5,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Game(
-                                practiceID: '7.5',
-                                childID: widget.childId,
-                              ),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => Game(
+                        //         practiceID: '7.5',
+                        //         childID: widget.childId,
+                        //       ),
+                        //     ));
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 255, 243, 208),

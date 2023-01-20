@@ -62,11 +62,6 @@ class _AddChildState extends State<AddChild> {
               'assets/images/droppedlogo.png',
               scale: 0.5,
             ),
-            IconButton(
-              icon: Icon(Icons.logout),
-              //need update
-              onPressed: (() => print('log out')),
-            ),
           ],
           backgroundColor: Color(0xffFF6B6B),
         ),

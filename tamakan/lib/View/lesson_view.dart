@@ -11,7 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
-import 'package:tamakan/View/levels.dart';
+import 'package:tamakan/View/levels/levels.dart';
 
 import '../Model/child.dart';
 

@@ -180,6 +180,7 @@ class _myChildren extends State<myChildren> {
                                                                 1] ==
                                                             data[
                                                                 'passwordPicture2']) {
+                                                      Navigator.pop(context);
                                                       Navigator.pushReplacement(
                                                           context,
                                                           MaterialPageRoute(
