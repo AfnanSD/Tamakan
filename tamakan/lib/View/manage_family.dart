@@ -159,8 +159,9 @@ class _ManageFamily extends State<ManageFamily> {
                             );
                           },
                         );
-                      } else
-                        return Text("");
+                      } else {
+                        return const Center(child: Text(""));
+                      }
                     }),
               ),
             ],
