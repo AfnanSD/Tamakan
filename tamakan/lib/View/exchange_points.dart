@@ -379,13 +379,15 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                             onPressed: () {
                               exchangeCoupon(name, amount, couponPoints);
                               // SendEmail(name, couponPoints);
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ManageFamily(),
-                                ),
-                              );
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                              // Navigator.pushReplacement(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const ManageFamily(),
+                              //   ),
+                              // );
                             },
                             child: const Center(child: Text('تأكيد')),
                           ),

@@ -8,8 +8,6 @@ import 'dart:ui' as ui;
 import 'package:tamakan/Model/child.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 
-import 'manage_family.dart';
-
 class AddChild extends StatefulWidget {
   const AddChild({super.key});
 
@@ -38,17 +36,16 @@ class _AddChildState extends State<AddChild> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
 
-  late List<String> childrenPics = List<String>.empty(growable: true);
+  late List<String> childrenNames = List<String>.empty(growable: true);
 
   late List<String> passwordPictureSequence = ['', ''];
   int passwordPictureSequenceIndex = 0;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCurrentUser();
-    //getChildrenProfilePics();
+    getChildrenNames();
   }
 
   @override
@@ -63,7 +60,7 @@ class _AddChildState extends State<AddChild> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -72,7 +69,7 @@ class _AddChildState extends State<AddChild> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Text(
                       'إضافة طفل',
                       style: Theme.of(context).textTheme.headline6,
@@ -81,23 +78,23 @@ class _AddChildState extends State<AddChild> {
                   Column(
                     children: [
                       Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 235, 235, 235),
+                        ),
                         child: profilePictureChoosen
                             ? Image.asset(
                                 profilePicture,
                                 scale: 1.2,
                               )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
+                            : const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: Icon(
                                   Icons.person,
                                   size: 200,
                                   color: Colors.grey,
                                 ),
                               ),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 235, 235, 235),
-                        ),
                       ),
                       TextButton(
                         child: Text(
@@ -127,7 +124,7 @@ class _AddChildState extends State<AddChild> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
                     child: TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'اسم طفلك',
                         labelStyle: TextStyle(
                           color: Color.fromARGB(255, 90, 122, 149),
@@ -137,6 +134,9 @@ class _AddChildState extends State<AddChild> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'الرجاء إدخال اسم الطفل';
+                        } else if (childrenNames
+                            .any((element) => element == value)) {
+                          return 'اسم الطفل موجود سابقا';
                         }
                         return null;
                       },
@@ -146,7 +146,7 @@ class _AddChildState extends State<AddChild> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 10),
                     child: TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'تاريخ ميلاده',
                         labelStyle: TextStyle(
                           color: Color.fromARGB(255, 90, 122, 149),
@@ -163,13 +163,13 @@ class _AddChildState extends State<AddChild> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('كلمة السر لطفلك'),
+                            const Text('كلمة السر لطفلك'),
                             Text(
                               !oneSelected && submit
                                   ? 'الرجاء اختيار كلمة سر'
@@ -188,20 +188,20 @@ class _AddChildState extends State<AddChild> {
                                             shape: BoxShape.circle),
                                         height: 55,
                                         width: 55,
-                                        margin: EdgeInsets.all(2),
-                                        padding: EdgeInsets.all(3),
+                                        margin: const EdgeInsets.all(2),
+                                        padding: const EdgeInsets.all(3),
                                         child: (e != '')
                                             ? Image.asset(
                                                 e,
                                                 fit: BoxFit.cover,
                                               )
-                                            : Text('')))
+                                            : const Text('')))
                                     .toList()
                               ],
                             )
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 40,
                         ),
                         Column(
@@ -212,7 +212,7 @@ class _AddChildState extends State<AddChild> {
                                 'assets/images/mushroom.png', 1),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Column(
@@ -223,7 +223,7 @@ class _AddChildState extends State<AddChild> {
                                 'assets/images/snowflake.png', 3),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         Column(
@@ -239,7 +239,7 @@ class _AddChildState extends State<AddChild> {
                   ButtonWidget(
                     fun: submitData,
                     buttonLabel: 'إضافة',
-                    buttonColor: Color(0xffFF6B6B),
+                    buttonColor: const Color(0xffFF6B6B),
                   )
                 ],
               ),
@@ -273,7 +273,7 @@ class _AddChildState extends State<AddChild> {
           .doc(signedInUser.email)
           .collection('children')
           .doc();
-      Child child = new Child(
+      Child child = Child(
         childID: docRef.id,
         name: nameController.text,
         birthDate: birthDate!,
@@ -295,7 +295,7 @@ class _AddChildState extends State<AddChild> {
   }
 
   void presentDatePicker() {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),
@@ -312,24 +312,6 @@ class _AddChildState extends State<AddChild> {
 
   Widget PassowordIconButton(String asset, int index) {
     return InkWell(
-      child: Container(
-        height: 120,
-        width: 120,
-        child: Image.asset(asset),
-        decoration: selected[index]
-            ? BoxDecoration(
-                border: Border.all(color: Color.fromARGB(255, 191, 189, 189)),
-                shape: BoxShape.circle,
-                color: Color.fromARGB(255, 235, 235, 235),
-                boxShadow: [
-                    BoxShadow(
-                        color: Color.fromARGB(255, 225, 223, 223),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: const Offset(0, 15))
-                  ])
-            : BoxDecoration(),
-      ),
       onTap: () {
         setState(() {
           selected.fillRange(0, 6, false);
@@ -338,52 +320,53 @@ class _AddChildState extends State<AddChild> {
           passwordPictureSequence[passwordPictureSequenceIndex] = asset;
           oneSelected = passwordPictureSequence[1].isNotEmpty;
           passwordPictureSequenceIndex++;
-          if (passwordPictureSequenceIndex == 2)
+          if (passwordPictureSequenceIndex == 2) {
             passwordPictureSequenceIndex = 0;
+          }
         });
       },
       splashColor: Colors.white,
+      child: Container(
+        height: 120,
+        width: 120,
+        decoration: selected[index]
+            ? BoxDecoration(
+                border:
+                    Border.all(color: const Color.fromARGB(255, 191, 189, 189)),
+                shape: BoxShape.circle,
+                color: const Color.fromARGB(255, 235, 235, 235),
+                boxShadow: const [
+                    BoxShadow(
+                        color: Color.fromARGB(255, 225, 223, 223),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: Offset(0, 15))
+                  ])
+            : const BoxDecoration(),
+        child: Image.asset(asset),
+      ),
     );
   }
 
   void selectProfilePic(BuildContext context) {
-    // print(availableProfilePics
-    //         .toSet()
-    //         .difference(childrenPics.toSet())
-    //         .toList()
-    //         .toString() +
-    //     "888");
-    // List<String> diff =
-    //     availableProfilePics.toSet().difference(childrenPics.toSet()).toList();
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return Container(
-            child: GridView.builder(
-              itemCount: 4 - childrenPics.length,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 0,
-                  maxCrossAxisExtent: 350),
-              itemBuilder: (context, index) {
-                return slectProfilePicture(availableProfilePics[index]);
-              },
-            ),
+          return GridView.builder(
+            itemCount: 4,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0,
+                maxCrossAxisExtent: 350),
+            itemBuilder: (context, index) {
+              return slectProfilePicture(availableProfilePics[index]);
+            },
           );
         });
   }
 
   Widget slectProfilePicture(String asset) {
     return InkWell(
-      child: Container(
-        //padding: EdgeInsets.all(10),
-        // height: 100,
-        // width: 100,
-        child: Image.asset(
-          asset,
-          scale: 1.3,
-        ),
-      ),
       onTap: () {
         setState(() {
           profilePictureChoosen = true;
@@ -392,20 +375,23 @@ class _AddChildState extends State<AddChild> {
         Navigator.pop(context);
       },
       splashColor: Colors.white,
+      child: Image.asset(
+        asset,
+        scale: 1.3,
+      ),
     );
   }
 
-  // Future<void> getChildrenProfilePics() async {
-  //   await FirebaseFirestore.instance
-  //       .collection('parent')
-  //       .doc(signedInUser.email)
-  //       .collection('children')
-  //       .get()
-  //       .then((value) {
-  //     for (var element in value.docs) {
-  //       childrenPics.add(element['profilePicture']);
-  //     }
-  //     print(childrenPics);
-  //   });
-  // }
+  Future<void> getChildrenNames() async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc(signedInUser.email)
+        .collection('children')
+        .get()
+        .then((value) {
+      for (var element in value.docs) {
+        childrenNames.add(element['name']);
+      }
+    });
+  }
 }
