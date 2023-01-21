@@ -52,16 +52,16 @@ class _ManageFamily extends State<ManageFamily> {
       child: Scaffold(
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-              iconTheme: IconThemeData(
-            color: Color(0xff1A535C),
+              iconTheme: const IconThemeData(
+            color: Colors.white,
           )),
           child: CurvedNavigationBar(
-            color: Color(0xff4ECDC4),
+            color: const Color(0xffFF6B6B),
             index: 0,
             height: 60,
             animationCurve: Curves.easeInOut,
             backgroundColor: Colors.transparent,
-            items: <Widget>[
+            items: const <Widget>[
               Icon(Icons.people_alt, size: 30),
               Icon(Icons.home, size: 30),
               Icon(Icons.person, size: 30),
@@ -105,7 +105,7 @@ class _ManageFamily extends State<ManageFamily> {
               Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  'قائمة أطفالك',
+                  'إدارة عائلتي',
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),

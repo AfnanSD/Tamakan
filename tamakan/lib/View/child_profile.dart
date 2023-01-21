@@ -126,6 +126,48 @@ class _ChildProfileState extends State<ChildProfile> {
                               ],
                             ),
                           ),
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(16.0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 150,
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Text(
+                                    'كلمة المرور :',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      shape: BoxShape.circle),
+                                  width: 55,
+                                  height: 55,
+                                  margin: const EdgeInsets.all(2),
+                                  padding: const EdgeInsets.all(2),
+                                  child: Image.asset(
+                                    child.passwordPicture1!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      shape: BoxShape.circle),
+                                  width: 55,
+                                  height: 55,
+                                  margin: const EdgeInsets.all(2),
+                                  padding: const EdgeInsets.all(2),
+                                  child: Image.asset(
+                                    child.passwordPicture2!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -280,7 +322,7 @@ class _ChildProfileState extends State<ChildProfile> {
                                   ),
                                 );
                               },
-                              child: Center(child: Text('تأكيد')),
+                              child: const Center(child: Text('تأكيد')),
                             ),
                           ),
                         ),

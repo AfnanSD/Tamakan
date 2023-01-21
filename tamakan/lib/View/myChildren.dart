@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:tamakan/View/parentProfileView.dart';
+import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
 import 'child_homepage.dart';
 import 'manage_family.dart';
+import 'resetPasswordView.dart';
 
 class myChildren extends StatefulWidget {
   const myChildren({super.key});
@@ -21,6 +23,8 @@ class myChildren extends StatefulWidget {
 class _myChildren extends State<myChildren> {
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
+
+  late String parentPassword;
 
   late List<String> passwordPictureSequence = ['', ''];
   int passwordPictureSequenceIndex = 0;
@@ -52,6 +56,7 @@ class _myChildren extends State<myChildren> {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    getCurrentUserData();
   }
 
   Widget PassowordIconButton(String asset, Function setModalState,
@@ -106,16 +111,16 @@ class _myChildren extends State<myChildren> {
       child: Scaffold(
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-              iconTheme: IconThemeData(
+              iconTheme: const IconThemeData(
             color: Color(0xff1A535C),
           )),
           child: CurvedNavigationBar(
-            color: Color(0xff4ECDC4),
+            color: const Color(0xff4ECDC4),
             index: 1,
             height: 60,
             animationCurve: Curves.easeInOut,
             backgroundColor: Colors.transparent,
-            items: <Widget>[
+            items: const <Widget>[
               Icon(Icons.people_alt, size: 30),
               Icon(Icons.home, size: 30),
               Icon(Icons.person, size: 30),
@@ -448,5 +453,139 @@ class _myChildren extends State<myChildren> {
         ),
       ),
     );
+  }
+
+//not used yet - maybe later or delete
+  parentPasswordDialog(BuildContext context, Function navigate) {
+    final passwordController = TextEditingController();
+    var errorMessage = '';
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) => Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    ': الرجاء إدخال كلمة مرور الوالد',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  Text(
+                    errorMessage,
+                    style: TextStyle(color: Theme.of(context).errorColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextInputField(
+                    controller: passwordController,
+                    obsecure: true,
+                    myLabelText: 'كلمة المرور',
+                    myHintText: '********',
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: Container(
+                          padding: const EdgeInsets.all(7),
+                          width: 170,
+                          child: const Center(
+                            child: Text(
+                              'إلغاء',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color(0xff4ECDC4)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (passwordController.text == parentPassword) {
+                            // Navigator.pop(context);
+                            // Navigator.pop(context);
+                            navigate;
+                          } else {
+                            setState(() {
+                              errorMessage = 'كلمة المرور خاطئة';
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(7),
+                          width: 170,
+                          child: const Center(
+                            child: Text(
+                              'تأكيد',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => resetPasswordView(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'هل نسيت كلمة المرور؟',
+                        style: TextStyle(fontSize: 17),
+                      )),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> getCurrentUserData() async {
+    await FirebaseFirestore.instance
+        .collection('parent')
+        .doc(signedInUser.email)
+        .get()
+        .then((value) => parentPassword = value['password']);
   }
 }

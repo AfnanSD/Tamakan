@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +22,12 @@ class _EditChildProfileState extends State<EditChildProfile> {
   var readingData = true;
   late Child child;
 
+  late String passwordOne;
+  late String passwordTwo;
+  var selected = [false, false, false, false, false, false]; //for passwrod
+  var oneTurn = true;
+  var editPassword = false;
+
   final _auth = FirebaseAuth.instance;
   late User signedInUser;
 
@@ -43,7 +48,6 @@ class _EditChildProfileState extends State<EditChildProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getCurrentUser();
     readChildData(widget.childID);
@@ -62,10 +66,10 @@ class _EditChildProfileState extends State<EditChildProfile> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: readingData
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SingleChildScrollView(
@@ -75,7 +79,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           child: Text(
                             'تعديل حساب طفلي',
                             style: Theme.of(context).textTheme.headline6,
@@ -105,16 +109,16 @@ class _EditChildProfileState extends State<EditChildProfile> {
                           child: Row(
                             children: [
                               Container(
-                                width: 100,
+                                width: 150,
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: const Text(
                                   'اسم الطفل :',
-                                  style: TextStyle(fontSize: 15),
+                                  style: TextStyle(fontSize: 20),
                                 ),
                               ),
                               Expanded(
                                 child: TextFormField(
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                   ),
                                   controller: nameController,
@@ -135,11 +139,11 @@ class _EditChildProfileState extends State<EditChildProfile> {
                           child: Row(
                             children: [
                               Container(
-                                width: 100,
+                                width: 150,
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
+                                child: const Text(
                                   'تاريح الميلاد :',
-                                  style: TextStyle(fontSize: 15),
+                                  style: TextStyle(fontSize: 20),
                                 ),
                               ),
                               Expanded(
@@ -147,7 +151,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                                   // initialValue:
                                   //     DateFormat.yMd().format(child.birthDate),
                                   controller: _birthDateController,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: OutlineInputBorder(),
                                   ),
                                   onTap: presentDatePicker,
@@ -162,15 +166,165 @@ class _EditChildProfileState extends State<EditChildProfile> {
                             ],
                           ),
                         ),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 150,
+                                padding: const EdgeInsets.all(8.0),
+                                child: const Text(
+                                  'كلمة المرور :',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    shape: BoxShape.circle),
+                                width: 55,
+                                height: 55,
+                                margin: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(2),
+                                child: Image.asset(
+                                  passwordOne,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    shape: BoxShape.circle),
+                                width: 55,
+                                height: 55,
+                                margin: const EdgeInsets.all(2),
+                                padding: const EdgeInsets.all(2),
+                                child: Image.asset(
+                                  passwordTwo,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const Expanded(
+                                child: SizedBox(),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    editPassword = !editPassword;
+                                  });
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        editPassword
+                            ? Card(
+                                margin:
+                                    const EdgeInsets.only(left: 20, right: 150),
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        width: 40,
+                                      ),
+                                      Column(
+                                        children: [
+                                          PassowordIconButton(
+                                              'assets/images/yellow-flower.png',
+                                              0),
+                                          PassowordIconButton(
+                                              'assets/images/mushroom.png', 1),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        children: [
+                                          PassowordIconButton(
+                                              'assets/images/red-maple-leaf.png',
+                                              2),
+                                          PassowordIconButton(
+                                              'assets/images/snowflake.png', 3),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        children: [
+                                          PassowordIconButton(
+                                              'assets/images/snowy-pine-trees.png',
+                                              4),
+                                          PassowordIconButton(
+                                              'assets/images/sun.png', 5),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const Text(''),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         ButtonWidget(
                             fun: submitData,
-                            buttonLabel: 'تعديل',
-                            buttonColor: Color(0xffFF6B6B)),
+                            buttonLabel: 'حفظ التعديلات',
+                            buttonColor: const Color(0xffFF6B6B)),
                       ],
                     ),
                   ),
                 ),
               ),
+      ),
+    );
+  }
+
+  Widget PassowordIconButton(String asset, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selected.fillRange(0, 6, false);
+          selected[index] = !selected[index];
+          if (oneTurn) {
+            passwordOne = asset;
+          } else {
+            passwordTwo = asset;
+          }
+          oneTurn = !oneTurn;
+        });
+      },
+      splashColor: Colors.white,
+      child: Container(
+        height: 80,
+        width: 80,
+        decoration: selected[index]
+            ? BoxDecoration(
+                border:
+                    Border.all(color: const Color.fromARGB(255, 191, 189, 189)),
+                shape: BoxShape.circle,
+                color: const Color.fromARGB(255, 235, 235, 235),
+                boxShadow: const [
+                    BoxShadow(
+                        color: Color.fromARGB(255, 225, 223, 223),
+                        spreadRadius: 1,
+                        blurRadius: 10,
+                        offset: Offset(0, 4))
+                  ])
+            : const BoxDecoration(),
+        child: Image.asset(asset),
       ),
     );
   }
@@ -190,7 +344,9 @@ class _EditChildProfileState extends State<EditChildProfile> {
       docRef.update({
         'name': nameController.text,
         'profilePicture': profilePicture,
-        'birthDate': birthDate
+        'birthDate': birthDate,
+        'passwordPicture1': passwordOne,
+        'passwordPicture2': passwordTwo,
       });
       Navigator.pop(context);
       Navigator.pushReplacement(
@@ -203,7 +359,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
   }
 
   void presentDatePicker() {
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
     showDatePicker(
             context: context,
             initialDate: DateTime.now(),
@@ -219,28 +375,18 @@ class _EditChildProfileState extends State<EditChildProfile> {
   }
 
   void selectProfilePic(BuildContext context) {
-    // print(availableProfilePics
-    //         .toSet()
-    //         .difference(childrenPics.toSet())
-    //         .toList()
-    //         .toString() +
-    //     "888");
-    // List<String> diff =
-    //     availableProfilePics.toSet().difference(childrenPics.toSet()).toList();
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return Container(
-            child: GridView.builder(
-              itemCount: 4 - childrenPics.length,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  mainAxisSpacing: 0,
-                  crossAxisSpacing: 0,
-                  maxCrossAxisExtent: 350),
-              itemBuilder: (context, index) {
-                return slectProfilePicture(availableProfilePics[index]);
-              },
-            ),
+          return GridView.builder(
+            itemCount: 4 - childrenPics.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                mainAxisSpacing: 0,
+                crossAxisSpacing: 0,
+                maxCrossAxisExtent: 350),
+            itemBuilder: (context, index) {
+              return slectProfilePicture(availableProfilePics[index]);
+            },
           );
         });
   }
@@ -262,15 +408,6 @@ class _EditChildProfileState extends State<EditChildProfile> {
 
   Widget slectProfilePicture(String asset) {
     return InkWell(
-      child: Container(
-        //padding: EdgeInsets.all(10),
-        // height: 100,
-        // width: 100,
-        child: Image.asset(
-          asset,
-          scale: 1.3,
-        ),
-      ),
       onTap: () {
         setState(() {
           profilePicture = asset;
@@ -278,6 +415,10 @@ class _EditChildProfileState extends State<EditChildProfile> {
         Navigator.pop(context);
       },
       splashColor: Colors.white,
+      child: Image.asset(
+        asset,
+        scale: 1.3,
+      ),
     );
   }
 
@@ -309,6 +450,8 @@ class _EditChildProfileState extends State<EditChildProfile> {
           _birthDateController.text =
               DateFormat('yyyy/MM/dd').format(child.birthDate);
           birthDate = child.birthDate;
+          passwordOne = child.passwordPicture1!;
+          passwordTwo = child.passwordPicture2!;
         });
       }
     });
