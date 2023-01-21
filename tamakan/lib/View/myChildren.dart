@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:tamakan/View/parentProfileView.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
 import 'child_homepage.dart';
+import 'manage_family.dart';
 
 class myChildren extends StatefulWidget {
   const myChildren({super.key});
@@ -101,7 +104,46 @@ class _myChildren extends State<myChildren> {
     return Directionality(
       textDirection: ui.TextDirection.rtl,
       child: Scaffold(
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+              iconTheme: IconThemeData(
+            color: Color(0xff1A535C),
+          )),
+          child: CurvedNavigationBar(
+            color: Color(0xff4ECDC4),
+            index: 1,
+            height: 60,
+            animationCurve: Curves.easeInOut,
+            backgroundColor: Colors.transparent,
+            items: <Widget>[
+              Icon(Icons.people_alt, size: 30),
+              Icon(Icons.home, size: 30),
+              Icon(Icons.person, size: 30),
+            ],
+            onTap: (index) {
+              if (index == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ManageFamily()));
+              }
+              if (index == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const myChildren()));
+              }
+              if (index == 2) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const parentprofileview()));
+              }
+            },
+          ),
+        ),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           // title: const Center(
           //   child: Text("      قائمة أطفالك",
           //       style: TextStyle(

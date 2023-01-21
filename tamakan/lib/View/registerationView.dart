@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:tamakan/Controller/authController.dart';
+import 'package:tamakan/View/myChildren.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
@@ -84,7 +85,10 @@ class _registerationviewState extends State<registerationview> {
               );
               print(user);
               if (await user) {
-                Navigator.pushNamed(context, '/ParentProfile');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const myChildren()));
               } else {
                 Navigator.pushNamed(context, '/registerview');
               }

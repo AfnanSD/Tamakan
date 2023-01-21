@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tamakan/Controller/authController.dart';
+import 'package:tamakan/View/myChildren.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:tamakan/View/resetPasswordView.dart';
@@ -32,7 +33,8 @@ class loginview extends StatelessWidget {
                 _emailController.text.trim(), _passwordController.text.trim());
             print(user);
             if (await user) {
-              Navigator.pushNamed(context, '/ParentProfile');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const myChildren()));
             } else {
               Navigator.pushNamed(context, '/loginview');
             }

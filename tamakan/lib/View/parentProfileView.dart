@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +20,9 @@ import 'package:tamakan/View/widgets/labels.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tamakan/View/widgets/lable_grey.dart';
+
+import 'manage_family.dart';
+import 'myChildren.dart';
 
 class parentprofileview extends StatefulWidget {
   const parentprofileview({super.key});
@@ -247,7 +251,46 @@ class _parentprofileviewState extends State<parentprofileview> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+              iconTheme: IconThemeData(
+            color: Color(0xff1A535C),
+          )),
+          child: CurvedNavigationBar(
+            color: Color(0xff4ECDC4),
+            index: 2,
+            height: 60,
+            animationCurve: Curves.easeInOut,
+            backgroundColor: Colors.transparent,
+            items: <Widget>[
+              Icon(Icons.people_alt, size: 30),
+              Icon(Icons.home, size: 30),
+              Icon(Icons.person, size: 30),
+            ],
+            onTap: (index) {
+              if (index == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ManageFamily()));
+              }
+              if (index == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const myChildren()));
+              }
+              if (index == 2) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const parentprofileview()));
+              }
+            },
+          ),
+        ),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',

@@ -62,6 +62,7 @@ dependencies:
   quran: ^1.2.0
   just_audio: ^0.9.31
   flutter_launcher_icons: ^0.11.0
+  curved_navigation_bar: ^1.0.3
 
 dev_dependencies:
   flutter_test:
