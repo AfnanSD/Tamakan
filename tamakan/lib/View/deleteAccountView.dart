@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/registerationView.dart';
-import 'package:tamakan/View/welcomeView.dart';
+
 import 'package:tamakan/View/widgets/button_widget.dart';
 
 bool _value = false;

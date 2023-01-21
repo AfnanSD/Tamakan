@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:tamakan/Model/userModel.dart';
 //import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/loginView.dart';
-import 'package:tamakan/View/welcomeView.dart';
 
 class AuthController extends GetxController {
   final _firestore = FirebaseFirestore.instance;
@@ -208,7 +207,7 @@ class AuthController extends GetxController {
       await FirebaseAuth.instance.signOut();
       EasyLoading.showSuccess('!تم تسجيل الخروج بنجاح');
       EasyLoading.dismiss();
-      Get.toNamed(welcomeView.screenRoute);
+      //Get.toNamed(welcomeView.screenRoute);
     } catch (e) {
       print(e);
     }

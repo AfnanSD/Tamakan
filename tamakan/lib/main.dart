@@ -12,7 +12,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:tamakan/View/loginView.dart';
 
 import 'package:tamakan/View/registerationView.dart';
-import 'package:tamakan/View/welcomeView.dart';
 
 import 'View/learning_map3.dart';
 import 'View/parentProfileView.dart';

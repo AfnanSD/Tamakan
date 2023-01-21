@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
-import 'package:tamakan/View/learning_map2.dart';
+
 import 'package:tamakan/View/levels/level1.dart';
 import 'package:tamakan/View/levels/level10.dart';
 import 'package:tamakan/View/levels/level2.dart';
