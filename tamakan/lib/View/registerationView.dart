@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/myChildren.dart';
+import 'package:tamakan/View/navigationBarParent.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
@@ -88,7 +89,7 @@ class _registerationviewState extends State<registerationview> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const myChildren()));
+                        builder: (context) => const navigation()));
               } else {
                 Navigator.pushNamed(context, '/registerview');
               }

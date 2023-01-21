@@ -16,45 +16,26 @@ class navigation extends StatefulWidget {
 class _navigationState extends State<navigation> {
   int index = 1;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  final screens = [ManageFamily(), myChildren(), parentprofileview()];
+  final screens = [parentprofileview(), myChildren(), ManageFamily()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-            iconTheme: IconThemeData(
-          color: Color(0xff1A535C),
-        )),
+        data: Theme.of(context)
+            .copyWith(iconTheme: IconThemeData(color: Colors.white)),
         child: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          color: Color(0xff4ECDC4),
+          color: Color(0xffFF6B6B),
           index: index,
           height: 60,
           animationCurve: Curves.easeInOut,
           backgroundColor: Colors.transparent,
           items: <Widget>[
-            Icon(Icons.people_alt, size: 30),
-            Icon(Icons.home, size: 30),
             Icon(Icons.person, size: 30),
+            Icon(Icons.home, size: 30),
+            Icon(Icons.people_alt, size: 30),
           ],
-          onTap: (index) {
-            if (index == 0) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ManageFamily()));
-            }
-            if (index == 1) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const myChildren()));
-            }
-            if (index == 2) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const parentprofileview()));
-            }
-          },
+          onTap: (index) => setState(() => this.index = index),
         ),
       ),
       body: screens[index],

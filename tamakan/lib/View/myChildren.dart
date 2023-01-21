@@ -109,44 +109,6 @@ class _myChildren extends State<myChildren> {
     return Directionality(
       textDirection: ui.TextDirection.rtl,
       child: Scaffold(
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-              iconTheme: const IconThemeData(
-            color: Color(0xff1A535C),
-          )),
-          child: CurvedNavigationBar(
-            color: const Color(0xff4ECDC4),
-            index: 1,
-            height: 60,
-            animationCurve: Curves.easeInOut,
-            backgroundColor: Colors.transparent,
-            items: const <Widget>[
-              Icon(Icons.people_alt, size: 30),
-              Icon(Icons.home, size: 30),
-              Icon(Icons.person, size: 30),
-            ],
-            onTap: (index) {
-              if (index == 0) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ManageFamily()));
-              }
-              if (index == 1) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const myChildren()));
-              }
-              if (index == 2) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const parentprofileview()));
-              }
-            },
-          ),
-        ),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           // title: const Center(
