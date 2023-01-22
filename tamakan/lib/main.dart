@@ -1,19 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tamakan/View/child_homepage.dart';
 
 import 'package:tamakan/View/parent_homepage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-
-//import 'package:tamakan/View/game.dart';
-//import 'package:tamakan/View/learning_map.dart';
 import 'package:tamakan/View/loginView.dart';
-
 import 'package:tamakan/View/registerationView.dart';
-
-import 'View/learning_map3.dart';
 import 'View/parentProfileView.dart';
 
 Future<void> main() async {
@@ -33,9 +25,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: createMaterialColor(Color(0xffFF6B6B)),
+        primarySwatch: createMaterialColor(const Color(0xffFF6B6B)),
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(
+              headline6: const TextStyle(
+                fontFamily: 'NotoSans',
                 fontSize: 30,
               ),
             ),

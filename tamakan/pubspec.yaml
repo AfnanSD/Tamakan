@@ -134,7 +134,6 @@ flutter:
    - assets/images/sun.png
    - assets/images/yellow-flower.png
    - assets/images/listen.png
-   
    - assets/images/sadFace.png
    - assets/images/resetpassword.png
    - assets/images/password.png
@@ -157,10 +156,15 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Blabeloo
+      fonts:
+        - asset: assets/fonts/Blabeloo.ttf 
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSansArabic_ExtraCondensed-Black.ttf
+          weight: 900 #?
+        - asset: assets/fonts/NotoSansArabic_ExtraCondensed-SemiBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

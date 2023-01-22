@@ -71,7 +71,7 @@ class _myChildren extends State<myChildren> {
             if (passwordPictureSequence[0] == picOne &&
                 passwordPictureSequence[1] == picTwo) {
               Navigator.pop(context);
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChildHomePage(childID: childID),
