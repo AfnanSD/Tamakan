@@ -54,163 +54,165 @@ class _ChildProfileState extends State<ChildProfile> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Center(
-                            child: Text(
-                              'ملف طفلي',
-                              style: Theme.of(context).textTheme.headline6,
-                            ),
-                          ),
-                        ),
-                        ChildPoints(child: child),
-                      ],
-                    ),
-                    Image.asset(
-                      child.profilePicture,
-                      scale: 1.2,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Card(
-                      margin: const EdgeInsets.all(20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
+            : SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Stack(
                         children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'اسم الطفل :',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                                Text(
-                                  child.name,
-                                  style: const TextStyle(fontSize: 20),
-                                )
-                              ],
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Center(
+                              child: Text(
+                                'ملف طفلي',
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'تاريح الميلاد :',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                                Text(
-                                  DateFormat.yMd().format(child.birthDate),
-                                  style: const TextStyle(fontSize: 20),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: const Text(
-                                    'كلمة المرور :',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      shape: BoxShape.circle),
-                                  width: 55,
-                                  height: 55,
-                                  margin: const EdgeInsets.all(2),
-                                  padding: const EdgeInsets.all(2),
-                                  child: Image.asset(
-                                    child.passwordPicture1!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      shape: BoxShape.circle),
-                                  width: 55,
-                                  height: 55,
-                                  margin: const EdgeInsets.all(2),
-                                  padding: const EdgeInsets.all(2),
-                                  child: Image.asset(
-                                    child.passwordPicture2!,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
+                          ChildPoints(child: child),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Column(
-                      children: [
-                        ButtonWidget(
-                          fun: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    ExhcangePoints(childID: child.childID),
-                              ),
-                            );
-                          },
-                          buttonLabel: 'استبدال نقاط طفلي',
-                          buttonColor: const Color(0xff4ECDC4),
+                      Image.asset(
+                        child.profilePicture,
+                        scale: 1.2,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Card(
+                        margin: const EdgeInsets.all(20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        ButtonWidget(
-                          fun: () {
-                            Navigator.push(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: const Text(
+                                      'اسم الطفل :',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                  Text(
+                                    child.name,
+                                    style: const TextStyle(fontSize: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: const Text(
+                                      'تاريح الميلاد :',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                  Text(
+                                    DateFormat.yMd().format(child.birthDate),
+                                    style: const TextStyle(fontSize: 20),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: const Text(
+                                      'كلمة المرور :',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        shape: BoxShape.circle),
+                                    width: 55,
+                                    height: 55,
+                                    margin: const EdgeInsets.all(2),
+                                    padding: const EdgeInsets.all(2),
+                                    child: Image.asset(
+                                      child.passwordPicture1!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        shape: BoxShape.circle),
+                                    width: 55,
+                                    height: 55,
+                                    margin: const EdgeInsets.all(2),
+                                    padding: const EdgeInsets.all(2),
+                                    child: Image.asset(
+                                      child.passwordPicture2!,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Column(
+                        children: [
+                          ButtonWidget(
+                            fun: () {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      EditChildProfile(childID: widget.childID),
-                                ));
-                          },
-                          buttonLabel: 'تعديل الحساب',
-                          buttonColor: const Color(0xff1A535C),
-                        ),
-                        ButtonWidget(
-                          fun: () {
-                            showCustomDialog(context);
-                          },
-                          buttonLabel: 'حذف الحساب',
-                          buttonColor: const Color(0xffFF6B6B),
-                        ),
-                      ],
-                    )
-                  ],
+                                      ExhcangePoints(childID: child.childID),
+                                ),
+                              );
+                            },
+                            buttonLabel: 'استبدال نقاط طفلي',
+                            buttonColor: const Color(0xff4ECDC4),
+                          ),
+                          ButtonWidget(
+                            fun: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditChildProfile(
+                                        childID: widget.childID),
+                                  ));
+                            },
+                            buttonLabel: 'تعديل الحساب',
+                            buttonColor: const Color(0xff1A535C),
+                          ),
+                          ButtonWidget(
+                            fun: () {
+                              showCustomDialog(context);
+                            },
+                            buttonLabel: 'حذف الحساب',
+                            buttonColor: const Color(0xffFF6B6B),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
       ),

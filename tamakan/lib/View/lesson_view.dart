@@ -12,6 +12,7 @@ import 'package:google_speech/google_speech.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:tamakan/View/levels/levels.dart';
+import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';
 
@@ -47,6 +48,7 @@ class _LessonViewState extends State<LessonView> {
 
   String toValidate = '';
 
+  var waiting = true;
   @override
   void initState() {
     // TODO: implement initState
@@ -63,42 +65,246 @@ class _LessonViewState extends State<LessonView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            Image.asset(
-              'assets/images/droppedlogo.png',
-              scale: 0.5,
+        // appBar: AppBar(
+        //   actions: <Widget>[
+        //     Image.asset(
+        //       'assets/images/droppedlogo.png',
+        //       scale: 0.5,
+        //     ),
+        //   ],
+        //   backgroundColor: const Color(0xffFF6B6B),
+        // ),
+        //singlechildscrollview
+        body: waiting
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : newUI(),
+
+        // Column(
+        //   children: [
+        //     Padding(
+        //       padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+        //       child: Card(
+        //         shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.circular(10),
+        //         ),
+        //         child: SizedBox(
+        //           width: double.infinity,
+        //           child: Center(
+        //             child: Text(
+        //               'الدرس $title',
+        //               style: const TextStyle(
+        //                 fontSize: 30,
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //     practice(widget.lessonID),
+        //   ],
+        // ),
+      ),
+    );
+  }
+
+  Widget newUI() {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/b2.png"),
+              fit: BoxFit.cover,
             ),
-          ],
-          backgroundColor: Color(0xffFF6B6B),
+          ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    child: Center(
-                        child: Text(
-                      'الدرس $title',
-                      style: TextStyle(
-                        fontSize: 30,
+        Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.home,
+                              color: Color(0xff1A535C),
+                            ),
+                          ),
+                          const Expanded(
+                            child: SizedBox(),
+                          ),
+                          Card(
+                            margin: const EdgeInsets.all(7),
+                            shadowColor: Colors.grey,
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 15,
+                              ),
+                              child: SizedBox(
+                                width: 90,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('${child.points}'),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    const Icon(
+                                      Icons.star_rounded,
+                                      size: 30,
+                                      color: Color.fromRGBO(255, 230, 109, 1),
+                                    )
+                                    // Image.asset(
+                                    //   'assets/images/star3.png',
+                                    //   scale: 5,
+                                    // ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )),
-                    width: double.infinity,
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'الدرس $title',
+                            style: const TextStyle(
+                              fontFamily: 'Blabeloo',
+                              fontSize: 30,
+                              color: Color(0xff1A535C),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              practice(widget.lessonID),
-            ],
-          ),
+            ),
+            practice2(widget.lessonID),
+          ],
         ),
+      ],
+    );
+  }
+
+  Widget practice2(String id) {
+    return Expanded(
+      child: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                lesson,
+                style: const TextStyle(
+                  fontSize: 300,
+                  fontFamily: 'Blabeloo',
+                  color: Color(0xff1A535C),
+                ),
+              ),
+            ),
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () async {
+                        await player.play(DeviceFileSource(recordURL));
+                      },
+                      icon: const Icon(
+                        Icons.volume_up_rounded,
+                        color: Color(0xff1A535C),
+                      ),
+                      iconSize: 100,
+                    ),
+                    const Text(
+                      'استمع',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed:
+                          recognizing ? stopRecording : streamingRecognize,
+                      icon: Icon(
+                        Icons.mic_rounded,
+                        color: recognizing
+                            ? const Color(0xffFF6B6B)
+                            : const Color(0xff1A535C),
+                      ),
+                      iconSize: 100,
+                    ),
+                    const Text(
+                      'سجل',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  width: 50,
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () => showHintVideo(context),
+                      icon: const Icon(
+                        Icons.lightbulb_outline_rounded,
+                        color: Color(
+                            0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
+                      ),
+                      iconSize: 100,
+                    ),
+                    const Text(
+                      'مساعدة',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
@@ -545,6 +751,9 @@ class _LessonViewState extends State<LessonView> {
         //   readingData = false;
         // });
       }
+      setState(() {
+        waiting = false;
+      });
     });
   }
 

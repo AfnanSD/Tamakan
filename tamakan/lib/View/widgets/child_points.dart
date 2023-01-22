@@ -32,10 +32,15 @@ class ChildPoints extends StatelessWidget {
                     SizedBox(
                       width: 10,
                     ),
-                    Image.asset(
-                      'assets/images/star3.png',
-                      scale: 5,
+                    const Icon(
+                      Icons.star_rounded,
+                      size: 30,
+                      color: Color.fromRGBO(255, 230, 109, 1),
                     ),
+                    // Image.asset(
+                    //   'assets/images/star3.png',
+                    //   scale: 5,
+                    // ),
                   ],
                 ),
               ),
