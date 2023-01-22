@@ -361,7 +361,7 @@ class _registerationviewState extends State<registerationview> {
                             print(password);
                             p = password!;
                             RegExp regexpass = new RegExp(r'^.{8,}$');
-                            if (password!.isEmpty || password.trim().isEmpty) {
+                            if (password.isEmpty || password.trim().isEmpty) {
                               return "الرجاء تعيين كلمة مرور";
                             }
                             if (password.length < 8) {
