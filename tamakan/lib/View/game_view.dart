@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:tamakan/View/levels/levels.dart';
@@ -544,7 +545,7 @@ class _GameViewState extends State<GameView> {
       } else {
         //make not closable
         index++;
-        showCustomDialog(context);
+        showfinalDialog(context);
         FirebaseFirestore.instance
             .collection('parent')
             .doc(signedInUser.email)
@@ -666,7 +667,7 @@ class _GameViewState extends State<GameView> {
             .map((e) => ((index == 5) || (completed++ < index))
                 ? const Icon(
                     Icons.star,
-                    color: Color.fromRGBO(255, 230, 109, 1),
+                    color: Color.fromRGBO(255, 221, 64, 1),
                     size: 50,
                   )
                 : const Icon(
@@ -683,7 +684,7 @@ class _GameViewState extends State<GameView> {
     );
   }
 
-  void showCustomDialog(BuildContext context) {
+  void showfinalDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -696,40 +697,10 @@ class _GameViewState extends State<GameView> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Image.asset(
-                            'assets/images/star1.png',
-                            scale: 1.7,
-                          ),
-                        ],
-                      ),
-                      Image.asset(
-                        'assets/images/star2.png',
-                        scale: 1.5,
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Image.asset(
-                            'assets/images/star3.png',
-                            scale: 1.7,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              Lottie.asset('assets/animations/trophy-winner.json',
+                  repeat: true, height: 250),
+              const SizedBox(
+                height: 20,
               ),
               const Text(
                 'أحسنت',
@@ -760,35 +731,28 @@ class _GameViewState extends State<GameView> {
               const SizedBox(
                 height: 20,
               ),
-              Image.asset(
-                'assets/images/trophy.png',
-                scale: 1.3,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff4ECDC4),
-                ),
-                onPressed: () {
-                  // Navigator.pop(context);
-                  // Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => levels(childID: widget.childID),
-                      ));
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.home),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text('المراحل'),
-                  ],
+              Lottie.asset('assets/animations/five-stars.json',
+                  repeat: false, height: 70),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff4ECDC4),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.home),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text('المراحل', style: TextStyle(fontSize: 17)),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -862,15 +826,35 @@ class _GameViewState extends State<GameView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'أحسنت',
                   style: TextStyle(fontSize: 30),
                 ),
-                Icon(
-                  Icons.thumb_up,
-                  color: Colors.green,
-                  size: 60,
+                Lottie.asset('assets/animations/happy-star.json',
+                    repeat: false),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4ECDC4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Text(
+                      'التالي',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -893,15 +877,34 @@ class _GameViewState extends State<GameView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'حاول مرة أخرى',
                   style: TextStyle(fontSize: 30),
                 ),
-                Icon(
-                  Icons.thumb_down,
-                  color: Colors.red,
-                  size: 60,
+                Lottie.asset('assets/animations/sad-star.json', repeat: false),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4ECDC4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Text(
+                      'حسنا',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             ),
