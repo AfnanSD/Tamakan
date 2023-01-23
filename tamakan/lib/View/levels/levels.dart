@@ -34,7 +34,7 @@ class levels extends StatefulWidget {
 class _levelsState extends State<levels> {
   var readingData = true;
   late Child child;
-  late String level;
+  String level = ''; //for red error -> late initilize
 
   @override
   void initState() {
