@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:tamakan/View/parent_homepage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -26,12 +27,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: createMaterialColor(const Color(0xffFF6B6B)),
-        textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: const TextStyle(
-                fontFamily: 'NotoSans',
-                fontSize: 30,
-              ),
-            ),
+        textTheme: GoogleFonts.notoSansTextTheme().copyWith(
+          headline6: const TextStyle(
+            fontFamily: 'NotoSans',
+            fontSize: 30,
+          ),
+        ),
       ),
       routes: <String, WidgetBuilder>{
         //'/LearningMap': (BuildContext context) => const LearningMap(),
