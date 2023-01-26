@@ -50,6 +50,7 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
       textDirection: ui.TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           actions: <Widget>[
             Image.asset(
               'assets/images/droppedlogo.png',

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
 import 'package:tamakan/View/levels/levels.dart';
 import 'package:tamakan/View/resetPasswordView.dart';
@@ -60,16 +61,47 @@ class _ChildHomePageState extends State<ChildHomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ChildPoints(child: child),
-                    Image.asset(child.profilePicture),
-                    const SizedBox(height: 20),
-                    Text(
-                      'مرحبا ${child.name} \n متحمس للبدء؟\nهيا لنتعلم معا', //girl or boy!
-                      style: const TextStyle(fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      ChildPoints(child: child),
+                    ]),
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 20,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(0, 5),
+                                  blurRadius: 10,
+                                  spreadRadius: 1,
+                                  color: Colors.grey[300]!)
+                            ]),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Image.asset(child.profilePicture),
+                              const SizedBox(width: 40),
+                              Text(
+                                'مرحبا   ${child.name} \n  \nهيا لنتعلم معا', //girl or boy!
+                                style: const TextStyle(
+                                  fontFamily: 'Blabeloo',
+                                  fontSize: 30,
+                                  color: Color(0xff1A535C),
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ])),
                     const SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
                     Column(
                       children: [
@@ -251,6 +283,8 @@ class _ChildHomePageState extends State<ChildHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Lottie.network(
+                      "https://assets1.lottiefiles.com/packages/lf20_ALIsoI.json"),
                   const Text(
                     ': الرجاء إدخال كلمة مرور الوالد',
                     style: TextStyle(fontSize: 17),

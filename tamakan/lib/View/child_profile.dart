@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:tamakan/View/edit_child_profile.dart';
 import 'package:tamakan/View/exchange_points.dart';
 import 'package:tamakan/View/manage_family.dart';
+import 'package:tamakan/View/navigationBarChild.dart';
+import 'package:tamakan/View/navigationBarParent.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
@@ -320,7 +322,7 @@ class _ChildProfileState extends State<ChildProfile> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const ManageFamily(),
+                                    builder: (context) => navigation(),
                                   ),
                                 );
                               },

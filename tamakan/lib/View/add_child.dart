@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
 
 import 'package:tamakan/Model/child.dart';
+import 'package:tamakan/View/navigationBarParent.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 
 class AddChild extends StatefulWidget {
@@ -287,7 +288,13 @@ class _AddChildState extends State<AddChild> {
       await docRef.set(child.toJson());
 
       //dont update
-      Navigator.pop(context);
+      //Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => navigation(),
+        ),
+      );
       //make back button navigate wrong
       // Navigator.push(context,
       //     MaterialPageRoute(builder: (context) => const ManageFamily()));

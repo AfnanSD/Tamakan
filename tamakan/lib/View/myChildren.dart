@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:tamakan/View/navigationBarChild.dart';
 import 'package:tamakan/View/parentProfileView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'dart:ui' as ui;
@@ -74,7 +75,7 @@ class _myChildren extends State<myChildren> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChildHomePage(childID: childID),
+                    builder: (context) => navigationChild(childID: childID),
                   ));
             } else {
               setModalState(() {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tamakan/Model/child.dart';
 import 'package:tamakan/View/game_view.dart';
 
@@ -43,10 +44,12 @@ class _level1State extends State<level1> {
                   height: 150,
                 ),
                 ElevatedButton(
-                  child: Image.asset(
-                    'assets/images/trophy.png',
-                    scale: 0.5,
-                  ),
+                  child: Lottie.network(
+                      "https://assets2.lottiefiles.com/packages/lf20_qidusS.json"),
+                  //Image.asset(
+                  //   'assets/images/trophy.png',
+                  //   scale: 0.5,
+                  // ),
                   onPressed: () {
                     Navigator.push(
                         context,

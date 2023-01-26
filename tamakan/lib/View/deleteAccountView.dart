@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/registerationView.dart';
-
+import 'package:lottie/lottie.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
 
 bool _value = false;
@@ -76,11 +76,13 @@ class _deleteAccountState extends State<deleteAccount> {
                             SizedBox(
                               height: 15,
                             ),
+                            // Lottie.network(
+                            //     "https://assets3.lottiefiles.com/packages/lf20_WdbegN.json",
+                            //     animate: true),
                             Image(
                               height: 100,
                               image: AssetImage('assets/images/sadFace.png'),
                             ),
-
                             SizedBox(
                               height: 25,
                             ),
