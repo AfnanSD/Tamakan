@@ -57,22 +57,22 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
               scale: 0.5,
             ),
           ],
-          backgroundColor: Color(0xffFF6B6B),
+          backgroundColor: const Color(0xffFF6B6B),
         ),
         body: SingleChildScrollView(
           child: readingChildData || readingCouponsData
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Center(
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Text(
                           'قسائم ${child.name}',
-                          style: TextStyle(fontSize: 30),
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.height * 0.8,
                         child: ListView.builder(
                           itemCount: coupons.length,

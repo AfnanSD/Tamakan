@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:tamakan/View/levels/levels.dart';
@@ -34,6 +35,7 @@ class _GameViewState extends State<GameView> {
   late List<String> correctText = List<String>.empty(growable: true);
   late String lesson = '';
   bool waiting = true;
+  bool readingChihldData = true;
   late Child child;
   var accumelatedPoints = 0;
 
@@ -63,36 +65,287 @@ class _GameViewState extends State<GameView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          actions: <Widget>[
-            Image.asset(
-              'assets/images/droppedlogo.png',
-              scale: 0.5,
-            ),
-          ],
-          backgroundColor: const Color(0xffFF6B6B),
-        ),
-        body: waiting
+        // appBar: AppBar(
+        //   actions: <Widget>[
+        //     Image.asset(
+        //       'assets/images/droppedlogo.png',
+        //       scale: 0.5,
+        //     ),
+        //   ],
+        //   backgroundColor: const Color(0xffFF6B6B),
+        // ),
+        body: waiting || readingChihldData
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : SingleChildScrollView(
-                child: index < 5
-                    ? practice(
-                        lessonIDs[index].toString(),
-                      )
-                    : practice(lessonIDs.last.toString()),
-              ),
+            : newUI(),
+
+        // SingleChildScrollView(
+        //     child: index < 5
+        //         ? practice(
+        //             lessonIDs[index].toString(),
+        //           )
+        //         : practice(lessonIDs.last.toString()),
+        //   ),
       ),
     );
   }
 
-  void getOnce(String id) {
-    if (!getCorrectTextOnce) {
-      getLessonData(id);
-      getCorrectText(id);
-      getCorrectTextOnce = true;
-    }
+  Widget newUI() {
+    //singlechildscrollview?
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/b2.png"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            index < 5
+                ? practice2(
+                    lessonIDs[index].toString(),
+                  )
+                : practice2(lessonIDs.last.toString()),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget gameStatusBar2() {
+    int completed = 0;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ...lessonIDs
+            .map((e) => ((index == 5) || (completed++ < index))
+                ? Container(
+                    height: 10,
+                    width: 50,
+                    color: const Color.fromRGBO(255, 230, 109, 1),
+                  )
+                : Container(
+                    height: 10,
+                    width: 50,
+                    color: Colors.grey,
+                  ))
+            .toList(),
+        Container(
+          height: 10,
+          width: 50,
+          color: Colors.white,
+        )
+      ],
+    );
+  }
+
+  Widget practice2(String id) {
+    getOnce(id);
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: Stack(
+              alignment: AlignmentDirectional.centerStart,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //home icon
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.home,
+                            color: Color(0xff1A535C),
+                          ),
+                        ),
+                      ),
+                    ),
+                    //game bar
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(
+                        alignment: AlignmentDirectional.centerEnd,
+                        children: [
+                          Card(
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: gameStatusBar2(),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(80),
+                                ),
+                                color: Colors.white,
+                                child: Container(
+                                  padding: const EdgeInsets.all(3),
+                                  height: 80,
+                                  width: 80,
+                                  child: Image.asset(
+                                    'assets/images/trophy.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    //points
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                      ),
+                      child: Card(
+                        margin: const EdgeInsets.all(7),
+                        shadowColor: Colors.grey,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 15,
+                          ),
+                          child: SizedBox(
+                            width: 90,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text('${child.points}'),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const Icon(
+                                  Icons.star_rounded,
+                                  size: 30,
+                                  color: Color.fromRGBO(255, 230, 109, 1),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                lesson,
+                style: const TextStyle(
+                  fontSize: 300,
+                  fontFamily: 'Blabeloo',
+                  color: Color(0xff1A535C),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: Stack(
+              alignment: AlignmentDirectional.centerStart,
+              children: [
+                Row(
+                  children: [
+                    const Spacer(),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              setState(() {
+                                index++;
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.lightbulb_outline_rounded,
+                              color: Color(
+                                  0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
+                            ),
+                            iconSize: 70,
+                          ),
+                          const Text(
+                            'مساعدة',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Center(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: IconButton(
+                            onPressed: recognizing
+                                ? stopRecording
+                                : streamingRecognize,
+                            icon: Icon(
+                              Icons.mic_rounded,
+                              color: recognizing
+                                  ? const Color(0xffFF6B6B)
+                                  : const Color(0xff1A535C),
+                            ),
+                            iconSize: 100,
+                          ),
+                        ),
+                        const Text(
+                          'سجل',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget practice(String id) {
@@ -148,24 +401,6 @@ class _GameViewState extends State<GameView> {
             ),
           ),
         ),
-        // InkWell(
-        //   child: Card(
-        //     elevation: 4,
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.circular(10),
-        //     ),
-        //     child: Container(
-        //       padding: EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-        //       child: Image.asset(
-        //         'assets/images/listen.png',
-        //         scale: 5,
-        //       ),
-        //     ),
-        //   ),
-        //   onTap: () async {
-        //     await player.play(DeviceFileSource(recordURL));
-        //   },
-        // ),
         InkWell(
           onTap: null,
           child: Card(
@@ -216,6 +451,14 @@ class _GameViewState extends State<GameView> {
         // ),
       ],
     );
+  }
+
+  void getOnce(String id) {
+    if (!getCorrectTextOnce) {
+      getLessonData(id);
+      getCorrectText(id);
+      getCorrectTextOnce = true;
+    }
   }
 
   RecognitionConfig _getConfig() => RecognitionConfig(
@@ -302,7 +545,7 @@ class _GameViewState extends State<GameView> {
       } else {
         //make not closable
         index++;
-        showCustomDialog(context);
+        showfinalDialog(context);
         FirebaseFirestore.instance
             .collection('parent')
             .doc(signedInUser.email)
@@ -424,7 +667,7 @@ class _GameViewState extends State<GameView> {
             .map((e) => ((index == 5) || (completed++ < index))
                 ? const Icon(
                     Icons.star,
-                    color: Color.fromRGBO(255, 230, 109, 1),
+                    color: Color.fromRGBO(255, 221, 64, 1),
                     size: 50,
                   )
                 : const Icon(
@@ -441,7 +684,7 @@ class _GameViewState extends State<GameView> {
     );
   }
 
-  void showCustomDialog(BuildContext context) {
+  void showfinalDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -454,40 +697,10 @@ class _GameViewState extends State<GameView> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Image.asset(
-                            'assets/images/star1.png',
-                            scale: 1.7,
-                          ),
-                        ],
-                      ),
-                      Image.asset(
-                        'assets/images/star2.png',
-                        scale: 1.5,
-                      ),
-                      Column(
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Image.asset(
-                            'assets/images/star3.png',
-                            scale: 1.7,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              Lottie.asset('assets/animations/trophy-winner.json',
+                  repeat: true, height: 250),
+              const SizedBox(
+                height: 20,
               ),
               const Text(
                 'أحسنت',
@@ -518,35 +731,28 @@ class _GameViewState extends State<GameView> {
               const SizedBox(
                 height: 20,
               ),
-              Image.asset(
-                'assets/images/trophy.png',
-                scale: 1.3,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff4ECDC4),
-                ),
-                onPressed: () {
-                  // Navigator.pop(context);
-                  // Navigator.pop(context);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => levels(childID: widget.childID),
-                      ));
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Icon(Icons.home),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text('المراحل'),
-                  ],
+              Lottie.asset('assets/animations/five-stars.json',
+                  repeat: false, height: 70),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff4ECDC4),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.home),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text('المراحل', style: TextStyle(fontSize: 17)),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -600,9 +806,9 @@ class _GameViewState extends State<GameView> {
         .then((value) {
       for (var element in value.docs) {
         child = Child.fromJson(element.data());
-        // setState(() {
-        //   readingData = false;
-        // });
+        setState(() {
+          readingChihldData = false;
+        });
       }
     });
   }
@@ -620,15 +826,35 @@ class _GameViewState extends State<GameView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'أحسنت',
                   style: TextStyle(fontSize: 30),
                 ),
-                Icon(
-                  Icons.thumb_up,
-                  color: Colors.green,
-                  size: 60,
+                Lottie.asset('assets/animations/happy-star.json',
+                    repeat: false),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4ECDC4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Text(
+                      'التالي',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -651,15 +877,34 @@ class _GameViewState extends State<GameView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'حاول مرة أخرى',
                   style: TextStyle(fontSize: 30),
                 ),
-                Icon(
-                  Icons.thumb_down,
-                  color: Colors.red,
-                  size: 60,
+                Lottie.asset('assets/animations/sad-star.json', repeat: false),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4ECDC4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Text(
+                      'حسنا',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             ),

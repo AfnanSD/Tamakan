@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_speech/google_speech.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
 import 'package:tamakan/View/levels/levels.dart';
@@ -124,17 +125,38 @@ class _LessonViewState extends State<LessonView> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
+              child: SizedBox(
+                width: double.infinity,
+                child: Stack(
+                  alignment: AlignmentDirectional.centerStart,
+                  children: [
+                    // Center(
+                    //   child: Card(
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(15.0),
+                    //     ),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.symmetric(
+                    //           horizontal: 30.0, vertical: 10),
+                    //       child: Text(
+                    //         'الدرس $title',
+                    //         style: const TextStyle(
+                    //           fontFamily: 'Blabeloo',
+                    //           fontSize: 30,
+                    //           color: Color(0xff1A535C),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: IconButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -143,61 +165,77 @@ class _LessonViewState extends State<LessonView> {
                               color: Color(0xff1A535C),
                             ),
                           ),
-                          const Expanded(
-                            child: SizedBox(),
+                        ),
+                        const Spacer(),
+                        Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                          Card(
-                            margin: const EdgeInsets.all(7),
-                            shadowColor: Colors.grey,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 5,
-                                horizontal: 15,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 50.0, vertical: 10),
+                            child: Text(
+                              'الدرس $title',
+                              style: const TextStyle(
+                                fontFamily: 'Blabeloo',
+                                fontSize: 30,
+                                color: Color(0xff1A535C),
                               ),
-                              child: SizedBox(
-                                width: 90,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('${child.points}'),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const Icon(
-                                      Icons.star_rounded,
-                                      size: 30,
-                                      color: Color.fromRGBO(255, 230, 109, 1),
-                                    )
-                                    // Image.asset(
-                                    //   'assets/images/star3.png',
-                                    //   scale: 5,
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'الدرس $title',
-                            style: const TextStyle(
-                              fontFamily: 'Blabeloo',
-                              fontSize: 30,
-                              color: Color(0xff1A535C),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        const Spacer(),
+                        Card(
+                          margin: const EdgeInsets.all(7),
+                          shadowColor: Colors.grey,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 15,
+                            ),
+                            child: SizedBox(
+                              width: 90,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('${child.points}'),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    size: 30,
+                                    color: Color.fromRGBO(255, 221, 64, 1),
+                                  )
+                                  // Image.asset(
+                                  //   'assets/images/star3.png',
+                                  //   scale: 5,
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Center(
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Text(
+                    //       'الدرس $title',
+                    //       style: const TextStyle(
+                    //         fontFamily: 'Blabeloo',
+                    //         fontSize: 30,
+                    //         color: Color(0xff1A535C),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
             ),
@@ -497,7 +535,7 @@ class _LessonViewState extends State<LessonView> {
     print(text);
 
     if (correctText.contains(text)) {
-      showCustomDialog(context);
+      showfinalDialog(context);
       FirebaseFirestore.instance
           .collection('parent')
           .doc(signedInUser.email)
@@ -534,15 +572,34 @@ class _LessonViewState extends State<LessonView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'حاول مرة أخرى',
                   style: TextStyle(fontSize: 30),
                 ),
-                Icon(
-                  Icons.thumb_down,
-                  color: Colors.red,
-                  size: 60,
+                Lottie.asset('assets/animations/sad-star.json', repeat: false),
+                const SizedBox(
+                  height: 40,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff4ECDC4)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Text(
+                      'حسنا',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -552,7 +609,7 @@ class _LessonViewState extends State<LessonView> {
     );
   }
 
-  void showCustomDialog(BuildContext context) {
+  void showfinalDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -560,82 +617,39 @@ class _LessonViewState extends State<LessonView> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          backgroundColor: const Color.fromARGB(255, 249, 248, 245),
+          // backgroundColor: const Color.fromARGB(255, 249, 248, 245),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Image.asset(
-                              'assets/images/star1.png',
-                              scale: 1.7,
-                            ),
-                          ],
-                        ),
-                        Image.asset(
-                          'assets/images/star2.png',
-                          scale: 1.5,
-                        ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Image.asset(
-                              'assets/images/star3.png',
-                              scale: 1.7,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Text(
+              Lottie.asset('assets/animations/theree-stars.json', height: 450),
+              const Text(
                 'أحسنت',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25,
                 ),
               ),
-              Text(
+              const Text(
                 'لقد اجتزت الدرس بنجاح',
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
-              Text(
+              const Text(
                 '3',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 '! مجموع النقاط التي حصلت عليها',
                 style: TextStyle(
                   fontSize: 15,
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Image.asset(
-                'assets/images/trophy.png',
-                scale: 1.3,
-              ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
@@ -643,9 +657,6 @@ class _LessonViewState extends State<LessonView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff4ECDC4),
-                    ),
                     onPressed: () {
                       // Navigator.pop(context);
                       // Navigator.pop(context);
@@ -657,19 +668,22 @@ class _LessonViewState extends State<LessonView> {
                           ));
                     },
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(Icons.home),
                         SizedBox(
                           width: 20,
                         ),
-                        Text('المراحل'),
+                        Text('المراحل', style: TextStyle(fontSize: 17)),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xff4ECDC4),
+                    ),
                     onPressed: () {
                       Navigator.pop(context);
                       Navigator.pushReplacement(
@@ -683,17 +697,23 @@ class _LessonViewState extends State<LessonView> {
                       );
                     },
                     child: Row(
-                      children: [
-                        Icon(Icons.arrow_back),
+                      children: const [
+                        Icon(Icons.chevron_left),
                         SizedBox(
                           width: 10,
                         ),
-                        Text('الدرس التالي'),
+                        Text(
+                          'الدرس التالي',
+                          style: TextStyle(fontSize: 17),
+                        ),
                       ],
                     ),
                   )
                 ],
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         );
