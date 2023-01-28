@@ -29,7 +29,7 @@ class TextInputField extends StatelessWidget {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
-          margin: const EdgeInsets.only(right: 100, left: 100),
+          //margin: const EdgeInsets.only(right: 50, left: 50),
           child: TextFormField(
             //autovalidateMode: AutovalidateMode.always,
             autovalidateMode: AutovalidateMode.onUserInteraction,

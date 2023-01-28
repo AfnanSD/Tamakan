@@ -3,9 +3,17 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class labelGrey extends StatelessWidget {
+class labelContent extends StatelessWidget {
   final String? inputLabel;
-  labelGrey({Key? key, required this.inputLabel}) : super(key: key);
+  final Color labelColor;
+  final double fontSize;
+
+  labelContent(
+      {Key? key,
+      required this.inputLabel,
+      required this.labelColor,
+      required this.fontSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +26,9 @@ class labelGrey extends StatelessWidget {
           Text(
             ' ${inputLabel}',
             style: TextStyle(
-                color: Color(0xff1A535C), //Color.fromARGB(255, 153, 159, 158),
+                color: labelColor, //Color.fromARGB(255, 153, 159, 158),
                 fontWeight: FontWeight.bold,
-                fontSize: 23),
+                fontSize: fontSize),
           ),
         ],
       ),

@@ -6,6 +6,7 @@ import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/View/myChildren.dart';
 import 'package:tamakan/View/navigationBarParent.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/button_widget.dart';
 import 'package:tamakan/View/widgets/labels.dart';
 import 'package:tamakan/View/resetPasswordView.dart';
 
@@ -20,34 +21,47 @@ class loginview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //Login button
-    final signupButton = Container(
-      margin: const EdgeInsets.only(right: 150, left: 150),
-      child: Material(
-        elevation: 10,
-        borderRadius: BorderRadius.circular(30),
-        color: Color.fromRGBO(255, 230, 109, 1),
-        child: MaterialButton(
-          // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          // minWidth: MediaQuery.of(context).size.width,
-          onPressed: () async {
-            Future<bool> user = AuthController().login(
-                _emailController.text.trim(), _passwordController.text.trim());
-            print(user);
-            if (await user) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const navigation()));
-            } else {
-              Navigator.pushNamed(context, '/loginview');
-            }
-          },
-          child: Text(
-            "تسجيل الدخول",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 25,
-                color: Color.fromARGB(255, 71, 81, 80),
-                fontWeight: FontWeight.bold),
-          ),
+    final signinButton1 = ButtonWidget(
+      fun: () async {
+        Future<bool> user = AuthController().login(
+            _emailController.text.trim(), _passwordController.text.trim());
+        print(user);
+        if (await user) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const navigation()));
+        } else {
+          Navigator.pushNamed(context, '/loginview');
+        }
+      },
+      buttonLabel: "تسجيل الدخول",
+      buttonColor: //Color.fromRGBO(255, 230, 109, 1)
+          Color(0xff1A535C),
+    );
+    final signinButton = Material(
+      elevation: 10,
+      borderRadius: BorderRadius.circular(30),
+      color: Color.fromRGBO(255, 230, 109, 1),
+      child: MaterialButton(
+        // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () async {
+          Future<bool> user = AuthController().login(
+              _emailController.text.trim(), _passwordController.text.trim());
+          print(user);
+          if (await user) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const navigation()));
+          } else {
+            Navigator.pushNamed(context, '/loginview');
+          }
+        },
+        child: Text(
+          "تسجيل الدخول",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 22,
+              color: Color.fromARGB(255, 71, 81, 80),
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -76,7 +90,7 @@ class loginview extends StatelessWidget {
                       width: 150,
                     ),
                     SizedBox(
-                      width: 120,
+                      width: 100,
                     ),
                     const Text(
                       "  اهــلاََ بــك",
@@ -176,7 +190,7 @@ class loginview extends StatelessWidget {
                           SizedBox(
                             height: 20,
                           ), //SIGN UP BUTTON
-                          signupButton,
+                          signinButton,
                           SizedBox(
                             height: 25,
                           ),

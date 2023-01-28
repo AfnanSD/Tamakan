@@ -63,21 +63,21 @@ class _parentprofileviewState extends State<parentprofileview> {
                               borderRadius: BorderRadius.circular(20.0)),
                           titlePadding: const EdgeInsets.all(0),
                           title: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20),
                                     topRight: Radius.circular(20)),
                                 color: Color(0xffFF6B6B)),
                             width: 300,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
                                   vertical: 15.0, horizontal: 25.0),
                               child: Text(
-                                '! تحذير',
+                                'تسجيل خروج',
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 239, 235, 208),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   fontSize: 20,
                                 ),
                               ),
@@ -110,7 +110,7 @@ class _parentprofileviewState extends State<parentprofileview> {
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(20)),
-                                              color: Color(0xffFF6B6B)),
+                                              color: Color(0xff4ECDC4)),
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 5, horizontal: 30),
                                           child: Text(
@@ -322,9 +322,16 @@ class _parentprofileviewState extends State<parentprofileview> {
                                     // name
                                     Row(
                                       children: [
-                                        label(inputLabel: 'الإسم'),
+                                        labelContent(
+                                            inputLabel: "الاسم",
+                                            labelColor: Color.fromARGB(
+                                                255, 83, 100, 102),
+                                            fontSize: 18),
                                         Text(": "),
-                                        labelGrey(inputLabel: userModel!.name),
+                                        labelContent(
+                                            inputLabel: userModel!.name,
+                                            labelColor: Color(0xff1A535C),
+                                            fontSize: 23),
                                       ],
                                     ),
                                     SizedBox(
@@ -333,9 +340,16 @@ class _parentprofileviewState extends State<parentprofileview> {
                                     //email
                                     Row(
                                       children: [
-                                        label(inputLabel: 'البريد الإلكتروني'),
+                                        labelContent(
+                                            inputLabel: "البريد الإلكتروني",
+                                            labelColor: Color.fromARGB(
+                                                255, 83, 100, 102),
+                                            fontSize: 18),
                                         Text(": "),
-                                        labelGrey(inputLabel: userModel!.email),
+                                        labelContent(
+                                            inputLabel: userModel!.email,
+                                            labelColor: Color(0xff1A535C),
+                                            fontSize: 23),
                                       ],
                                     ),
                                     SizedBox(
@@ -343,19 +357,34 @@ class _parentprofileviewState extends State<parentprofileview> {
                                     ),
                                     //GENDER
                                     Row(children: [
-                                      label(inputLabel: 'الجنس'),
+                                      labelContent(
+                                          inputLabel: "الجنس",
+                                          labelColor:
+                                              Color.fromARGB(255, 83, 100, 102),
+                                          fontSize: 18),
                                       Text(": "),
-                                      labelGrey(inputLabel: userModel!.gender),
+                                      labelContent(
+                                          inputLabel: userModel!.gender,
+                                          labelColor: Color(0xff1A535C),
+                                          fontSize: 23),
                                     ]),
                                     SizedBox(
                                       height: 15,
                                     ),
                                     // birthdate
                                     Row(children: [
-                                      label(inputLabel: 'تاريخ الميلاد'),
-                                      Text(": "),
-                                      labelGrey(
-                                          inputLabel: userModel!.birthdate),
+                                      labelContent(
+                                          inputLabel: "تاريخ الميلاد",
+                                          labelColor:
+                                              Color.fromARGB(255, 83, 100, 102),
+                                          fontSize: 18),
+                                      Text(
+                                        ": ",
+                                      ),
+                                      labelContent(
+                                          inputLabel: userModel!.birthdate,
+                                          labelColor: Color(0xff1A535C),
+                                          fontSize: 23),
                                     ]),
                                     SizedBox(
                                       height: 45,

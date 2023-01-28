@@ -108,7 +108,7 @@ class _deleteAccountState extends State<deleteAccount> {
                                 height: 10,
                               ),
                               Row(
-                                // mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.person_outlined,
@@ -131,7 +131,7 @@ class _deleteAccountState extends State<deleteAccount> {
                                 height: 5,
                               ),
                               Row(
-                                //mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.people_outline,
@@ -154,7 +154,7 @@ class _deleteAccountState extends State<deleteAccount> {
                                 height: 5,
                               ),
                               Row(
-                                //mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
                                     Icons.card_giftcard,
@@ -197,17 +197,6 @@ class _deleteAccountState extends State<deleteAccount> {
                               ),
                               const SizedBox(
                                 height: 10,
-                              ),
-
-                              ///cancel button
-                              ButtonWidget(
-                                fun: () => Navigator.pop(context),
-                                // {
-                                //   Navigator.pushNamed(
-                                //       context, '/parentprofileview')
-                                // },
-                                buttonLabel: 'إلغاء',
-                                buttonColor: Color(0xff4ECDC4),
                               ),
 
                               ///delete button
@@ -254,6 +243,17 @@ class _deleteAccountState extends State<deleteAccount> {
                                       width: double.infinity,
                                     ),
                                   )),
+
+                              ///cancel button
+                              ButtonWidget(
+                                fun: () => Navigator.pop(context),
+                                // {
+                                //   Navigator.pushNamed(
+                                //       context, '/parentprofileview')
+                                // },
+                                buttonLabel: 'إلغاء',
+                                buttonColor: Color(0xff4ECDC4),
+                              ),
                             ],
                           ),
                         ),

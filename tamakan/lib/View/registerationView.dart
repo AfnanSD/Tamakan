@@ -46,64 +46,62 @@ class _registerationviewState extends State<registerationview> {
   @override
   Widget build(BuildContext context) {
 //Sign up button not fit
-    // final signupButton = ButtonWidget(
-    //   fun: () async {
-    //           Future<bool> user = AuthController().register(
-    //             _nameController.text,
-    //             _emailController.text,
-    //             _passwordController.text,
-    //             gender,
-    //             _dateController.text,
-    //           );
-    //           print(user);
-    //           if (await user) {
-    //             Navigator.pushNamed(context, '/ParentProfile');
-    //           } else {
-    //             Navigator.pop(context);
-    //           }
-    //         },
-    //   buttonLabel: 'إنشاء حساب',
-    //   buttonColor: Color.fromRGBO(255, 230, 109, 1),
-    // );
+    final signupButton1 = ButtonWidget(
+        fun: () async {
+          Future<bool> user = AuthController().register(
+            _nameController.text.trim(),
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+            _password2Controller.text.trim(),
+            gender,
+            _dateController.text,
+          );
+          print(user);
+          if (await user) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const navigation()));
+          } else {
+            Navigator.pushNamed(context, '/registerview');
+          }
+        },
+        buttonLabel: 'إنشاء حساب',
+        buttonColor: Color(0xff1A535C) //Color.fromRGBO(255, 230, 109, 1),
+        );
     //Sign up button
-    final signupButton = Container(
-        margin: const EdgeInsets.only(right: 100, left: 100),
-        child: Material(
-          elevation: 10,
-          borderRadius: BorderRadius.circular(30),
-          color: Color.fromRGBO(255, 230, 109, 1),
-          child: MaterialButton(
-            //padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-            minWidth: MediaQuery.of(context).size.width,
-            onPressed: () async {
-              Future<bool> user = AuthController().register(
-                _nameController.text.trim(),
-                _emailController.text.trim(),
-                _passwordController.text.trim(),
-                _password2Controller.text.trim(),
-                gender,
-                _dateController.text,
-              );
-              print(user);
-              if (await user) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const navigation()));
-              } else {
-                Navigator.pushNamed(context, '/registerview');
-              }
-            },
-            child: Text(
-              " إنـشـاء حـسـاب",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Color.fromARGB(255, 71, 81, 80),
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-        ));
+    final signupButton = Material(
+      elevation: 10,
+      borderRadius: BorderRadius.circular(30),
+      color: Color.fromRGBO(255, 230, 109, 1),
+      child: MaterialButton(
+        // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: () async {
+          Future<bool> user = AuthController().register(
+            _nameController.text.trim(),
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+            _password2Controller.text.trim(),
+            gender,
+            _dateController.text,
+          );
+          print(user);
+          if (await user) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const navigation()));
+          } else {
+            Navigator.pushNamed(context, '/registerview');
+          }
+        },
+        child: Text(
+          "إنشاء الحساب",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 22,
+              color: Color.fromARGB(255, 71, 81, 80),
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
 
     // ignore: prefer_const_constructors
     return Scaffold(
@@ -129,7 +127,7 @@ class _registerationviewState extends State<registerationview> {
                     width: 150,
                   ),
                   SizedBox(
-                    width: 120,
+                    width: 100,
                   ),
                   const Text(
                     "  تـمـكـــن",
@@ -214,8 +212,7 @@ class _registerationviewState extends State<registerationview> {
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: Container(
-                            margin:
-                                const EdgeInsets.only(right: 100, left: 100),
+                            //margin:EdgeInsets.only(right: 100, left: 100),
                             child: DecoratedBox(
                               decoration: ShapeDecoration(
                                   shape: RoundedRectangleBorder(
@@ -258,8 +255,7 @@ class _registerationviewState extends State<registerationview> {
                         Directionality(
                             textDirection: TextDirection.rtl,
                             child: Container(
-                              margin:
-                                  const EdgeInsets.only(right: 100, left: 100),
+                              //margin:EdgeInsets.only(right: 100, left: 100),
                               child: TextFormField(
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.black54),
