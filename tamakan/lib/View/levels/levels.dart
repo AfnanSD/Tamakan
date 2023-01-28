@@ -56,16 +56,16 @@ class _levelsState extends State<levels> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Color.fromARGB(255, 253, 241, 237),
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            Image.asset(
-              'assets/images/droppedlogo.png',
-              scale: 0.5,
-            ),
-          ],
-          backgroundColor: Color(0xffFF6B6B),
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   actions: <Widget>[
+        //     Image.asset(
+        //       'assets/images/logo3.png',
+        //       scale: 0.5,
+        //     ),
+        //   ],
+        //   backgroundColor: Color(0xffFF6B6B),
+        // ),
         body: readingData
             ? Center(
                 child: CircularProgressIndicator(),

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:tamakan/View/navigationBarChild.dart';
 import 'package:tamakan/View/parentProfileView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -112,15 +113,10 @@ class _myChildren extends State<myChildren> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          // title: const Center(
-          //   child: Text("      قائمة أطفالك",
-          //       style: TextStyle(
-          //           fontSize: 40, color: Color.fromARGB(255, 26, 83, 92))),
-          // ),
           actions: <Widget>[
             Image.asset(
-              'assets/images/droppedlogo.png',
-              scale: 0.5,
+              'assets/images/logo3.png',
+              //scale: 0.5,
             ),
           ],
           backgroundColor: Color(0xffFF6B6B),
@@ -160,7 +156,10 @@ class _myChildren extends State<myChildren> {
                         ),
                       );
                     }
-                    return ListView.builder(
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (_, int index) {
                         DocumentSnapshot data = snapshot.data[index];
@@ -374,34 +373,65 @@ class _myChildren extends State<myChildren> {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(20)),
                               ),
-                              color: const Color.fromARGB(255, 244, 242, 201),
+                              color: const Color.fromARGB(255, 254, 245, 206),
                               clipBehavior: Clip.hardEdge,
-                              margin: EdgeInsets.all(20.0),
+                              margin: const EdgeInsets.all(20.0),
                               child: Container(
-                                height: 150,
                                 width: 600,
                                 padding: const EdgeInsets.all(8.0),
-                                child: Row(
+                                child: Column(
                                   children: [
-                                    Image.asset(data["profilePicture"]),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text("الاسم: " + data["name"] + "\n",
-                                        style: TextStyle(
-                                            fontSize: 25,
-                                            color: Color.fromARGB(
-                                                255, 26, 83, 92))),
-                                    SizedBox(
-                                      height: 30,
+                                    Stack(
+                                      alignment:
+                                          AlignmentDirectional.bottomCenter,
+                                      children: [
+                                        SizedBox(
+                                          height: 170,
+                                          child: Image.asset(
+                                              data["profilePicture"]),
+                                        ),
+                                        Card(
+                                          shadowColor: Colors.grey,
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 15,
+                                            ),
+                                            child: SizedBox(
+                                              width: 90,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(data['points']
+                                                      .toString()),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.star_rounded,
+                                                    size: 30,
+                                                    color: Color.fromRGBO(
+                                                        255, 221, 64, 1),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     Text(
-                                        "  \n عدد النقاط: " +
-                                            data["points"].toString(),
-                                        style: TextStyle(
-                                            fontSize: 25,
-                                            color: Color.fromARGB(
-                                                255, 26, 83, 92))),
+                                      data["name"],
+                                      style: const TextStyle(
+                                        fontSize: 25,
+                                        color: Color.fromARGB(255, 26, 83, 92),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

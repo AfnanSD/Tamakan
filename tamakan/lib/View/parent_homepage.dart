@@ -24,7 +24,7 @@ class ParentHomePage extends StatelessWidget {
           automaticallyImplyLeading: false,
           actions: <Widget>[
             Image.asset(
-              'assets/images/droppedlogo.png',
+              'assets/images/logo3.png',
               scale: 0.5,
             ),
           ],

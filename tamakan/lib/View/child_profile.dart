@@ -46,7 +46,7 @@ class _ChildProfileState extends State<ChildProfile> {
         appBar: AppBar(
           actions: <Widget>[
             Image.asset(
-              'assets/images/droppedlogo.png',
+              'assets/images/logo3.png',
               scale: 0.5,
             ),
           ],
