@@ -717,15 +717,15 @@ class _GameViewState extends State<GameView> {
                   fontSize: 20,
                 ),
               ),
+              // const Text(
+              //   '5',
+              //   style: TextStyle(
+              //     fontSize: 30,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               const Text(
-                '5',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                '! مجموع النقاط التي حصلت عليها',
+                'لقد حصلت على 5 نقاط',
                 style: TextStyle(
                   fontSize: 15,
                 ),

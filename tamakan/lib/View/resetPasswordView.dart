@@ -78,9 +78,9 @@ class resetPasswordView extends StatelessWidget {
                   width: 20,
                 ),
                 const Text(
-                  "  إعادة تعيين كلمة المرور ",
+                  "إعادة تعيين كلمة المرور",
                   style: TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                       color: Color.fromARGB(255, 71, 81, 80),
                       fontWeight: FontWeight.bold),
                   textAlign: TextAlign.right,

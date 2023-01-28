@@ -147,7 +147,7 @@ class _registerationviewState extends State<registerationview> {
               SingleChildScrollView(
                 child: Center(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.9,
+                    //sheight: MediaQuery.of(context).size.height * 0.9,
                     width: MediaQuery.of(context).size.height * 0.8,
                     margin: const EdgeInsets.symmetric(
                       horizontal: 40,

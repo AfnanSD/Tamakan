@@ -94,7 +94,7 @@ class loginview extends StatelessWidget {
                 SingleChildScrollView(
                   child: Center(
                     child: Container(
-                      height: 550,
+                      //height: 550,
                       width: 600,
                       margin: const EdgeInsets.symmetric(
                         horizontal: 40,

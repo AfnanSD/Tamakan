@@ -639,17 +639,17 @@ class _LessonViewState extends State<LessonView> {
                   fontSize: 20,
                 ),
               ),
+              // const Text(
+              //   '3',
+              //   style: TextStyle(
+              //     fontSize: 30,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               const Text(
-                '3',
+                'لقد حصلت على 3 نقاط',
                 style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const Text(
-                '! مجموع النقاط التي حصلت عليها',
-                style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 18,
                 ),
               ),
               const SizedBox(

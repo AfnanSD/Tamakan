@@ -8,7 +8,7 @@ class ChildPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
           margin: EdgeInsets.all(20),
