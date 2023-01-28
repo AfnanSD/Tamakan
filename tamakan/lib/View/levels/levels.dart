@@ -21,6 +21,7 @@ import 'package:tamakan/View/levels/level8.dart';
 import 'package:tamakan/View/levels/level9.dart';
 import 'package:tamakan/View/resetPasswordView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
+import 'package:tamakan/View/levels/levelMap.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../../Model/child.dart';
@@ -119,7 +120,7 @@ class _levelsState extends State<levels> {
                           vertical: 20,
                         ),
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
+                          horizontal: 20,
                           vertical: 20,
                         ),
                         decoration: BoxDecoration(
@@ -136,14 +137,14 @@ class _levelsState extends State<levels> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(child.profilePicture),
-                              const SizedBox(width: 30),
+                              const SizedBox(width: 20),
                               Column(
                                 children: [
                                   Text(
                                     ' أهلاً  ${child.name} ', //girl or boy!
                                     style: const TextStyle(
                                       fontFamily: 'Blabeloo',
-                                      fontSize: 30,
+                                      fontSize: 25,
                                       color: Color(0xff1A535C),
                                     ),
                                     textAlign: TextAlign.right,
@@ -152,7 +153,7 @@ class _levelsState extends State<levels> {
                                     "أحسنت لقد وصلت للمستوى ",
                                     style: const TextStyle(
                                       fontFamily: 'Blabeloo',
-                                      fontSize: 30,
+                                      fontSize: 25,
                                       color: Color(0xff1A535C),
                                     ),
                                   ),
@@ -163,14 +164,14 @@ class _levelsState extends State<levels> {
                                         " $level ",
                                         style: TextStyle(
                                             fontFamily: 'Blabeloo',
-                                            fontSize: 30,
+                                            fontSize: 20,
                                             color: Color(0xffFF6B6B)),
                                       ),
                                       Text(
                                         " هيا استمر !",
                                         style: TextStyle(
                                             fontFamily: 'Blabeloo',
-                                            fontSize: 30,
+                                            fontSize: 25,
                                             color: Color(0xff1A535C)),
                                       ),
                                     ],
@@ -195,11 +196,16 @@ class _levelsState extends State<levels> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => level1(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                              builder: (context) => LevelMap(
+                                                    childID: widget.childID,
+                                                    level: '1',
+                                                  )
+                                              //  level1(
+                                              //       CurrentLevel:
+                                              //           child.CurrentLevel,
+                                              //       childId: child.childID,
+                                              //     )
+                                              ));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -239,13 +245,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level2(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '2',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level2(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -288,14 +303,23 @@ class _levelsState extends State<levels> {
                                 children: [
                                   InkWell(
                                     onTap: () {
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level3(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level3(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '3',
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -334,13 +358,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level4(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '4',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level4(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -385,13 +418,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level5(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '5',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level5(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -431,13 +473,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level6(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '6',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level6(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -482,13 +533,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level7(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '7',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level7(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -528,13 +588,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level8(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '8',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level8(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -579,13 +648,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level9(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '9',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level9(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -625,13 +703,22 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => level10(
-                                                    CurrentLevel:
-                                                        child.CurrentLevel,
-                                                    childId: child.childID,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => LevelMap(
+                                            childID: widget.childID,
+                                            level: '10',
+                                          ),
+                                        ),
+                                      );
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => level10(
+                                      //               CurrentLevel:
+                                      //                   child.CurrentLevel,
+                                      //               childId: child.childID,
+                                      //             )));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,

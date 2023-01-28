@@ -287,6 +287,7 @@ class _LessonViewState extends State<LessonView> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Color(0xff1A535C),
                       ),
                     )
                   ],
@@ -312,6 +313,7 @@ class _LessonViewState extends State<LessonView> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Color(0xff1A535C),
                       ),
                     )
                   ],
@@ -335,6 +337,7 @@ class _LessonViewState extends State<LessonView> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
+                        color: Color(0xff1A535C),
                       ),
                     )
                   ],
@@ -658,14 +661,15 @@ class _LessonViewState extends State<LessonView> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Navigator.pop(context);
-                      // Navigator.pop(context);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                levels(childID: widget.childID),
-                          ));
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           levels(childID: widget.childID),
+                      //     ));
                     },
                     child: Row(
                       children: const [

@@ -144,6 +144,7 @@ flutter:
    - assets/images/r3.png
    - assets/images/rabbit.png
    - assets/images/coupon.png
+   - assets/images/levelbackground.png
    - assets/test_service_account.json
    - assets/animations/sad-star.json
    - assets/animations/happy-star.json

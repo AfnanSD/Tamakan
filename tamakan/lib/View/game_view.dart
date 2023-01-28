@@ -299,6 +299,7 @@ class _GameViewState extends State<GameView> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
+                              color: Color(0xff1A535C),
                             ),
                           )
                         ],
@@ -334,6 +335,7 @@ class _GameViewState extends State<GameView> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
+                            color: Color(0xff1A535C),
                           ),
                         )
                       ],
@@ -561,13 +563,13 @@ class _GameViewState extends State<GameView> {
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 8});
-        } else if (double.parse(widget.practiceID) == 13.5) {
+        } else if (double.parse(widget.practiceID) == 14.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
-              .update({'CurrentLevel': 14});
+              .update({'CurrentLevel': 15});
         } else if (double.parse(widget.practiceID) == 21.5) {
           FirebaseFirestore.instance
               .collection('parent')
@@ -582,34 +584,34 @@ class _GameViewState extends State<GameView> {
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 29});
-        } else if (double.parse(widget.practiceID) == 36.5) {
+        } else if (double.parse(widget.practiceID) == 35.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
-              .update({'CurrentLevel': 37});
-        } else if (double.parse(widget.practiceID) == 44.5) {
+              .update({'CurrentLevel': 36});
+        } else if (double.parse(widget.practiceID) == 42.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
-              .update({'CurrentLevel': 45});
-        } else if (double.parse(widget.practiceID) == 51.5) {
+              .update({'CurrentLevel': 43});
+        } else if (double.parse(widget.practiceID) == 49.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
-              .update({'CurrentLevel': 52});
-        } else if (double.parse(widget.practiceID) == 57.5) {
+              .update({'CurrentLevel': 50});
+        } else if (double.parse(widget.practiceID) == 56.5) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
-              .update({'CurrentLevel': 58});
+              .update({'CurrentLevel': 57});
         } else if (double.parse(widget.practiceID) == 63.5) {
           FirebaseFirestore.instance
               .collection('parent')
@@ -740,6 +742,7 @@ class _GameViewState extends State<GameView> {
                     primary: Color(0xff4ECDC4),
                   ),
                   onPressed: () {
+                    Navigator.pop(context);
                     Navigator.pop(context);
                     Navigator.pop(context);
                   },
