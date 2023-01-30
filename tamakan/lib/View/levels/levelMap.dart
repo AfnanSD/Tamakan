@@ -332,8 +332,8 @@ class _LevelMapState extends State<LevelMap> {
                         color: (child.CurrentLevel < int.parse(number))
                             ? Colors.grey[300]
                             : (child.CurrentLevel == int.parse(number))
-                                ? const Color(0xffFF6B6B)
-                                : const Color(0xff4ECDC4),
+                                ? const Color(0xff4ECDC4)
+                                : const Color(0xff7BA60D),
                         shape: BoxShape.circle,
                         boxShadow: const [
                           BoxShadow(

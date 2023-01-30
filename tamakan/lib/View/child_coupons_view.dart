@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
@@ -28,11 +27,17 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
 
   late List<Coupon> coupons = List<Coupon>.empty(growable: true);
 
-  List<Color> shades = const [
+  List<Color> couponsMainColor = const [
     Color(0xff4ECDC4),
     Color(0xff1A535C),
     Color(0xffFF6B6B),
     Color(0xffFFE66D),
+  ];
+  List<Color> couponsSecondaryColor = const [
+    Color.fromARGB(255, 200, 245, 242),
+    Color.fromARGB(255, 209, 248, 255),
+    Color.fromARGB(255, 255, 239, 239),
+    Color.fromARGB(255, 250, 242, 201),
   ];
 
   @override
@@ -79,46 +84,78 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: Card(
-                                elevation: 4,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 10),
+                                  horizontal: 20.0, vertical: 10),
+                              child: CouponCard(
+                                height: 150,
+                                backgroundColor:
+                                    couponsSecondaryColor[index % 4],
+                                curveAxis: Axis.vertical,
+                                firstChild: Container(
                                   decoration: BoxDecoration(
-                                      color: shades[index % 4],
-                                      // gradient: LinearGradient(
-                                      //   colors: shades[index % 4],
-                                      //   begin: Alignment.centerRight,
-                                      //   end: Alignment.centerLeft,
-                                      // ),
-                                      borderRadius: BorderRadius.circular(15)),
-                                  child: ListTile(
-                                    title: Text(
-                                      coupons[index].name,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text(
-                                      'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}\n رقم الكوبون: ${coupons[index].couponID}',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    leading: Container(
-                                      padding: const EdgeInsets.all(7),
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
+                                    color: couponsMainColor[index % 4],
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: Text(
+                                          coupons[index].name,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
                                       ),
-                                      child: Image.network(
-                                        coupons[index].pictureURL,
+                                      const Divider(),
+                                      Container(
+                                        padding: const EdgeInsets.all(7),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          coupons[index].pictureURL,
+                                        ),
                                       ),
-                                    ),
+                                    ],
+                                  ),
+                                ),
+                                secondChild: Container(
+                                  width: double.maxFinite,
+                                  padding: const EdgeInsets.all(18),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'رقم الكوبون',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        coupons[index].couponID,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 24,
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.black45,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -160,7 +197,7 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
   Future<void> readChildData(String childID) async {
     await FirebaseFirestore.instance
         .collection('parent')
-        .doc(signedInUser.email) //update this
+        .doc(signedInUser.email)
         .collection('children')
         .where('childID', isEqualTo: childID)
         .get()

@@ -219,7 +219,7 @@ class _AddChildState extends State<AddChild> {
                         Column(
                           children: [
                             PassowordIconButton(
-                                'assets/images/red-maple-leaf.png', 2),
+                                'assets/images/hazelnut.png', 2),
                             PassowordIconButton(
                                 'assets/images/snowflake.png', 3),
                           ],
@@ -229,8 +229,7 @@ class _AddChildState extends State<AddChild> {
                         ),
                         Column(
                           children: [
-                            PassowordIconButton(
-                                'assets/images/snowy-pine-trees.png', 4),
+                            PassowordIconButton('assets/images/trees-2.png', 4),
                             PassowordIconButton('assets/images/sun.png', 5),
                           ],
                         ),
@@ -350,7 +349,10 @@ class _AddChildState extends State<AddChild> {
                         offset: Offset(0, 15))
                   ])
             : const BoxDecoration(),
-        child: Image.asset(asset),
+        child: Image.asset(
+          asset,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }
@@ -379,7 +381,6 @@ class _AddChildState extends State<AddChild> {
               ),
               Expanded(
                 child: GridView.builder(
-                  //shrinkWrap: true,
                   itemCount: 4,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

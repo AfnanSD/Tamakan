@@ -265,7 +265,7 @@ class _myChildren extends State<myChildren> {
                                                               20.0),
                                                       child:
                                                           PassowordIconButton(
-                                                        'assets/images/snowy-pine-trees.png',
+                                                        'assets/images/trees-2.png',
                                                         setState,
                                                         data[
                                                             'passwordPicture1'],
@@ -302,7 +302,7 @@ class _myChildren extends State<myChildren> {
                                                               20.0),
                                                       child:
                                                           PassowordIconButton(
-                                                        'assets/images/red-maple-leaf.png',
+                                                        'assets/images/hazelnut.png',
                                                         setState,
                                                         data[
                                                             'passwordPicture1'],

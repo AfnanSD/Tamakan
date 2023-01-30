@@ -65,6 +65,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   lottie: ^2.2.0
   google_fonts: ^3.0.1
+  coupon_uikit: ^0.2.0
   
 
 dev_dependencies:
@@ -145,6 +146,8 @@ flutter:
    - assets/images/rabbit.png
    - assets/images/coupon.png
    - assets/images/levelbackground.png
+   - assets/images/hazelnut.png
+   - assets/images/trees-2.png
    - assets/test_service_account.json
    - assets/animations/sad-star.json
    - assets/animations/happy-star.json

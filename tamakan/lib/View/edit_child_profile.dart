@@ -253,8 +253,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                                       Column(
                                         children: [
                                           PassowordIconButton(
-                                              'assets/images/red-maple-leaf.png',
-                                              2),
+                                              'assets/images/hazelnut.png', 2),
                                           PassowordIconButton(
                                               'assets/images/snowflake.png', 3),
                                         ],
@@ -265,8 +264,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                                       Column(
                                         children: [
                                           PassowordIconButton(
-                                              'assets/images/snowy-pine-trees.png',
-                                              4),
+                                              'assets/images/trees-2.png', 4),
                                           PassowordIconButton(
                                               'assets/images/sun.png', 5),
                                         ],
