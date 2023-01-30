@@ -359,15 +359,39 @@ class _AddChildState extends State<AddChild> {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return GridView.builder(
-            itemCount: 4,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                mainAxisSpacing: 0,
-                crossAxisSpacing: 0,
-                maxCrossAxisExtent: 350),
-            itemBuilder: (context, index) {
-              return slectProfilePicture(availableProfilePics[index]);
-            },
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  height: 5,
+                  width: 300,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[400],
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  //shrinkWrap: true,
+                  itemCount: 4,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 50,
+                      mainAxisSpacing: 50,
+                      mainAxisExtent: 250),
+                  itemBuilder: (context, index) {
+                    return slectProfilePicture(availableProfilePics[index]);
+                  },
+                ),
+              ),
+            ],
           );
         });
   }
@@ -382,9 +406,11 @@ class _AddChildState extends State<AddChild> {
         Navigator.pop(context);
       },
       splashColor: Colors.white,
-      child: Image.asset(
-        asset,
-        scale: 1.3,
+      child: SizedBox(
+        child: Image.asset(
+          asset,
+          fit: BoxFit.contain,
+        ),
       ),
     );
   }

@@ -732,7 +732,23 @@ class _LessonViewState extends State<LessonView> {
         return Container(
           child: Column(
             children: [
-              const SizedBox(height: 8),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 5,
+                width: 300,
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              //const SizedBox(height: 8),
               Expanded(
                 child: AspectRatio(
                   aspectRatio: 16 / 9,

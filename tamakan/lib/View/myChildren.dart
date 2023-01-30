@@ -174,9 +174,23 @@ class _myChildren extends State<myChildren> {
                                     errorMessage = '';
                                     return StatefulBuilder(
                                       builder: (context, setState) => Padding(
-                                        padding: const EdgeInsets.all(20),
+                                        padding: const EdgeInsets.all(15),
                                         child: Column(
                                           children: [
+                                            Container(
+                                              height: 5,
+                                              width: 300,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[400],
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(20),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 15,
+                                            ),
                                             const Text(
                                               'أدخل كلمة السر الخاصة بك',
                                               style: TextStyle(

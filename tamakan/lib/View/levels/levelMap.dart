@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -309,44 +311,60 @@ class _LevelMapState extends State<LevelMap> {
                 ),
               );
             },
-      child: SizedBox(
-        height: 100,
-        width: 100,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100),
-          ),
-          elevation: 6,
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Container(
-                height: 75,
-                width: 75,
-                decoration: BoxDecoration(
-                    color: (child.CurrentLevel < int.parse(number))
-                        ? Colors.grey[300]
-                        : (child.CurrentLevel == int.parse(number))
-                            ? const Color(0xff4ECDC4)
-                            : const Color(0xff1A535C),
-                    shape: BoxShape.circle,
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(-2, 2),
-                          blurRadius: 0.5,
-                          spreadRadius: 0.7)
-                    ]),
+      child: Stack(
+        alignment: AlignmentDirectional.bottomStart,
+        children: [
+          SizedBox(
+            height: 100,
+            width: 100,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
               ),
-              Center(
-                  child: Text(
-                number,
-                style: const TextStyle(
-                    fontFamily: 'Blabeloo', fontSize: 20, color: Colors.white),
-              )),
-            ],
+              elevation: 6,
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        color: (child.CurrentLevel < int.parse(number))
+                            ? Colors.grey[300]
+                            : (child.CurrentLevel == int.parse(number))
+                                ? const Color(0xffFF6B6B)
+                                : const Color(0xff4ECDC4),
+                        shape: BoxShape.circle,
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(-2, 2),
+                              blurRadius: 0.5,
+                              spreadRadius: 0.7)
+                        ]),
+                  ),
+                  Center(
+                      child: Text(
+                    number,
+                    style: const TextStyle(
+                        fontFamily: 'Blabeloo',
+                        fontSize: 20,
+                        color: Colors.white),
+                  )),
+                ],
+              ),
+            ),
           ),
-        ),
+          (child.CurrentLevel == int.parse(number))
+              ? SizedBox(
+                  height: 40,
+                  child: Image.asset(
+                    child.profilePicture,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              : const Text(''),
+        ],
       ),
     );
   }
