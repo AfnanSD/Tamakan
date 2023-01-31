@@ -194,18 +194,23 @@ class _levelsState extends State<levels> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => LevelMap(
-                                                    childID: widget.childID,
-                                                    level: '1',
-                                                  )
-                                              //  level1(
-                                              //       CurrentLevel:
-                                              //           child.CurrentLevel,
-                                              //       childId: child.childID,
-                                              //     )
-                                              ));
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => LevelMap(
+                                                  childID: widget.childID,
+                                                  level: '1',
+                                                )
+                                            //  level1(
+                                            //       CurrentLevel:
+                                            //           child.CurrentLevel,
+                                            //       childId: child.childID,
+                                            //     )
+                                            ),
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -252,7 +257,11 @@ class _levelsState extends State<levels> {
                                             level: '2',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -319,7 +328,11 @@ class _levelsState extends State<levels> {
                                             level: '3',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -365,7 +378,11 @@ class _levelsState extends State<levels> {
                                             level: '4',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -425,7 +442,11 @@ class _levelsState extends State<levels> {
                                             level: '5',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -480,7 +501,11 @@ class _levelsState extends State<levels> {
                                             level: '6',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -540,7 +565,11 @@ class _levelsState extends State<levels> {
                                             level: '7',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -595,7 +624,11 @@ class _levelsState extends State<levels> {
                                             level: '8',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -655,7 +688,11 @@ class _levelsState extends State<levels> {
                                             level: '9',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(
@@ -710,7 +747,11 @@ class _levelsState extends State<levels> {
                                             level: '10',
                                           ),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        setState(() {
+                                          readChildData(widget.childID);
+                                        });
+                                      });
                                       // Navigator.push(
                                       //     context,
                                       //     MaterialPageRoute(

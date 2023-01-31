@@ -186,24 +186,33 @@ class _LevelMapState extends State<LevelMap> {
                                       ),
                                     );
                                   },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(4.0),
-                                    height: 75,
-                                    width: 75,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[
-                                            100], //blue? - Colors.grey[100]
-                                        shape: BoxShape.circle,
-                                        boxShadow: const [
-                                          BoxShadow(
-                                              color: Colors.grey,
-                                              offset: Offset(-2, 2),
-                                              blurRadius: 0.5,
-                                              spreadRadius: 0.7)
-                                        ]),
-                                    child: Image.asset(
-                                      'assets/images/trophy.png',
-                                      fit: BoxFit.contain,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    elevation: 6,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(7.0),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4.0),
+                                        height: 75,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[
+                                                100], //blue? - Colors.grey[100]
+                                            shape: BoxShape.circle,
+                                            boxShadow: const [
+                                              BoxShadow(
+                                                  color: Colors.grey,
+                                                  offset: Offset(-2, 2),
+                                                  blurRadius: 0.5,
+                                                  spreadRadius: 0.7)
+                                            ]),
+                                        child: Image.asset(
+                                          'assets/images/trophy.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -309,7 +318,11 @@ class _LevelMapState extends State<LevelMap> {
                     lessonID: number.toString(),
                   ),
                 ),
-              );
+              ).then((value) {
+                setState(() {
+                  readChildData(widget.childID);
+                });
+              });
             },
       child: Stack(
         alignment: AlignmentDirectional.bottomStart,
