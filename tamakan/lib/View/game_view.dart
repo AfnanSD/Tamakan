@@ -423,6 +423,9 @@ class _GameViewState extends State<GameView> {
         //make not closable
         index++;
         showfinalDialog(context);
+        //sound
+        SoundEffects(
+            "https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/sounds%2Fexcellentt.m4a?alt=media&token=aed3e890-d299-4f9b-b85d-847e2a12a74c");
         FirebaseFirestore.instance
             .collection('parent')
             .doc(signedInUser.email)
@@ -431,70 +434,79 @@ class _GameViewState extends State<GameView> {
             .update({'points': child.points + 5});
 
         /////Ruba
-        if (double.parse(widget.practiceID) == 7.5) {
+        if (double.parse(widget.practiceID) == 7.5 && child.CurrentLevel <= 7) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 8});
-        } else if (double.parse(widget.practiceID) == 14.5) {
+        } else if (double.parse(widget.practiceID) == 14.5 &&
+            child.CurrentLevel <= 14) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 15});
-        } else if (double.parse(widget.practiceID) == 21.5) {
+        } else if (double.parse(widget.practiceID) == 21.5 &&
+            child.CurrentLevel <= 21) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 22});
-        } else if (double.parse(widget.practiceID) == 28.5) {
+        } else if (double.parse(widget.practiceID) == 28.5 &&
+            child.CurrentLevel <= 28) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 29});
-        } else if (double.parse(widget.practiceID) == 35.5) {
+        } else if (double.parse(widget.practiceID) == 35.5 &&
+            child.CurrentLevel <= 35) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 36});
-        } else if (double.parse(widget.practiceID) == 42.5) {
+        } else if (double.parse(widget.practiceID) == 42.5 &&
+            child.CurrentLevel <= 42) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 43});
-        } else if (double.parse(widget.practiceID) == 49.5) {
+        } else if (double.parse(widget.practiceID) == 49.5 &&
+            child.CurrentLevel <= 49) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 50});
-        } else if (double.parse(widget.practiceID) == 56.5) {
+        } else if (double.parse(widget.practiceID) == 56.5 &&
+            child.CurrentLevel <= 56) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 57});
-        } else if (double.parse(widget.practiceID) == 63.5) {
+        } else if (double.parse(widget.practiceID) == 63.5 &&
+            child.CurrentLevel <= 63) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
               .collection('children')
               .doc(widget.childID)
               .update({'CurrentLevel': 64});
-        } else if (double.parse(widget.practiceID) == 70.5) {
+        } else if (double.parse(widget.practiceID) == 70.5 &&
+            child.CurrentLevel <= 70) {
           FirebaseFirestore.instance
               .collection('parent')
               .doc(signedInUser.email)
@@ -507,7 +519,13 @@ class _GameViewState extends State<GameView> {
       }
     } else {
       showBadDialog(context);
+      SoundEffects(
+          "https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/sounds%2Fsad.m4a?alt=media&token=f139ff73-ecf0-44b8-b924-ce99ce1603ce");
     }
+  }
+
+  Future<void> SoundEffects(String sound) async {
+    await player.play(DeviceFileSource(sound));
   }
 
   Future getLessonData(String id) async {
