@@ -539,6 +539,9 @@ class _LessonViewState extends State<LessonView> {
 
     if (correctText.contains(text)) {
       showfinalDialog(context);
+      //sound
+      SoundEffects(
+          "https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/sounds%2Fexcellentt.m4a?alt=media&token=aed3e890-d299-4f9b-b85d-847e2a12a74c");
       FirebaseFirestore.instance
           .collection('parent')
           .doc(signedInUser.email)
@@ -559,7 +562,14 @@ class _LessonViewState extends State<LessonView> {
       print(child.CurrentLevel);
     } else {
       showBadDialog(context);
+      SoundEffects(
+          "https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/sounds%2Fsad.m4a?alt=media&token=f139ff73-ecf0-44b8-b924-ce99ce1603ce");
+      //sound
     }
+  }
+
+  Future<void> SoundEffects(String sound) async {
+    await player.play(DeviceFileSource(sound));
   }
 
   void showBadDialog(BuildContext context) {
