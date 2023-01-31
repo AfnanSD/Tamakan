@@ -66,183 +66,108 @@ class _LessonViewState extends State<LessonView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        // appBar: AppBar(
-        //   actions: <Widget>[
-        //     Image.asset(
-        //       'assets/images/droppedlogo.png',
-        //       scale: 0.5,
-        //     ),
-        //   ],
-        //   backgroundColor: const Color(0xffFF6B6B),
-        // ),
-        //singlechildscrollview
         body: waiting
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : newUI(),
-
-        // Column(
-        //   children: [
-        //     Padding(
-        //       padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-        //       child: Card(
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(10),
-        //         ),
-        //         child: SizedBox(
-        //           width: double.infinity,
-        //           child: Center(
-        //             child: Text(
-        //               'الدرس $title',
-        //               style: const TextStyle(
-        //                 fontSize: 30,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //     practice(widget.lessonID),
-        //   ],
-        // ),
-      ),
-    );
-  }
-
-  Widget newUI() {
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/b2.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
-              child: SizedBox(
-                width: double.infinity,
-                child: Stack(
-                  alignment: AlignmentDirectional.centerStart,
-                  children: [
-                    // Center(
-                    //   child: Card(
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //     ),
-                    //     child: Padding(
-                    //       padding: const EdgeInsets.symmetric(
-                    //           horizontal: 30.0, vertical: 10),
-                    //       child: Text(
-                    //         'الدرس $title',
-                    //         style: const TextStyle(
-                    //           fontFamily: 'Blabeloo',
-                    //           fontSize: 30,
-                    //           color: Color(0xff1A535C),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.home,
-                              color: Color(0xff1A535C),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0, vertical: 10),
-                            child: Text(
-                              'الدرس $title',
-                              style: const TextStyle(
-                                fontFamily: 'Blabeloo',
-                                fontSize: 30,
-                                color: Color(0xff1A535C),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        Card(
-                          margin: const EdgeInsets.all(7),
-                          shadowColor: Colors.grey,
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 5,
-                              horizontal: 15,
-                            ),
-                            child: SizedBox(
-                              width: 90,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('${child.points}'),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const Icon(
-                                    Icons.star_rounded,
-                                    size: 30,
-                                    color: Color.fromRGBO(255, 221, 64, 1),
-                                  )
-                                  // Image.asset(
-                                  //   'assets/images/star3.png',
-                                  //   scale: 5,
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+            : Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/b2.png"),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    // Center(
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: Text(
-                    //       'الدرس $title',
-                    //       style: const TextStyle(
-                    //         fontFamily: 'Blabeloo',
-                    //         fontSize: 30,
-                    //         color: Color(0xff1A535C),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 15, top: 40),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.chevron_left,
+                                    color: Color(0xff1A535C),
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 45.0, vertical: 10),
+                                  child: Text(
+                                    'الدرس $title',
+                                    style: TextStyle(
+                                      fontFamily: 'Blabeloo',
+                                      fontSize: int.parse(widget.lessonID) > 20
+                                          ? 25
+                                          : 30,
+                                      color: Color(0xff1A535C),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              Card(
+                                margin: const EdgeInsets.all(7),
+                                shadowColor: Colors.grey,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                    horizontal: 15,
+                                  ),
+                                  child: SizedBox(
+                                    width: 90,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text('${child.points}'),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const Icon(
+                                          Icons.star_rounded,
+                                          size: 30,
+                                          color:
+                                              Color.fromRGBO(255, 221, 64, 1),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      practice2(widget.lessonID),
+                    ],
+                  ),
+                ],
               ),
-            ),
-            practice2(widget.lessonID),
-          ],
-        ),
-      ],
+      ),
     );
   }
 
@@ -318,145 +243,37 @@ class _LessonViewState extends State<LessonView> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  width: 50,
-                ),
-                Column(
-                  children: [
-                    IconButton(
-                      onPressed: () => showHintVideo(context),
-                      icon: const Icon(
-                        Icons.lightbulb_outline_rounded,
-                        color: Color(
-                            0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
-                      ),
-                      iconSize: 100,
-                    ),
-                    const Text(
-                      'مساعدة',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Color(0xff1A535C),
-                      ),
-                    )
-                  ],
-                ),
+
+                //remove from requirments
+                // const SizedBox(
+                //   width: 50,
+                // ),
+                // Column(
+                //   children: [
+                //     IconButton(
+                //       onPressed: () => showHintVideo(context),
+                //       icon: const Icon(
+                //         Icons.lightbulb_outline_rounded,
+                //         color: Color(
+                //             0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
+                //       ),
+                //       iconSize: 100,
+                //     ),
+                //     const Text(
+                //       'مساعدة',
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 20,
+                //         color: Color(0xff1A535C),
+                //       ),
+                //     )
+                //   ],
+                // ),
               ],
             ),
           )
         ],
       ),
-    );
-  }
-
-  Widget practice(String id) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          width: double.infinity,
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(100),
-              child: CircleAvatar(
-                maxRadius: 130,
-                backgroundColor: Color(0xff4ECDC4), //4ECDC4
-                child: Text(
-                  lesson,
-                  style: TextStyle(color: Color(0xffFFE66D), fontSize: 100),
-                ),
-              ),
-            ),
-          ),
-        ),
-        InkWell(
-          child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-              child: Image.asset(
-                'assets/images/listen.png',
-                scale: 5,
-              ),
-            ),
-          ),
-          onTap: () async {
-            await player.play(DeviceFileSource(recordURL));
-          },
-        ),
-        InkWell(
-          child: Card(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/images/lightbulb.png',
-                scale: 1.4,
-              ),
-            ),
-          ),
-          onTap: () => showHintVideo(context),
-        ),
-        InkWell(
-          onTap: recognizing ? stopRecording : streamingRecognize,
-          child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            color: recognizing
-                ? const Color.fromARGB(255, 223, 255, 223)
-                : Colors.white,
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-              child: Image.asset(
-                'assets/images/mic.png',
-                scale: 1.2,
-              ),
-            ),
-          ),
-        ),
-
-        //for testing only
-        // Center(
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: <Widget>[
-        //       if (recognizeFinished)
-        //         _RecognizeContent(
-        //           text: text,
-        //         ),
-        //     ],
-        //   ),
-        // ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     showCustomDialog(context);
-        //   },
-        //   child: const Text('testing dialog'),
-        // )
-      ],
     );
   }
 

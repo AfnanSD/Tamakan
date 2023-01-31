@@ -55,6 +55,7 @@ class _GameViewState extends State<GameView> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _recorder.initialize();
     selectRandomLessons(widget.practiceID);
     getCurrentUser();
     readChildData(widget.childID);
@@ -65,54 +66,32 @@ class _GameViewState extends State<GameView> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        // appBar: AppBar(
-        //   actions: <Widget>[
-        //     Image.asset(
-        //       'assets/images/droppedlogo.png',
-        //       scale: 0.5,
-        //     ),
-        //   ],
-        //   backgroundColor: const Color(0xffFF6B6B),
-        // ),
         body: waiting || readingChihldData
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : newUI(),
-
-        // SingleChildScrollView(
-        //     child: index < 5
-        //         ? practice(
-        //             lessonIDs[index].toString(),
-        //           )
-        //         : practice(lessonIDs.last.toString()),
-        //   ),
+            : Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/b2.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      index < 5
+                          ? practice2(
+                              lessonIDs[index].toString(),
+                            )
+                          : practice2(lessonIDs.last.toString()),
+                    ],
+                  ),
+                ],
+              ),
       ),
-    );
-  }
-
-  Widget newUI() {
-    //singlechildscrollview?
-    return Stack(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/b2.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            index < 5
-                ? practice2(
-                    lessonIDs[index].toString(),
-                  )
-                : practice2(lessonIDs.last.toString()),
-          ],
-        ),
-      ],
     );
   }
 
@@ -168,7 +147,7 @@ class _GameViewState extends State<GameView> {
                             Navigator.pop(context);
                           },
                           icon: const Icon(
-                            Icons.home,
+                            Icons.chevron_left,
                             color: Color(0xff1A535C),
                           ),
                         ),
@@ -271,42 +250,43 @@ class _GameViewState extends State<GameView> {
             child: Stack(
               alignment: AlignmentDirectional.centerStart,
               children: [
-                Row(
-                  children: [
-                    const Spacer(),
-                    Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      margin: const EdgeInsets.symmetric(horizontal: 50),
-                      child: Column(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                index++;
-                              });
-                            },
-                            icon: const Icon(
-                              Icons.lightbulb_outline_rounded,
-                              color: Color(
-                                  0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
-                            ),
-                            iconSize: 70,
-                          ),
-                          const Text(
-                            'مساعدة',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: Color(0xff1A535C),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                //remove from reqs
+                // Row(
+                //   children: [
+                //     const Spacer(),
+                //     Card(
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //       margin: const EdgeInsets.symmetric(horizontal: 50),
+                //       child: Column(
+                //         children: [
+                //           IconButton(
+                //             onPressed: () {
+                //               setState(() {
+                //                 index++;
+                //               });
+                //             },
+                //             icon: const Icon(
+                //               Icons.lightbulb_outline_rounded,
+                //               color: Color(
+                //                   0xff1A535C), //Color(0xffFFE66D) - Color(0xff4ECDC4)
+                //             ),
+                //             iconSize: 70,
+                //           ),
+                //           const Text(
+                //             'مساعدة',
+                //             style: TextStyle(
+                //               fontWeight: FontWeight.bold,
+                //               fontSize: 15,
+                //               color: Color(0xff1A535C),
+                //             ),
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Center(
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -347,111 +327,6 @@ class _GameViewState extends State<GameView> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget practice(String id) {
-    getOnce(id);
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 30),
-          child: gameStatusBar(), //from index
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          width: double.infinity,
-          child: Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(100),
-              child: CircleAvatar(
-                maxRadius: 130,
-                backgroundColor: const Color(0xff4ECDC4),
-                child: Text(
-                  lesson,
-                  style:
-                      const TextStyle(color: Color(0xffFFE66D), fontSize: 100),
-                ),
-              ),
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: recognizing ? stopRecording : streamingRecognize,
-          child: Card(
-            color: recognizing
-                ? const Color.fromARGB(255, 223, 255, 223)
-                : Colors.white,
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              width: double.infinity,
-              height: 100,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 105, vertical: 20),
-              child: Image.asset(
-                'assets/images/mic.png',
-                scale: 1.2,
-              ),
-            ),
-          ),
-        ),
-        InkWell(
-          onTap: null,
-          child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Container(
-              height: 100,
-              width: double.infinity,
-              child: Image.asset(
-                'assets/images/lightbulb.png',
-                scale: 1.4,
-              ),
-            ),
-          ),
-        ),
-
-        //for testing only
-        // Center(
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //     children: <Widget>[
-        //       if (recognizeFinished)
-        //         _RecognizeContent(
-        //           text: text,
-        //         ),
-        //     ],
-        //   ),
-        // ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //     setState(() {
-        //       index++; //?
-        //       getCorrectTextOnce = false;
-        //       // text = '';
-        //       // if (index + 1 == 5) {
-        //       //   print('done game ' + accumelatedPoints.toString());
-        //       //   FirebaseFirestore.instance
-        //       //       .collection('parent')
-        //       //       .doc(signedInUser.email)
-        //       //       .collection('children')
-        //       //       .doc(widget.childID)
-        //       //       .update({'points': child.points + accumelatedPoints});
-
-        //   child: const Text('next'),
-        // ),
-      ],
     );
   }
 
