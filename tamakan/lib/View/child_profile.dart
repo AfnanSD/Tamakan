@@ -206,7 +206,7 @@ class _ChildProfileState extends State<ChildProfile> {
                           ),
                           ButtonWidget(
                             fun: () {
-                              showCustomDialog(context);
+                              showDeleteDialog(context);
                             },
                             buttonLabel: 'حذف الحساب',
                             buttonColor: const Color(0xffFF6B6B),
@@ -249,7 +249,7 @@ class _ChildProfileState extends State<ChildProfile> {
     });
   }
 
-  void showCustomDialog(BuildContext context) {
+  void showDeleteDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (context) {

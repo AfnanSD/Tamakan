@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
@@ -77,92 +78,116 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.8,
-                        child: ListView.builder(
-                          itemCount: coupons.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 10),
-                              child: CouponCard(
-                                height: 150,
-                                backgroundColor:
-                                    couponsSecondaryColor[index % 4],
-                                curveAxis: Axis.vertical,
-                                firstChild: Container(
-                                  decoration: BoxDecoration(
-                                    color: couponsMainColor[index % 4],
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: Text(
-                                          coupons[index].name,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      ),
-                                      const Divider(),
-                                      Container(
-                                        padding: const EdgeInsets.all(7),
-                                        decoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          coupons[index].pictureURL,
-                                        ),
-                                      ),
-                                    ],
+                      coupons.isEmpty
+                          ? Column(
+                              children: [
+                                const SizedBox(height: 100),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 50.0),
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: LottieBuilder.asset(
+                                      'assets/animations/star-rating-bad.json',
+                                      repeat: false,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                secondChild: Container(
-                                  width: double.maxFinite,
-                                  padding: const EdgeInsets.all(18),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Text(
-                                        'رقم الكوبون',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        coupons[index].couponID,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: 24,
-                                          color: Colors.black87,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}',
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          color: Colors.black45,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                Text(
+                                  'لا توجد لديك قسائم حاليا',
+                                  style: TextStyle(
+                                      fontSize: 30, color: Colors.grey[700]),
                                 ),
+                              ],
+                            )
+                          : SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.8,
+                              child: ListView.builder(
+                                itemCount: coupons.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 10),
+                                    child: CouponCard(
+                                      height: 150,
+                                      backgroundColor:
+                                          couponsSecondaryColor[index % 4],
+                                      curveAxis: Axis.vertical,
+                                      firstChild: Container(
+                                        decoration: BoxDecoration(
+                                          color: couponsMainColor[index % 4],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                              child: Text(
+                                                coupons[index].name,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                            const Divider(),
+                                            Container(
+                                              padding: const EdgeInsets.all(7),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.network(
+                                                coupons[index].pictureURL,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      secondChild: Container(
+                                        width: double.maxFinite,
+                                        padding: const EdgeInsets.all(18),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'رقم الكوبون',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black54,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              coupons[index].couponID,
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                fontSize: 24,
+                                                color: Colors.black87,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              'تاريخ الانتهاء: ${DateFormat.yMd().format(coupons[index].endDate)}',
+                                              textAlign: TextAlign.center,
+                                              style: const TextStyle(
+                                                color: Colors.black45,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                            ),
                     ],
                   ),
                 ),

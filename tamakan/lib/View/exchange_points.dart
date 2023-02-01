@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tamakan/Model/coupon.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
@@ -81,11 +82,30 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                         ChildPoints(child: child),
                       ],
                     ),
-                    coupons.length == 0
-                        ? Center(
-                            child: Text('لا توجد كوبونات حاليا'),
+                    coupons.isEmpty
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 50.0),
+                                child: SizedBox(
+                                  height: 400,
+                                  child: LottieBuilder.asset(
+                                    'assets/animations/not-found.json',
+                                    repeat: false,
+                                    fit: BoxFit.cover,
+                                    //height: 200,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                'عذرا, لا توجد قسائم حاليا',
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.grey[700]),
+                              ),
+                            ],
                           )
-                        : Container(
+                        : SizedBox(
                             height: MediaQuery.of(context).size.height * 0.8,
                             child: ListView.builder(
                               itemCount: coupons.length,
@@ -178,7 +198,12 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
     });
   }
 
-  void exchangeCoupon(String couponName, int amount, int points) {
+  Future<void> exchangeCoupon(String couponName, int amount, int points) async {
+    print(amount.toString() + couponName);
+    FirebaseFirestore.instance
+        .collection('coupon')
+        .doc(amount.toString() + couponName)
+        .update({'childID': child.childID});
     FirebaseFirestore.instance
         .collection('couponType')
         .doc(couponName)
@@ -189,51 +214,78 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
         .collection('children')
         .doc(child.childID)
         .update({'points': child.points - points});
-    FirebaseFirestore.instance
-        .collection('coupon')
-        .where('name', isEqualTo: couponName)
-        .get()
-        .then(
-      (value) async {
-        print(value.docs.length);
-        var found = false;
-        for (var element in value.docs) {
-          coupon = Coupon.fromJson(element.data()); //here is the copounID
-          if (coupon.childID.isEmpty) {
-            FirebaseFirestore.instance
-                .collection('coupon')
-                .doc(coupon.couponID)
-                .update({'childID': child.childID});
-            found = true;
-          }
-          if (found) break;
-          final serviceId = 'service_w5ei0k1';
-          final templateId = 'template_mxy1yae';
-          final userId = '5tJEsLojudk2YIKcD';
 
-          final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
-          final response = await http.post(
-            url,
-            headers: {
-              'origin': 'http://localhost',
-              'Content-Type': 'application/json',
-            },
-            body: json.encode({
-              'service_id': serviceId,
-              'template_id': templateId,
-              'user_id': userId,
-              'template_params': {
-                'parent_email': signedInUser.email,
-                'point': points,
-                'coupon_name': couponName,
-                'coupon_ID': coupon.couponID,
-                'child_name': child.name,
-              },
-            }),
-          );
-        }
+    final serviceId = 'service_w5ei0k1';
+    final templateId = 'template_mxy1yae';
+    final userId = '5tJEsLojudk2YIKcD';
+
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    final response = await http.post(
+      url,
+      headers: {
+        'origin': 'http://localhost',
+        'Content-Type': 'application/json',
       },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'parent_email': signedInUser.email,
+          'point': points,
+          'coupon_name': couponName,
+          'coupon_ID': coupon.couponID,
+          'child_name': child.name,
+        },
+      }),
     );
+
+//old
+    // FirebaseFirestore.instance
+    //     .collection('coupon')
+    //     .where('name', isEqualTo: couponName)
+    //     .get()
+    //     .then(
+    //   (value) async {
+    //     print(value.docs.length);
+    //     var found = false;
+    //     for (var element in value.docs) {
+    //       coupon = Coupon.fromJson(element.data()); //here is the copounID
+    //       if (coupon.childID.isEmpty) {
+    //         FirebaseFirestore.instance
+    //             .collection('coupon')
+    //             .doc(coupon.couponID)
+    //             .update({'childID': child.childID});
+    //         found = true;
+    //       }
+    //       if (found) break;
+    //       final serviceId = 'service_w5ei0k1';
+    //       final templateId = 'template_mxy1yae';
+    //       final userId = '5tJEsLojudk2YIKcD';
+
+    //       final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    //       final response = await http.post(
+    //         url,
+    //         headers: {
+    //           'origin': 'http://localhost',
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: json.encode({
+    //           'service_id': serviceId,
+    //           'template_id': templateId,
+    //           'user_id': userId,
+    //           'template_params': {
+    //             'parent_email': signedInUser.email,
+    //             'point': points,
+    //             'coupon_name': couponName,
+    //             'coupon_ID': coupon.couponID,
+    //             'child_name': child.name,
+    //           },
+    //         }),
+    //       );
+    //     }
+    //   },
+    // );
   }
 
 /*

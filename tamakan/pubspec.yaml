@@ -154,6 +154,8 @@ flutter:
    - assets/animations/trophy-winner.json
    - assets/animations/five-stars.json
    - assets/animations/theree-stars.json
+   - assets/animations/not-found.json
+   - assets/animations/star-rating-bad.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
