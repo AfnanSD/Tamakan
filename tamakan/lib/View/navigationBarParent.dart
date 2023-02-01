@@ -31,7 +31,7 @@ class _navigationState extends State<navigation> {
           items: <Widget>[
             Icon(Icons.person, size: 30),
             Icon(Icons.home, size: 30),
-            Icon(Icons.people_alt, size: 30),
+            Icon(Icons.group_add, size: 30),
           ],
           onTap: (index) => setState(() => this.index = index),
         ),
