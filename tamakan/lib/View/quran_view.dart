@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:tamakan/View/surah_view.dart';
 
-class QuranView extends StatelessWidget {
+class QuranView extends StatefulWidget {
   QuranView({super.key, required this.childID});
 
   final String childID;
 
+  @override
+  State<QuranView> createState() => _QuranViewState();
+}
+
+class _QuranViewState extends State<QuranView> {
   final List<String> surahs = [
+    'الفاتحة',
     'الإخلاص',
     'الفلق',
     "الناس",
-    'الفاتحة',
     'الكوثر'
   ];
 
   List<Color> surahsColor = const [
-    Color(0xff4ECDC4),
     Color(0xff1A535C),
+    Color(0xff4ECDC4),
     Color(0xffFF6B6B),
     Color(0xffFFE66D),
   ];
 
   //   Color(0xff4ECDC4),
-  // Color(0xff1A535C),
-  // Color(0xffFF6B6B),
-  // Color(0xffFFE66D),
-  //   Color.fromARGB(255, 200, 245, 242),
-  // Color.fromARGB(255, 209, 248, 255),
-  // Color.fromARGB(255, 255, 239, 239),
-  // Color.fromARGB(255, 250, 242, 201),
   int colorIndex = 0;
 
   @override
@@ -86,7 +84,11 @@ class QuranView extends StatelessWidget {
                             child: Center(
                                 child: Text(
                               e,
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             )),
                           ),
                           onTap: () => Navigator.push(
@@ -94,7 +96,7 @@ class QuranView extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => SurahView(
                                 surahName: e,
-                                childID: childID,
+                                childID: widget.childID,
                               ),
                             ),
                           ),

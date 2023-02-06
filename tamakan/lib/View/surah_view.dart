@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tamakan/View/levels/levels.dart';
 import 'package:tamakan/View/navigationBarChild.dart';
 
 class SurahView extends StatefulWidget {
@@ -142,35 +141,40 @@ class _SurahViewState extends State<SurahView> {
                       ),
                       //control
                       const Text('عدد تكرار السورة'),
-                      amountWidget(true),
+                      amountWidgetForSurah(),
                       const Text('عدد تكرار الآية'),
-                      amountWidget(false),
+                      amountWidgetForAyah(),
                       Card(
                         margin: const EdgeInsets.all(50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: IconButton(
-                          onPressed: playing
-                              ? () {
-                                  player.pause();
-                                  setState(() {
-                                    paused = true;
-                                    playing = false;
-                                  });
-                                }
-                              : () {
-                                  if (paused) {
-                                    player.resume();
-                                    setState(() {
-                                      paused = false;
-                                      playing = true;
-                                    });
-                                  } else {
-                                    repeateSurah(selectedSurahRepetition,
-                                        selectedAyahRepetition, ayahs);
-                                  }
-                                },
+                          onPressed: () {
+                            if (playing) {
+                              print('paused!');
+                              player.pause();
+                              setState(() {
+                                paused = true;
+                                playing = false;
+                              });
+                            } else if (paused) {
+                              print('resumed!');
+                              player.resume();
+                              setState(() {
+                                paused = false;
+                                playing = true;
+                              });
+                            } else if (!playing && !paused) {
+                              print('start play');
+                              repeateSurah(selectedSurahRepetition,
+                                  selectedAyahRepetition, ayahs);
+                              setState(() {
+                                print('error?');
+                                playing = true;
+                              });
+                            }
+                          },
                           icon: Icon(
                             playing
                                 ? Icons.pause_rounded
@@ -272,10 +276,7 @@ class _SurahViewState extends State<SurahView> {
     int compeletedSurah = repeatAyah * URLs.length;
 
     int index = 0;
-    setState(() {
-      x = 0;
-      playing = true;
-    });
+
     player.play(DeviceFileSource(URLs[0]));
     player.onPlayerComplete.listen((event) async {
       setState(() {
@@ -294,15 +295,14 @@ class _SurahViewState extends State<SurahView> {
           index = 0;
         }
         player.play(DeviceFileSource(URLs[index]));
-      } else {
-        print('else');
+      } else if (x == (repeatAyah * repeatSurah * URLs.length)) {
+        setState(() {
+          playing = false;
+          paused = false;
+        });
       }
     });
     player.stop(); //?
-    setState(() {
-      playing = false;
-      print('here');
-    });
   }
 
   Future getAyahs() async {
@@ -329,8 +329,7 @@ class _SurahViewState extends State<SurahView> {
     });
   }
 
-//chech for min = 1 max = 5?
-  Widget amountWidget(bool isSurah) {
+  Widget amountWidgetForSurah() {
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
@@ -342,10 +341,7 @@ class _SurahViewState extends State<SurahView> {
             width: 140,
             height: 40,
             child: Center(
-              child: Text(
-                  isSurah
-                      ? selectedSurahRepetition.toString()
-                      : selectedAyahRepetition.toString(),
+              child: Text(selectedSurahRepetition.toString(),
                   style: const TextStyle(
                     fontSize: 25,
                   )),
@@ -356,34 +352,130 @@ class _SurahViewState extends State<SurahView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
+              backgroundColor: (selectedSurahRepetition < 5 && !playing)
+                  ? const Color(0xffFF6B6B)
+                  : Colors.grey,
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    if (isSurah) {
+                    if (selectedSurahRepetition < 5 && !playing) {
                       selectedSurahRepetition++;
-                    } else {
-                      selectedAyahRepetition++;
+                    }
+                    if (paused) {
+                      player.stop();
+                      playing = false;
+                      paused = false;
                     }
                   });
                 },
-                icon: const Icon(Icons.add),
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(
               width: 100,
             ),
             CircleAvatar(
+              backgroundColor: (1 < selectedSurahRepetition && !playing)
+                  ? const Color(0xffFF6B6B)
+                  : Colors.grey,
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    if (isSurah) {
+                    if (1 < selectedSurahRepetition && !playing) {
                       selectedSurahRepetition--;
-                    } else {
-                      selectedAyahRepetition--;
+                    }
+                    if (paused) {
+                      player.stop();
+                      playing = false;
+                      paused = false;
                     }
                   });
                 },
-                icon: const Icon(Icons.remove),
+                icon: const Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget amountWidgetForAyah() {
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            width: 140,
+            height: 40,
+            child: Center(
+              child: Text(selectedAyahRepetition.toString(),
+                  style: const TextStyle(
+                    fontSize: 25,
+                  )),
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundColor: (selectedAyahRepetition < 5 && !playing)
+                  ? const Color(0xffFF6B6B)
+                  : Colors.grey,
+              child: IconButton(
+                onPressed: () {
+                  //if paused restart? set state
+                  setState(() {
+                    if (selectedAyahRepetition < 5 && !playing) {
+                      selectedAyahRepetition++;
+                    }
+                    if (paused) {
+                      player.stop();
+                      playing = false;
+                      paused = false;
+                    }
+                  });
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 100,
+            ),
+            CircleAvatar(
+              backgroundColor: (1 < selectedAyahRepetition && !playing)
+                  ? const Color(0xffFF6B6B)
+                  : Colors.grey,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (1 < selectedAyahRepetition && !playing) {
+                      selectedAyahRepetition--;
+                    }
+                    if (paused) {
+                      player.stop();
+                      playing = false;
+                      paused = false;
+                    }
+                  });
+                },
+                icon: const Icon(
+                  Icons.remove,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
