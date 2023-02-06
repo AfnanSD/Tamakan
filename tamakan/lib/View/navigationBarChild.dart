@@ -6,6 +6,7 @@ import 'package:tamakan/View/manage_family.dart';
 import 'package:tamakan/View/myChildren.dart';
 import 'package:tamakan/View/parentProfileView.dart';
 import 'package:tamakan/View/quranMap.dart';
+import 'package:tamakan/View/quran_view.dart';
 import 'package:tamakan/View/surah_view.dart';
 
 class navigationChild extends StatefulWidget {
@@ -30,7 +31,7 @@ class _navigationChildState extends State<navigationChild> {
         childID: widget.childID,
       ),
       //Quran_map()
-      SurahView()
+      QuranView()
     ];
   }
 

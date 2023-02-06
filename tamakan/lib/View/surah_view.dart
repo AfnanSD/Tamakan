@@ -1,62 +1,161 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class SurahView extends StatefulWidget {
-  const SurahView({super.key});
+  const SurahView({super.key, required this.surahName});
 
-//get surahname
+  final String surahName;
   @override
   State<SurahView> createState() => _SurahViewState();
 }
 
 class _SurahViewState extends State<SurahView> {
-  // final player = AudioPlayer();
-  var num = 0;
-  int x = 0;
   List<String> ayahs = List<String>.empty(growable: true);
+  String surahImg = '';
+  var gettingData = true;
+
+  var selectedSurahRepetition = 1;
+  var selectedAyahRepetition = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getAyahs(''); //update this
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    getAyahs();
+    getSurahData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Text('data'),
-          Text(num.toString()),
-          Text('x'),
-          Text(x.toString()),
-          IconButton(
-            onPressed: () {
-              repeateSurah(2, 2, ayahs);
-            },
-            icon: const Icon(
-              Icons.volume_up_rounded,
-              color: Color(0xff1A535C),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/b2.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            iconSize: 100,
-          ),
-        ],
+            gettingData
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Column(
+                    children: [
+                      //header
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 40),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.chevron_left,
+                                  color: Color(0xff1A535C),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 45.0, vertical: 10),
+                                child: Text(
+                                  'سورة ${widget.surahName}',
+                                  style: const TextStyle(
+                                    fontFamily: 'Blabeloo',
+                                    fontSize: 30,
+                                    color: Color(0xff1A535C),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.home,
+                                    color: Color(0xff1A535C),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //surah
+                      Expanded(
+                        child: Center(
+                          child: Card(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 25,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child:
+                                  Image.network(surahImg, fit: BoxFit.contain),
+                            ),
+                          ),
+                        ),
+                      ),
+                      //control
+                      const Text('عدد تكرار السورة'),
+                      amountWidget(true),
+                      const Text('عدد تكرار الآية'),
+                      amountWidget(false),
+                      IconButton(
+                        onPressed: () {
+                          repeateSurah(selectedSurahRepetition,
+                              selectedAyahRepetition, ayahs);
+                        },
+                        icon: const Icon(
+                          Icons.play_arrow_rounded,
+                          color: Color(0xff1A535C),
+                        ),
+                        iconSize: 100,
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
   }
 
   void repeateSurah(int repeatSurah, int repeatAyah, List<String> URLs) {
+    int x = 0;
     final player = AudioPlayer();
     int tmpAyah = 0;
     int compeletedSurah = repeatAyah * URLs.length;
-    print(compeletedSurah.toString() + 'CS');
 
     int index = 0;
     setState(() {
@@ -71,10 +170,6 @@ class _SurahViewState extends State<SurahView> {
       });
 
       if (x < (repeatAyah * repeatSurah * URLs.length)) {
-        print('xxx is' + x.toString());
-        print('tmp is' + tmpAyah.toString());
-        print('inex is' + index.toString());
-        print(compeletedSurah.toString() + 'CS');
         if (tmpAyah == repeatAyah) {
           index++;
           tmpAyah = 0;
@@ -89,14 +184,90 @@ class _SurahViewState extends State<SurahView> {
     player.stop(); //?
   }
 
-  Future getAyahs(String id) async {
+  Future getAyahs() async {
     QuerySnapshot qs = await FirebaseFirestore.instance
         .collection('surah')
-        .doc('الإخلاص')
+        .doc(widget.surahName)
         .collection('ayahs')
         .get();
     for (var element in qs.docs) {
       ayahs.add(element['recordURL']);
     }
+  }
+
+  Future getSurahData() async {
+    await FirebaseFirestore.instance
+        .collection('surah')
+        .doc(widget.surahName)
+        .get()
+        .then((value) {
+      setState(() {
+        surahImg = value['imageURL'];
+        gettingData = false;
+      });
+    });
+  }
+
+//chech for min = 1 max = 5?
+  Widget amountWidget(bool isSurah) {
+    return Stack(
+      alignment: AlignmentDirectional.center,
+      children: [
+        Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          child: SizedBox(
+            width: 140,
+            height: 40,
+            child: Center(
+              child: Text(
+                  isSurah
+                      ? selectedSurahRepetition.toString()
+                      : selectedAyahRepetition.toString(),
+                  style: const TextStyle(
+                    fontSize: 25,
+                  )),
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (isSurah) {
+                      selectedSurahRepetition++;
+                    } else {
+                      selectedAyahRepetition++;
+                    }
+                  });
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ),
+            const SizedBox(
+              width: 100,
+            ),
+            CircleAvatar(
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (isSurah) {
+                      selectedSurahRepetition--;
+                    } else {
+                      selectedAyahRepetition--;
+                    }
+                  });
+                },
+                icon: const Icon(Icons.remove),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
