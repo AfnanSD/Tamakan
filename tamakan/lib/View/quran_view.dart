@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tamakan/View/surah_view.dart';
 
 class QuranView extends StatelessWidget {
-  QuranView({super.key});
+  QuranView({super.key, required this.childID});
+
+  final String childID;
 
   final List<String> surahs = [
     'الإخلاص',
@@ -92,6 +94,7 @@ class QuranView extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => SurahView(
                                 surahName: e,
+                                childID: childID,
                               ),
                             ),
                           ),

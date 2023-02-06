@@ -1,12 +1,14 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:tamakan/View/levels/levels.dart';
+import 'package:tamakan/View/navigationBarChild.dart';
 
 class SurahView extends StatefulWidget {
-  const SurahView({super.key, required this.surahName});
+  const SurahView({super.key, required this.surahName, required this.childID});
 
   final String surahName;
+  final String childID;
   @override
   State<SurahView> createState() => _SurahViewState();
 }
@@ -18,6 +20,11 @@ class _SurahViewState extends State<SurahView> {
 
   var selectedSurahRepetition = 1;
   var selectedAyahRepetition = 1;
+
+  var playing = false;
+  var paused = false;
+
+  final player = AudioPlayer();
 
   @override
   void initState() {
@@ -98,6 +105,12 @@ class _SurahViewState extends State<SurahView> {
                                 child: IconButton(
                                   onPressed: () {
                                     Navigator.pop(context);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => navigationChild(
+                                              childID: widget.childID),
+                                        ));
                                   },
                                   icon: const Icon(
                                     Icons.home,
@@ -132,16 +145,117 @@ class _SurahViewState extends State<SurahView> {
                       amountWidget(true),
                       const Text('عدد تكرار الآية'),
                       amountWidget(false),
-                      IconButton(
-                        onPressed: () {
-                          repeateSurah(selectedSurahRepetition,
-                              selectedAyahRepetition, ayahs);
-                        },
-                        icon: const Icon(
-                          Icons.play_arrow_rounded,
-                          color: Color(0xff1A535C),
+                      Card(
+                        margin: const EdgeInsets.all(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        iconSize: 100,
+                        child: IconButton(
+                          onPressed: playing
+                              ? () {
+                                  player.pause();
+                                  setState(() {
+                                    paused = true;
+                                    playing = false;
+                                  });
+                                }
+                              : () {
+                                  if (paused) {
+                                    player.resume();
+                                    setState(() {
+                                      paused = false;
+                                      playing = true;
+                                    });
+                                  } else {
+                                    repeateSurah(selectedSurahRepetition,
+                                        selectedAyahRepetition, ayahs);
+                                  }
+                                },
+                          icon: Icon(
+                            playing
+                                ? Icons.pause_rounded
+                                : Icons.play_arrow_rounded,
+                            color: const Color(0xff1A535C),
+                          ),
+                          iconSize: 100,
+                        ),
+                        //2 icons
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Column(
+                        //       children: [
+                        //         IconButton(
+                        //           onPressed: playing
+                        //               ? null
+                        //               : () {
+                        //                   repeateSurah(selectedSurahRepetition,
+                        //                       selectedAyahRepetition, ayahs);
+                        //                 },
+                        //           icon: Icon(
+                        //             Icons.play_arrow_rounded,
+                        //             color: playing
+                        //                 ? const Color(0xffFF6B6B)
+                        //                 : paused
+                        //                     ? Colors.grey
+                        //                     : const Color(0xff1A535C),
+                        //           ),
+                        //           iconSize: 100,
+                        //         ),
+                        //         const Text(
+                        //           'ابدأ',
+                        //           style: TextStyle(
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 20,
+                        //             color: Color(0xff1A535C),
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //     const SizedBox(
+                        //       width: 50,
+                        //     ),
+                        //     //pause
+                        //     Column(
+                        //       children: [
+                        //         IconButton(
+                        //           onPressed: () {
+                        //             if (!paused) {
+                        //               print('paused!');
+                        //               player.pause();
+                        //               setState(() {
+                        //                 paused = true;
+                        //                 playing = false;
+                        //               });
+                        //             } else {
+                        //               print('resume!');
+                        //               player.resume();
+                        //               setState(() {
+                        //                 paused = false;
+                        //                 playing = true;
+                        //               });
+                        //             }
+                        //           },
+                        //           icon: Icon(
+                        //             Icons.pause_rounded,
+                        //             color: playing
+                        //                 ? const Color(0xff1A535C)
+                        //                 : Colors.grey,
+                        //           ),
+                        //           iconSize: 100,
+                        //         ),
+                        //         const Text(
+                        //           'توقف',
+                        //           style: TextStyle(
+                        //             fontWeight: FontWeight.bold,
+                        //             fontSize: 20,
+                        //             color: Color(0xff1A535C),
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                     ],
                   ),
@@ -153,13 +267,14 @@ class _SurahViewState extends State<SurahView> {
 
   void repeateSurah(int repeatSurah, int repeatAyah, List<String> URLs) {
     int x = 0;
-    final player = AudioPlayer();
+
     int tmpAyah = 0;
     int compeletedSurah = repeatAyah * URLs.length;
 
     int index = 0;
     setState(() {
       x = 0;
+      playing = true;
     });
     player.play(DeviceFileSource(URLs[0]));
     player.onPlayerComplete.listen((event) async {
@@ -179,9 +294,15 @@ class _SurahViewState extends State<SurahView> {
           index = 0;
         }
         player.play(DeviceFileSource(URLs[index]));
-      } else {}
+      } else {
+        print('else');
+      }
     });
     player.stop(); //?
+    setState(() {
+      playing = false;
+      print('here');
+    });
   }
 
   Future getAyahs() async {

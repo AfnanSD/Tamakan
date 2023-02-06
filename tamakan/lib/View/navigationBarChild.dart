@@ -31,7 +31,9 @@ class _navigationChildState extends State<navigationChild> {
         childID: widget.childID,
       ),
       //Quran_map()
-      QuranView()
+      QuranView(
+        childID: widget.childID,
+      )
     ];
   }
 
