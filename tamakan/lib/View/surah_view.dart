@@ -13,7 +13,9 @@ class SurahView extends StatefulWidget {
 }
 
 class _SurahViewState extends State<SurahView> {
-  List<String> ayahs = List<String>.empty(growable: true);
+  List<String> ayahsRecords = List<String>.empty(growable: true);
+  List<String> ayahsTexts = List<String>.empty(growable: true);
+  int ayahNum = -1;
   String surahImg = '';
   var gettingData = true;
 
@@ -25,12 +27,14 @@ class _SurahViewState extends State<SurahView> {
 
   final player = AudioPlayer();
 
+  int index = 0;
+  var stream;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getAyahs();
-    getSurahData();
   }
 
   @override
@@ -132,17 +136,59 @@ class _SurahViewState extends State<SurahView> {
                               borderRadius: BorderRadius.circular(15.0),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child:
-                                  Image.network(surahImg, fit: BoxFit.contain),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 25),
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      ayahsTexts[0],
+                                      style: TextStyle(
+                                        fontSize: 35,
+                                        fontFamily: 'UthmanicHafs',
+                                        color: (index == 0 && playing)
+                                            ? const Color(0xff4ECDC4)
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      children: ayahsTexts.map((e) {
+                                        int i = ayahsTexts.indexOf(e);
+                                        if (i == 0) {
+                                          return const Text('');
+                                        }
+                                        return Text(
+                                          e,
+                                          style: TextStyle(
+                                            fontSize: 35,
+                                            fontFamily: 'UthmanicHafs',
+                                            color: (index == i && playing)
+                                                ? const Color(0xff4ECDC4)
+                                                : Colors.black,
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                       //control
-                      const Text('عدد تكرار السورة'),
+                      const Text(
+                        'تكرار السورة',
+                        style: TextStyle(fontSize: 20),
+                      ),
                       amountWidgetForSurah(),
-                      const Text('عدد تكرار الآية'),
+                      const Text(
+                        'تكرار الآية',
+                        style: TextStyle(fontSize: 20),
+                      ),
                       amountWidgetForAyah(),
                       Card(
                         margin: const EdgeInsets.all(50),
@@ -155,6 +201,7 @@ class _SurahViewState extends State<SurahView> {
                               print('paused!');
                               player.pause();
                               setState(() {
+                                print('num' + 2.toString());
                                 paused = true;
                                 playing = false;
                               });
@@ -168,10 +215,11 @@ class _SurahViewState extends State<SurahView> {
                             } else if (!playing && !paused) {
                               print('start play');
                               repeateSurah(selectedSurahRepetition,
-                                  selectedAyahRepetition, ayahs);
+                                  selectedAyahRepetition, ayahsRecords);
                               setState(() {
-                                print('error?');
+                                //print('error?');
                                 playing = true;
+                                paused = false;
                               });
                             }
                           },
@@ -183,83 +231,6 @@ class _SurahViewState extends State<SurahView> {
                           ),
                           iconSize: 100,
                         ),
-                        //2 icons
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Column(
-                        //       children: [
-                        //         IconButton(
-                        //           onPressed: playing
-                        //               ? null
-                        //               : () {
-                        //                   repeateSurah(selectedSurahRepetition,
-                        //                       selectedAyahRepetition, ayahs);
-                        //                 },
-                        //           icon: Icon(
-                        //             Icons.play_arrow_rounded,
-                        //             color: playing
-                        //                 ? const Color(0xffFF6B6B)
-                        //                 : paused
-                        //                     ? Colors.grey
-                        //                     : const Color(0xff1A535C),
-                        //           ),
-                        //           iconSize: 100,
-                        //         ),
-                        //         const Text(
-                        //           'ابدأ',
-                        //           style: TextStyle(
-                        //             fontWeight: FontWeight.bold,
-                        //             fontSize: 20,
-                        //             color: Color(0xff1A535C),
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //     const SizedBox(
-                        //       width: 50,
-                        //     ),
-                        //     //pause
-                        //     Column(
-                        //       children: [
-                        //         IconButton(
-                        //           onPressed: () {
-                        //             if (!paused) {
-                        //               print('paused!');
-                        //               player.pause();
-                        //               setState(() {
-                        //                 paused = true;
-                        //                 playing = false;
-                        //               });
-                        //             } else {
-                        //               print('resume!');
-                        //               player.resume();
-                        //               setState(() {
-                        //                 paused = false;
-                        //                 playing = true;
-                        //               });
-                        //             }
-                        //           },
-                        //           icon: Icon(
-                        //             Icons.pause_rounded,
-                        //             color: playing
-                        //                 ? const Color(0xff1A535C)
-                        //                 : Colors.grey,
-                        //           ),
-                        //           iconSize: 100,
-                        //         ),
-                        //         const Text(
-                        //           'توقف',
-                        //           style: TextStyle(
-                        //             fontWeight: FontWeight.bold,
-                        //             fontSize: 20,
-                        //             color: Color(0xff1A535C),
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ],
-                        // ),
                       ),
                     ],
                   ),
@@ -275,33 +246,46 @@ class _SurahViewState extends State<SurahView> {
     int tmpAyah = 0;
     int compeletedSurah = repeatAyah * URLs.length;
 
-    int index = 0;
+    index = 0;
+
+    setState(() {
+      ayahNum = 0;
+    });
 
     player.play(DeviceFileSource(URLs[0]));
-    player.onPlayerComplete.listen((event) async {
-      setState(() {
-        x++;
-        tmpAyah++;
-        compeletedSurah--;
-      });
 
-      if (x < (repeatAyah * repeatSurah * URLs.length)) {
-        if (tmpAyah == repeatAyah) {
-          index++;
-          tmpAyah = 0;
-        }
-        if (compeletedSurah == 0) {
-          compeletedSurah = repeatAyah * (URLs.length + 1);
-          index = 0;
-        }
-        player.play(DeviceFileSource(URLs[index]));
-      } else if (x == (repeatAyah * repeatSurah * URLs.length)) {
+    stream = player.onPlayerComplete.listen(
+      (event) async {
         setState(() {
-          playing = false;
-          paused = false;
+          x++;
+          tmpAyah++;
+          compeletedSurah--;
         });
-      }
-    });
+        print('x is: ' + x.toString());
+        if (x < (repeatAyah * repeatSurah * URLs.length)) {
+          if (tmpAyah == repeatAyah) {
+            index++;
+            setState(() {
+              ayahNum++;
+            });
+            tmpAyah = 0;
+          }
+          if (compeletedSurah == 0) {
+            compeletedSurah = repeatAyah * URLs.length;
+            index = 0;
+            ayahNum = -1;
+          }
+          player.play(DeviceFileSource(URLs[index]));
+        } else if (x == (repeatAyah * repeatSurah * URLs.length)) {
+          setState(() {
+            print('num' + 3.toString());
+            playing = false;
+            paused = false;
+          });
+          stream.pause();
+        }
+      },
+    );
     player.stop(); //?
   }
 
@@ -312,20 +296,12 @@ class _SurahViewState extends State<SurahView> {
         .collection('ayahs')
         .get();
     for (var element in qs.docs) {
-      ayahs.add(element['recordURL']);
+      ayahsRecords.add(element['recordURL']);
+      ayahsTexts.add(element['text']);
     }
-  }
-
-  Future getSurahData() async {
-    await FirebaseFirestore.instance
-        .collection('surah')
-        .doc(widget.surahName)
-        .get()
-        .then((value) {
-      setState(() {
-        surahImg = value['imageURL'];
-        gettingData = false;
-      });
+    setState(() {
+      ayahsTexts;
+      gettingData = false;
     });
   }
 
@@ -352,17 +328,19 @@ class _SurahViewState extends State<SurahView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: (selectedSurahRepetition < 5 && !playing)
-                  ? const Color(0xffFF6B6B)
+              backgroundColor: (selectedSurahRepetition < 10 && !playing)
+                  ? const Color(0xff1A535C)
                   : Colors.grey,
               child: IconButton(
                 onPressed: () {
                   setState(() {
-                    if (selectedSurahRepetition < 5 && !playing) {
+                    if (selectedSurahRepetition < 10 && !playing) {
                       selectedSurahRepetition++;
                     }
                     if (paused) {
                       player.stop();
+                      stream.pause();
+                      print('num' + 4.toString());
                       playing = false;
                       paused = false;
                     }
@@ -379,20 +357,24 @@ class _SurahViewState extends State<SurahView> {
             ),
             CircleAvatar(
               backgroundColor: (1 < selectedSurahRepetition && !playing)
-                  ? const Color(0xffFF6B6B)
+                  ? const Color(0xff1A535C)
                   : Colors.grey,
               child: IconButton(
                 onPressed: () {
-                  setState(() {
-                    if (1 < selectedSurahRepetition && !playing) {
+                  if (1 < selectedSurahRepetition && !playing) {
+                    setState(() {
                       selectedSurahRepetition--;
-                    }
-                    if (paused) {
-                      player.stop();
+                    });
+                  }
+                  if (paused) {
+                    player.stop();
+                    stream.pause();
+                    setState(() {
+                      print('num' + 5.toString());
                       playing = false;
                       paused = false;
-                    }
-                  });
+                    });
+                  }
                 },
                 icon: const Icon(
                   Icons.remove,
@@ -429,22 +411,26 @@ class _SurahViewState extends State<SurahView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: (selectedAyahRepetition < 5 && !playing)
-                  ? const Color(0xffFF6B6B)
+              backgroundColor: (selectedAyahRepetition < 10 && !playing)
+                  ? const Color(0xff1A535C)
                   : Colors.grey,
               child: IconButton(
                 onPressed: () {
-                  //if paused restart? set state
-                  setState(() {
-                    if (selectedAyahRepetition < 5 && !playing) {
+                  if (selectedAyahRepetition < 10 && !playing) {
+                    setState(() {
                       selectedAyahRepetition++;
-                    }
-                    if (paused) {
-                      player.stop();
+                    });
+                  }
+                  if (paused) {
+                    print('increas!');
+                    player.stop();
+                    stream.pause();
+                    setState(() {
+                      print('num' + 6.toString());
                       playing = false;
                       paused = false;
-                    }
-                  });
+                    });
+                  }
                 },
                 icon: const Icon(
                   Icons.add,
@@ -457,7 +443,7 @@ class _SurahViewState extends State<SurahView> {
             ),
             CircleAvatar(
               backgroundColor: (1 < selectedAyahRepetition && !playing)
-                  ? const Color(0xffFF6B6B)
+                  ? const Color(0xff1A535C)
                   : Colors.grey,
               child: IconButton(
                 onPressed: () {
@@ -467,6 +453,8 @@ class _SurahViewState extends State<SurahView> {
                     }
                     if (paused) {
                       player.stop();
+                      stream.pause();
+                      print('num' + 7.toString());
                       playing = false;
                       paused = false;
                     }

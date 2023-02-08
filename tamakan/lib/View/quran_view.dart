@@ -22,8 +22,8 @@ class _QuranViewState extends State<QuranView> {
   List<Color> surahsColor = const [
     Color(0xff1A535C),
     Color(0xff4ECDC4),
-    Color(0xffFF6B6B),
-    Color(0xffFFE66D),
+    Color(0xffA4D173),
+    Color(0xffFFD474),
   ];
 
   //   Color(0xff4ECDC4),
