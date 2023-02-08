@@ -169,6 +169,7 @@ class _SurahViewState extends State<SurahView> {
                                                 ? const Color(0xff4ECDC4)
                                                 : Colors.black,
                                           ),
+                                          textAlign: TextAlign.center,
                                         );
                                       }).toList(),
                                     ),
