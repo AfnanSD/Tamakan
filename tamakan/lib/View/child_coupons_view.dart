@@ -134,12 +134,18 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                                             const Divider(),
                                             Container(
                                               padding: const EdgeInsets.all(7),
+                                              height: 80,
                                               decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: Image.network(
-                                                coupons[index].pictureURL,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(6.0),
+                                                child: Image.network(
+                                                  coupons[index].pictureURL,
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             ),
                                           ],

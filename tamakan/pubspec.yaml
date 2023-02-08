@@ -39,7 +39,7 @@ dependencies:
   firebase_storage: ^11.0.7
   firebase_core: ^2.4.0
   cloud_firestore: ^4.2.0
-  audioplayers: ^1.1.1
+  audioplayers: ^1.1.1 
   speech_to_text: ^6.1.1
   avatar_glow: ^2.0.2
   google_speech: ^2.1.1
@@ -173,6 +173,9 @@ flutter:
     - family: Blabeloo
       fonts:
         - asset: assets/fonts/Blabeloo.ttf 
+    - family: UthmanicHafs 
+      fonts:
+        - asset: assets/fonts/UthmanicHafs_V20.ttf 
     - family: NotoSans
       fonts:
         - asset: assets/fonts/NotoSansArabic_ExtraCondensed-Black.ttf
