@@ -198,6 +198,8 @@ class _registerationviewState extends State<registerationview> {
                                     dotAll: true)
                                 .hasMatch(name)) {
                               return "يجب ان يحتوي الأسم على أحرف فقط";
+                            } else if (name.length > 20) {
+                              return "يجب ان يكون الاسم اقل من 20 حرف";
                             }
                             return null;
                           },

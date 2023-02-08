@@ -138,7 +138,16 @@ class _AddChildState extends State<AddChild> {
                         } else if (childrenNames
                             .any((element) => element == value)) {
                           return 'اسم الطفل موجود سابقا';
+                        } else if (!RegExp(r"^[\p{L} ,.'-]*$",
+                                caseSensitive: false,
+                                unicode: true,
+                                dotAll: true)
+                            .hasMatch(value)) {
+                          return "يجب ان يحتوي الأسم على أحرف فقط";
+                        } else if (value.length > 10 || value.length < 2) {
+                          return "يجب ان يكون اسم الطفل اقل من 10 أحرف واكثر من حرقين";
                         }
+
                         return null;
                       },
                     ),

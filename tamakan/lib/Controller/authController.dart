@@ -240,20 +240,20 @@ class AuthController extends GetxController {
     // UserModel? userModel;
 
     ///validation to name
-    RegExp regexname = RegExp(r'^.{2,}$');
+    ///
+    // RegExp regexname = RegExp(r'^.{2,}$');
 
-    if (name.isEmpty || name.trim().isEmpty)
+    if (name.isEmpty || name.trim().isEmpty) {
       EasyLoading.showError("الرجاء أدخال الأسم");
-    else if (!regexname.hasMatch(name)) {
+    } else if (name.length < 2) {
       EasyLoading.showError("يجب ان يحتوي الأسم على حرفين على الأقل");
     } else if (!RegExp(r"^[\p{L} ,.'-]*$",
             caseSensitive: false, unicode: true, dotAll: true)
         .hasMatch(name)) {
       EasyLoading.showError("يجب ان يحتوي الأسم على أحرف فقط");
-    } /*else if (name.length > 10) {
-        EasyLoading.showError("الأسم المدخل غير صحيح");
-      } */
-    else
+    } else if (name.length > 10) {
+      EasyLoading.showError("الأسم المدخل غير صحيح");
+    } else
 
       ///validation to email
 
