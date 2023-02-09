@@ -144,8 +144,8 @@ class _AddChildState extends State<AddChild> {
                                 dotAll: true)
                             .hasMatch(value)) {
                           return "يجب ان يحتوي الأسم على أحرف فقط";
-                        } else if (value.length > 10 || value.length < 2) {
-                          return "يجب ان يكون اسم الطفل اقل من 10 أحرف واكثر من حرقين";
+                        } else if (value.length > 20 || value.length < 2) {
+                          return "يجب ان يكون اسم الطفل اقل من 20 حرف واكثر من حرفين";
                         }
 
                         return null;
