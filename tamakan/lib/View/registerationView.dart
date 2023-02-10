@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/Controller/authController.dart';
 
 import 'package:flutter/material.dart';
@@ -30,6 +31,11 @@ class _registerationviewState extends State<registerationview> {
     01,
     01,
   );
+  bool nameField = false;
+  bool BDField = false;
+  bool emailField = false;
+  bool passwordField = false;
+  bool conpasswordField = false;
 
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _dateController = TextEditingController();
@@ -68,30 +74,43 @@ class _registerationviewState extends State<registerationview> {
         buttonColor: Color(0xff1A535C) //Color.fromRGBO(255, 230, 109, 1),
         );
     //Sign up button
-    final signupButton = Material(
-      elevation: 10,
-      borderRadius: BorderRadius.circular(30),
-      color: Color.fromRGBO(255, 230, 109, 1),
-      child: MaterialButton(
-        // padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        minWidth: MediaQuery.of(context).size.width,
-        onPressed: () async {
-          Future<bool> user = AuthController().register(
-            _nameController.text.trim(),
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-            _password2Controller.text.trim(),
-            gender,
-            _dateController.text,
-          );
-          print(user);
-          if (await user) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const navigation()));
-          } else {
-            Navigator.pushNamed(context, '/registerview');
-          }
-        },
+    final signupButton = Padding(
+      padding: const EdgeInsets.all(10),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(255, 230, 109, 1)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+          ),
+        ),
+        onPressed: (nameField &
+                BDField &
+                emailField &
+                passwordField &
+                conpasswordField)
+            ? () async {
+                Future<bool> user = AuthController().register(
+                  _nameController.text.trim(),
+                  _emailController.text.trim(),
+                  _passwordController.text.trim(),
+                  _password2Controller.text.trim(),
+                  gender,
+                  _dateController.text,
+                );
+                print(user);
+                if (await user) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const navigation()));
+                } else {
+                  Navigator.pushNamed(context, '/registerview');
+                }
+              }
+            : null,
         child: Text(
           "إنشاء الحساب",
           textAlign: TextAlign.center,
@@ -201,6 +220,7 @@ class _registerationviewState extends State<registerationview> {
                             } else if (name.length > 20) {
                               return "يجب ان يكون الاسم اقل من 20 حرف";
                             }
+                            nameField = true;
                             return null;
                           },
                         ),
@@ -319,6 +339,7 @@ class _registerationviewState extends State<registerationview> {
                                   setState(() => date = newDate);
                                   _dateController.text =
                                       intl.DateFormat.yMMMd().format(newDate);
+                                  BDField = true;
                                 },
                               ),
                             )),
@@ -342,6 +363,7 @@ class _registerationviewState extends State<registerationview> {
                             if (!regexemail.hasMatch(email)) {
                               return 'بريدك الإلكتروني غير صحيح';
                             }
+                            emailField = true;
                             return null;
                           },
                         ),
@@ -370,6 +392,7 @@ class _registerationviewState extends State<registerationview> {
                                 password.contains(new RegExp(r'[a-z]')))) {
                               return 'الرجاء إدخال كلمة مرور تحتوي على حرف كبير وصغير ورقم';
                             }
+                            passwordField = true;
                             return null;
                           },
                         ),
@@ -389,6 +412,7 @@ class _registerationviewState extends State<registerationview> {
                             if (p != passward2) {
                               return "يجب ان تكون كلمات المرور متطابقة";
                             }
+                            conpasswordField = true;
                             return null;
                           },
                         ),
