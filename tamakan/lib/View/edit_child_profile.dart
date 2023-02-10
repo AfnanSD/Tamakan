@@ -142,7 +142,7 @@ class _EditChildProfileState extends State<EditChildProfile> {
                                 width: 150,
                                 padding: const EdgeInsets.all(8.0),
                                 child: const Text(
-                                  'تاريح الميلاد :',
+                                  'تاريخ الميلاد :',
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
