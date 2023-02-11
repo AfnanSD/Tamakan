@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html  lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="shortcut icon" href="logo.png">
+
+    <link href="PageStyle.css" rel="stylesheet">
+    <!--
+        <script type="module" src="form.js"></script>  
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    -->
+
+</head>
+
+<body>
+    <!-- <div id="header">
+        <div id="header-content">
+    <h1>Here is some heading text :)</h1>
+        </div> -->
+    </div>
+    <!-- <img src="logo3.png" alt="profile picture"> -->
+    <img src="logo.png" alt="profile picture">
+
+    <div class="box">
+
+        <!--<img src="logo2.jpg" alt="profile picture" height="60" style="float:right">-->
+        <h2>أهلاً بك في تمكّن</h2>
+        <form>
+            <div class="user-box">
+                <input type="text" name="email" id="email" required>
+                <label> *البريد الإلكتروني</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" id="password" required="">
+                <label> *كلمة المرور</label>
+            </div>
+            <!-- <a href="#" style="text-align: left;"  >هل نسيت كلمة المرور؟  </a> -->
+            <div class="error" id="error"></div>
+            <a id="submit">
+                
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span ></span><b>
+                     تسجيل دخول
+                    </b>
+                
+            </a>
+        </form>
+        
+    </div>
+    <div></div>
+    <div class="site-footer">
+        <p>
+            تمكّن 2023 ©</p>
+</div>
+
+
+
+
+
+
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCYFqGVcdgYTcvQUTwQ5Bk-TeJxJXUBBF0",
+        authDomain: "tamakan-ef69b.firebaseapp.com",
+        projectId: "tamakan-ef69b",
+        storageBucket: "tamakan-ef69b.appspot.com",
+        messagingSenderId: "40014765527",
+        appId: "1:40014765527:web:5a98a37b282a17eb65ff92",
+        measurementId: "G-MKK3N5RPLG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
+
+    document.getElementById("submit").addEventListener('click', function () {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+
+        signInWithEmailAndPassword(auth, email, password) 
+            .then((userCredential) => {
+                // Signed in 
+                //const user = userCredential.user;
+                //alert("اهلا بك مجددا , لقد تم تسجيل دخولك بنجاح");
+                location.replace("homePage.html");
+                //document.getElementById("submit").setAttribute("href", "block.html");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log('Error singing in, ', errorMessage);
+                document.getElementById("error").innerHTML = "الايميل/كلمة المرور غير صحيحة!! حاول مرة اخرى";
+                //alert("الايميل/كلمة المرور غير صحيحة!! حاول مرة اخرى");
+
+            });
+
+    });
+
+    /* -----------------------------Log out-------------------------
+    document.getElementById("logout").addEventListener('click', function(){
+    signOut(auth).then(() => {
+      // Sign-out successful.
+          alert("لقد تم تسجيل خروجك بنجاح!");
+          location.replace("login.html");
+    
+    }).catch((error) => {
+        console.log('Error singing in, ',error.message);
+        alert("حدث خطأ!! حاول مرة اخرى");
+    });
+    
+    });
+    -----------------------------------------------
+    No need for this part of code
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+    
+    
+    */
+
+    document.getElementById("email").addEventListener('click', function () {
+        document.getElementById("error").innerHTML = "";
+    });
+
+</script>
+
+</html>

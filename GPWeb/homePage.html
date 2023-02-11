@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>إدارةالقسائم</title>
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"> -->
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="style2.css"> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #FFEDED;
+      font-size: 13px;
+
+    }
+
+    label {
+      padding-left: 70%;
+    }
+
+    #fileField:hover {
+      cursor: grab/pointer;
+    }
+
+    #logo {
+      float: right;
+      margin: 0;
+      width: 5%;
+      height: 5%;
+    }
+
+    #navlist {
+      float: left;
+    }
+  </style>
+  <title>القسائم الرئيسية</title>
+  <link rel="shortcut icon" href="logo.png">
+
+</head>
+
+<body style="text-align: center;">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img id="logo" src="logo.png">
+    <h2 style="color: #1A535C;">تمكّن</h2>
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul id="navlist" class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+
+          <li class="nav-item">
+            <!-- <a href="#" style=" font-size: 14px; text-decoration: underline; color: #1A535C;"
+              class="nav-link">إدارةالقسائم
+            </a> -->
+
+          <li class="nav-item">
+            <a href="" id="logout" style="padding-right: 785px ; color: red; font-size: 14px;">تسجيل الخروج </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-xl d-flex justify-content-center align-items-center pt-3">
+    <div class="input-group mb-3">
+      <select id="option" style="color: #1A535C;" class="form-select form-select-sm"
+        aria-label=".form-select-sm example">
+        <option value="1" style="color: #1A535C;">مقدّم القسيمة</option>
+        <!-- <option value="2" style="color: #1A535C;">رقم القسيمة</option> -->
+      </select>
+      <input type="text" class="form-control" id="searchBar" placeholder=" أدخل كلمة البحث"
+        aria-label="Search using Name or Email">
+    </div>
+  </div>
+  </div>
+  <div class="container-xl d-flex justify-content-center align-items-center p-5">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div style="margin-left:200px;" class="col-sm-3">
+            <h2>قائمة <b>القسائم</b></h2>
+          </div>
+          <a style="margin-right: 165px; border-style: solid; border: 1px, #FFEDED;" href="#addCouponModal"
+            class="addCoupons btn " data-toggle="modal"><span style="padding-right:3px;"> إضافة قسيمة جديدة</span> <i
+              class="material-icons">&#xE147;</i> </a>
+        </div>
+      </div>
+
+
+
+
+      <table id="t" class="table table-striped table-hover">
+        <tr class="hovertr">
+        <tr class="hovertr">
+          <td style="color: #1A535C;"> </td>
+          <td style="color: #1A535C;">مقدّم القسيمة</td>
+          <td style="color: #1A535C;"> تاريخ التنشيط</td>
+          <td style="color: #1A535C;"> تاريخ الانتهاء</td>
+          <td style="color: #1A535C;"> العدد المتوفر</td>
+          <td style="color: #1A535C;"> النقاط</td>
+          <td style="color: #1A535C;">الوصف</td>
+          <td style="color: #1A535C;">الإجراء</td>
+        </tr>
+
+        <tbody id="tbody"></tbody>
+      </table>
+
+      <!-- Add Modal HTML -->
+      <div id="addCouponModal" name="addCouponModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form>
+              <div class="modal-header">
+                <h4 class="modal-title" style="color: #1A535C;">أضف قسيمة جديدة</h4>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+              </div>
+              <div class="modal-body">
+                <label>شعار المقدم<i style="color: red;">*</i>:</label>
+                <img style="display: block; margin-left: auto; margin-right: auto; height: 60px; width: 60px; border: 2px black solid;" src="addlogo.jpg" id="myimg">
+
+                <!-- <button id="selbtn" type="button" >select Image</button> -->
+                <!-- <button id="upbtn" type="button">upload Image</button> -->
+
+                <label style="margin-top: -18px;" for="myfile"> <img src="" alt=""></label>
+                <input type="file" id="myfile" name="myfile" style="display:none;" required /><br><br>
+                <label style="padding-top: -50px;">مقدّم القسيمة<i style="color: red;">*</i>:</label>
+                <!--  -->
+                <input type="text" class="form-control addName" id="couponName" name='name' placeholder="مثال: جرير" required />
+                <div class="error hide">مقدم القسيمة مطلوب</div>
+                <div class="form-group">
+                  <label style=" margin-top: -20px;">العدد المتوفر<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="number"  class="form-control addAmount" id="couponAmount" min="1" max="5"placeholder="مثال: 500" required />
+                  <div class="error hide"> العدد المتوفر مطلوب</div>
+
+                </div>
+
+                <div class="form-group">
+                  <label style="margin-top: -20px; padding-left: 75%;">عدد النقاط<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="number"class="form-control addPoints" id="couponPoints"   min="1" max="5" placeholder="مثال: 50" required />
+                  <div class="error hide"> عدد النقاط مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px; padding-left: 85% ;">الوصف<i style="color: red;">*</i>:</label>
+
+                  <input type="text" name='desc' class="form-control addDesc" id="couponDesc"
+                    placeholder="مثال: لاينطبق نهاية الاسبوع" required>
+                  <div class="error hide">الوصف مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px;"> تاريخ التنشيط<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="date" class="form-control startDate" id="act" onBlur="myFunction()" required />
+                  <div class="error hide">تاريخ التنشيط مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px;">تاريخ الانتهاء<i style="color: red;">*</i>:</label>
+                  <!-- -->
+                  <input type="date" class="form-control endDate" id="exp" required />
+                  <div class="error hide">تاريخ الانتهاء مطلوب</div>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" style="border-style: solid; background-color: #1A535C; color: #FFEDED;"
+                  class="btn addData"  value="إضافة" id="adddataid">
+
+                <input type="button" class="btn btn-default" style="color: red; text-decoration: underline;"
+                  data-dismiss="modal" value="الغاء">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Edit Modal HTML -->
+      <div id="EditCouponModal" name="EditCouponModal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form>
+              <div class="modal-header">
+                <h4 class="modal-title" style="color: #1A535C;">تعديل القسيمة</h4>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+              </div>
+              <div class="modal-body">
+
+
+                <label style="margin-top: -18px;" for="myfile"> <img src="" alt=""></label>
+                <input type="file" id="myfile1" name="myfile" style="display:none;" required /><br><br>
+                <img style="height: 60px; width: 60px; border: 2px black solid;" src="addlogo.jpg" id="myimg2">
+                <label style="padding-top: -50px;">مقدّم القسيمة<i style="color: red;">*</i>:</label>
+                <!--  -->
+                <input type="text" class="form-control addName" id="couponName1" value="" name='name' disabled>
+                <div class="error hide">مقدم القسيمة مطلوب</div>
+                <div class="form-group">
+                  <label style=" margin-top: -20px;">العدد المتوفر<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="number" class="form-control addAmount" min="1" max="5" id="couponAmount1"
+                    placeholder="مثال: 500" required />
+                  <div class="error hide"> العدد المتوفر مطلوب</div>
+
+                </div>
+
+                <div class="form-group">
+                  <label style="margin-top: -20px; padding-left: 75%;">عدد النقاط<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="number" class="form-control addPoints" id="couponPoints1" min="1" max="5" placeholder="مثال: 50" required />
+                  <div class="error hide"> عدد النقاط مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px; padding-left: 85% ;">الوصف<i style="color: red;">*</i>:</label>
+
+                  <input type="text" name='desc' class="form-control addDesc" id="couponDesc1"
+                    placeholder="مثال: لاينطبق نهاية الاسبوع" required />
+                  <div class="error hide">الوصف مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px;"> تاريخ التنشيط<i style="color: red;">*</i>:</label>
+                  <!--  -->
+                  <input type="date" class="form-control startDate" id="act1" onBlur="myFunction2()" required />
+                  <div class="error hide">تاريخ التنشيط مطلوب</div>
+
+                </div>
+                <div class="form-group">
+                  <label style="margin-top: -18px;">تاريخ الانتهاء<i style="color: red;">*</i>:</label>
+                  <!-- -->
+                  <input type="date" class="form-control endDate" id="exp1">
+                  <div class="error hide">تاريخ الانتهاء مطلوب</div>
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="submit" style="border-style: solid; background-color: #1A535C; color: #FFEDED;" class="btn EditData"
+                  value="تعديل">
+
+                <input type="button" class="btn btn-default" style="color: red; text-decoration: underline;"
+                  data-dismiss="modal" value="الغاء">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+      <script type="module" id="MainScript">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-analytics.js";
+        import { getFirestore, collection, getDocs, getDoc, addDoc } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore.js";
+        import { doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-auth.js";
+        import { getDatabase } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-database.js";
+        const firebaseConfig = {
+          apiKey: "AIzaSyCYFqGVcdgYTcvQUTwQ5Bk-TeJxJXUBBF0",
+          authDomain: "tamakan-ef69b.firebaseapp.com",
+          projectId: "tamakan-ef69b",
+          storageBucket: "tamakan-ef69b.appspot.com",
+          messagingSenderId: "40014765527",
+          appId: "1:40014765527:web:5a98a37b282a17eb65ff92",
+          measurementId: "G-MKK3N5RPLG"
+        };
+
+        const app = initializeApp(firebaseConfig);
+
+        import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-storage.js"
+
+        var tempURL = "";
+        var files = [];
+        var reader = new FileReader();
+
+
+
+        const database = getDatabase(app);
+        const auth = getAuth(app);
+
+
+        var myimg = document.getElementById("myimg");
+        var myimg2 = document.getElementById("myimg2");
+        var input = document.createElement('input');
+        var input2 = document.createElement('input');
+
+
+
+        input.type = 'file';
+        input2.type = 'file';
+
+
+        input.onchange = e => {
+          files = e.target.files
+          reader.readAsDataURL(files[0]);
+        }
+        input2.onchange = e => {
+          files = e.target.files
+          reader.readAsDataURL(files[0]);
+        }
+        reader.onload = function () {
+          console.log("F");
+          var immg = reader.result;
+          myimg.src = reader.result;
+
+          myimg2.src = reader.result;
+
+        }
+
+        //selection
+
+        myimg.onclick = function () {
+          input.click();
+        }
+        myimg2.onclick = function () {
+          input2.click();
+        }
+
+        //upload 
+        function UploadProcess() {
+          var ImgToUpload = files[0];
+
+          var ImgName = files[0].name;
+
+
+          const metaData = {
+            contentType: ImgToUpload.type
+
+          }
+
+          const storage = getStorage();
+          console.log(ImgName);
+          console.log(ImgToUpload);
+
+          const storageRef = sRef(storage, "couponPictures/" + Math.random().toString(36).slice(2) + ImgName);
+          console.log(ImgName);
+
+
+
+          const UploadTask = uploadBytesResumable(storageRef, ImgToUpload, metaData);
+
+          UploadTask.on('state_changed',
+            (snapshot) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case 'paused':
+                  console.log('Upload is paused');
+                  break;
+                case 'running':
+                  console.log('Upload is running');
+                  break;
+              }
+            },
+            (error) => {
+              // Handle unsuccessful uploads
+            },
+            () => {
+              // Handle successful uploads on complete
+              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+              getDownloadURL(UploadTask.snapshot.ref).then((downloadURL) => {
+                tempURL = "";
+                tempURL = downloadURL;
+                setDoc(doc(db2, "couponType", document.getElementById("couponName").value), {
+
+                  name: document.getElementById("couponName").value,
+                  amount: parseInt(document.getElementById("couponAmount").value),
+                  description: document.getElementById("couponDesc").value,
+                  points: parseInt(document.getElementById("couponPoints").value),
+                  startDate: new Date(document.getElementById("act").value + 'T00:00:00'),
+                  endDate: new Date(document.getElementById("exp").value + 'T00:00:00'),
+                  pictureURL: tempURL
+
+
+                });
+                // console.log(new Date(document.getElementById("exp").value + 'T00:00:00'));
+
+                for (let i = 1; i <= parseInt(document.getElementById("couponAmount").value); i++) {
+                  console.log(document.getElementById("couponName").value);
+                  setDoc(doc(db2, "coupon", i + document.getElementById("couponName").value), {
+                    name: document.getElementById("couponName").value,
+                    childID: "",
+                    couponID: Math.random().toString(36).slice(2),
+                    endDate: new Date(document.getElementById("exp").value + 'T00:00:00'),
+                    pictureURL: tempURL
+                  });
+
+
+                }
+                document.getElementById("couponName").value = "";
+                document.getElementById("couponAmount").value= "";
+                document.getElementById("couponDesc").value= "";
+                document.getElementById("couponPoints").value="";
+                document.getElementById("exp").value="";
+                document.getElementById("act").value="";
+                document.getElementById("myimg").src = "https://firebasestorage.googleapis.com/v0/b/tamakan-ef69b.appspot.com/o/couponPictures%2F2n8sp8ewgz6addlogo.jpg?alt=media&token=e3c5a0ef-904c-4d2b-8b0f-53793a7a3100";
+
+                $('#addCouponModal').modal('hide');
+
+
+
+                console.log('File available at', downloadURL);
+              });
+            }
+          );
+
+        }
+
+        firebase.initializeApp(firebaseConfig);
+        let db = firebase.firestore();
+
+        db.collection('couponType').onSnapshot((querySnapshot) => {
+          const db1 = getFirestore(app);
+
+          var tbody = document.getElementById('tbody');
+          // querySnapshot.forEach(doc => { })
+          // users.push(doc.data());
+
+          // console.log(doc.data());
+          // console.log(users);
+
+          tbody.innerHTML = "";
+          querySnapshot.forEach(element => {
+
+            var trow = document.createElement('tr');
+            var image = document.createElement('div');
+            var td2 = document.createElement('td');
+            var td3 = document.createElement('td');
+            var td4 = document.createElement('td');
+            var td5 = document.createElement('td');
+            var td6 = document.createElement('td');
+            var td7 = document.createElement('div');
+            var td8 = document.createElement('td');
+            image.innerHTML = '<img id="ddd" style="height: 60px; width: 60px; padding-top: 10px; border-radius: 35px;"   src=' + element.data().pictureURL + 'alt="شعار المقدم">';
+            td2.innerHTML = element.data().name;
+            console.log(firebase.firestore.Timestamp.fromDate(new Date('2020-10-12T00:00:00'))); //>> object
+            td3.innerHTML = element.data().startDate.toDate().toDateString();
+            td4.innerHTML = element.data().endDate.toDate().toDateString();
+            td5.innerHTML = element.data().amount;
+            td6.innerHTML = element.data().points;
+            td8.innerHTML = element.data().description;
+            td7.innerHTML = '<a href="#EditCouponModal" style="color:#1A535C;" class=" EditIcon material-icons" data-toggle="modal" title="Edit" >&#xE254;</a>'
+            td7.innerHTML += '<a href="#" style="color:red;" class="DeleteIcon material-icons" data-toggle="modal" title="Delete">&#xE872;</a>'
+            td7.setAttribute('style', "padding-top:18px;");
+            // td7.innerHTML = '<button  style="text-decoration: underline;" type="button" class="EditButton btn " data-toggle="modal">تعديل</button>';
+            // td7.innerHTML += '<button type="submit" style="text-decoration: underline;" class="DeleteButton btn " data-toggle="modal">حذف</button>';
+            td7.setAttribute('name', element.data().name);
+            td7.setAttribute('id', "td7id");
+            td7.setAttribute('couponAmount', element.data().amount);
+            td7.setAttribute('points', element.data().points);
+            td7.setAttribute('desc', element.data().description);
+            var dayofdate = "" + element.data().startDate.toDate().getDate();
+            var monthofdate = "" + (element.data().startDate.toDate().getMonth() + 1);
+
+            if (monthofdate.length < 2)
+              monthofdate = '0' + monthofdate;
+            if (dayofdate.length < 2)
+              dayofdate = '0' + dayofdate;
+            var stDate = element.data().startDate.toDate().getFullYear() + "-" + monthofdate + "-" + dayofdate;
+
+            var dayofdate2 = "" + element.data().endDate.toDate().getDate();
+            var monthofdate2 = "" + (element.data().endDate.toDate().getMonth() + 1);
+
+            if (monthofdate2.length < 2)
+              monthofdate2 = '0' + monthofdate2;
+            if (dayofdate2.length < 2)
+              dayofdate2 = '0' + dayofdate2;
+            var enDate = element.data().endDate.toDate().getFullYear() + "-" + monthofdate2 + "-" + dayofdate2;
+
+
+
+
+            td7.setAttribute('sDate', stDate);
+            td7.setAttribute('Edate', enDate);
+            td7.setAttribute('pic', element.data().pictureURL);
+
+
+            // console.log(td7.getAttribute('name'));
+            trow.appendChild(image);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+            trow.appendChild(td6);
+            trow.appendChild(td8);
+            trow.appendChild(td7);
+            tbody.appendChild(trow);
+          });
+        });
+
+
+
+        // const toTimestamp = (strDate) => {
+        //   const dt = new Date(strDate).getTime();
+        //   return dt / 1000;
+        // }
+
+
+        import { setDoc } from "https://www.gstatic.com/firebasejs/9.11.0/firebase-firestore.js";
+        const db2 = getFirestore(app);
+
+        var names = [];
+        db.collection('couponType').onSnapshot((querySnapshot) => {
+
+          querySnapshot.forEach(doc => {
+            names.push(doc.data().name);
+
+
+          })
+          console.log(names);
+
+
+        })
+        // $(".DeleteIcon").on("click", (e) => {
+
+
+        // });
+
+        //Delete icon
+
+        $(document).on('click', '.DeleteIcon', function (e) {
+          if (confirm("هل أنت متأكد من الحذف؟")) {
+
+            const db4 = getFirestore(app);
+            let id = e.target.parentElement.getAttribute('name');
+            console.log(id);
+            deleteDoc(doc(db4, "couponType", id));
+            console.log(document.getElementById("couponAmount").value);
+            for (let i = 1; i <= parseInt(e.target.parentElement.getAttribute('couponAmount')); i++) {
+              deleteDoc(doc(db4, "coupon", i + id));
+            }
+          }
+        });
+
+        //ff
+        var temp = document.getElementById("couponAmount").value;
+        $(document).on('click', '.EditData', function (e) {
+          if (confirm("حفظ التغييرات؟")) {
+
+            // const db5 = getFirestore(app);
+            // for (let i = 1; i <= parseInt(temp); i++) {
+            //   console.log("جوا اللوب")
+            //   deleteDoc(doc(db5, "coupon", i + document.getElementById("couponName1").value));
+            // }
+
+            setDoc(doc(db2, "couponType", document.getElementById("couponName1").value), {
+
+              name: document.getElementById("couponName1").value,
+              amount: parseInt(document.getElementById("couponAmount1").value),
+              description: document.getElementById("couponDesc1").value,
+              points: parseInt(document.getElementById("couponPoints1").value),
+              startDate: new Date(document.getElementById("act1").value + 'T00:00:00'),
+              endDate: new Date(document.getElementById("exp1").value + 'T00:00:00'),
+              // pictureURL: document.getElementById("myimg").getAttribute('imagephoto') 
+            });
+
+
+            // console.log(new Date(document.getElementById("exp").value + 'T00:00:00'));
+            for (let i = 1; i <= parseInt(document.getElementById("couponAmount1").value); i++) {
+              console.log(document.getElementById("couponName1").value);
+              setDoc(doc(db2, "coupon", i + document.getElementById("couponName1").value), {
+                name: document.getElementById("couponName1").value,
+                childID: "",
+                couponID: Math.random().toString(36).slice(2),
+                endDate: new Date(document.getElementById("exp1").value + 'T00:00:00'),
+                // pictureURL: document.getElementById("myimg").getAttribute('imagephoto') 
+
+
+                //  pictureURL: document.getElementById("fileFiel1").value
+
+              });
+
+
+            }
+            $('#EditCouponModal').modal('hide');
+
+          }
+
+        });
+
+
+
+        //Edit icon
+        $(document).on('click', '.EditIcon', function (e) {
+
+
+          let id2 = (e.target.parentElement.getAttribute('sDate'));
+          console.log(typeof (id2));
+          console.log(id2);
+
+          document.getElementById("couponName1").value = e.target.parentElement.getAttribute('name');
+          document.getElementById("couponAmount1").value = e.target.parentElement.getAttribute('couponAmount');
+          document.getElementById("couponDesc1").value = e.target.parentElement.getAttribute('desc');
+          document.getElementById("couponPoints1").value = e.target.parentElement.getAttribute('points');
+          document.getElementById("act1").value = e.target.parentElement.getAttribute('sDate');
+          document.getElementById("exp1").value = e.target.parentElement.getAttribute('eDate');
+
+          console.log(document.getElementById("couponName1").value);
+
+
+        });
+
+
+
+
+
+        $(".addData").on("click", async () => {
+
+
+          // Add a new document in collection "couponTypes"
+          var cpname = document.getElementById("couponName").checkValidity();
+          var cpPoints = document.getElementById("couponPoints").checkValidity();
+          var cpDesc = document.getElementById("couponDesc").checkValidity();
+          var cpact = document.getElementById("act").checkValidity();
+          var cpexp = document.getElementById("exp").checkValidity();
+
+
+          if( cpname && cpPoints && cpDesc && cpact && cpexp ){
+
+          if ( !names.includes(document.getElementById("couponName").value)) {
+            if (confirm("هل أنت متاكد من رغبتك في الإضافة؟")) {
+              await UploadProcess();
+
+
+            }
+
+
+
+            console.log(document.getElementById("couponName").value);
+          }
+          else
+            alert("مقدم القسيمة تمت إضافته مسبقًا");
+
+        }
+
+        })
+
+      </script>
+
+      <script>
+        date = new Date();
+        year = "" + date.getFullYear();
+        month = "" + (date.getMonth() + 1);
+        day = "" + date.getDate();
+        if (month.length < 2)
+          month = '0' + month;
+        if (day.length < 2)
+          day = '0' + day;
+
+        document.getElementById("act").setAttribute("min", year + "-" + month + "-" + day);
+        function myFunction() {
+          var mindate = document.getElementById("act").value;
+          console.log(document.getElementById('act').value);
+          document.getElementById("exp").setAttribute("min", mindate);
+        }
+        document.getElementById("act1").setAttribute("min", year + "-" + month + "-" + day);
+
+        function myFunction2() {
+          var mindate2 = document.getElementById("act1").value;
+          document.getElementById("exp1").setAttribute("min", mindate2);
+        }
+      </script>
+
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js" type="text/javascript">
+
+      </script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js"></script>
+      <!--  -->
+      <script type="module">
+
+        document.getElementById("logout").addEventListener('click', function () {
+          signOut(auth).then(() => {
+            if (confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟")) {
+              location.replace("login.html");
+            }
+
+          }).catch((error) => {
+            console.log('Error singing in, ', error.message);
+            alert("حدث خطأ!! حاول مرة اخرى");
+          });
+
+        });
+
+
+        searchBar.onkeyup = function searchData() {
+
+          var searchBtn = document.getElementById('searchBtn');
+          var searchBar = document.getElementById('searchBar');
+
+          var filter = searchBar.value.toUpperCase();
+          var tbody = document.getElementById('t');
+          var tr = tbody.getElementsByTagName('tr');
+          var category = document.getElementById('option');
+
+
+          for (let i = 0; i < tr.length; i++) {
+            if (category.options.selectedIndex == 1) {
+              var td = tr[i].getElementsByTagName('td')[0];
+            }
+            else {
+              var td = tr[i].getElementsByTagName('td')[4];
+            }
+
+            console.log(td);
+            if (td) {
+              let textValue = td.textContent || td.innerHTML;
+
+              if (textValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = '';
+              }
+              else {
+                tr[i].style.display = 'none';
+              }
+            }
+          }
+        }
+
+      </script>
+
+      <script>"https://www.gstatic.com/firebasejs/9.11.0/firebase-storage.js"</script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

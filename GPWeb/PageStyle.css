@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+html {
+    height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(#ff6b6bc3, #ff6b6b64);
+  
+}
+img {
+  width: 100px;
+  height: 100px;
+  float: right;
+  }
+.error{
+    font-size: 16px;
+    color: rgb(249, 1, 1);
+    text-align: center; 
+    
+}
+.box {
+  width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.763);
+  border-radius: 10px;
+}
+
+.box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #1A535C;
+  text-align: center;
+}
+.box h1 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #1A535C;
+    text-align: center;
+  }
+  
+
+.user-box {
+  position: relative;
+}
+
+.user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #1A535C;
+  border: none;
+  border-bottom: 1px solid #1A535C;
+  outline: none;
+  background: transparent;
+  text-align: right;
+}
+
+.user-box label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 0;
+  color: #1A535C;
+  pointer-events: none;
+  transition: 0.5s;
+  text-align: right;
+}
+
+.user-box input:focus ~ label,
+.user-box input:valid ~ label {
+  top: -20px;
+  right: 0;
+  color: #ff6b6bc3;
+  font-size: 12px;
+  text-align: right;
+}
+
+form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #1A535C;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+}
+
+a:hover {
+    background: #1A535C;
+    color: #fff;
+    border-radius: 5px;
+    /* box-shadow: 0 0 5px #ff6b6bc3,
+                0 0 25px #ff6b6bc3,
+                0 0 50px #ff6b6bc3,
+                0 0 100px #ff6b6bc3; */
+}
+
+.box a span {
+  position: absolute;
+  display: block;
+}
+
+.box a span:nth-child(1) {
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #1A535C);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #1A535C);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #1A535C);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #1A535C);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+body {
+  font-family: arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+#header {
+  background-color: rgb(237, 228, 228);
+  /*Opacity start*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=70);
+  -moz-opacity: 0.80;
+  -khtml-opacity: 0.8;
+  opacity: 0.8;
+  /*Opacity end*/
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  padding: 0;
+  margin: 0;
+}
+#header #header-content {
+  margin: 10px;
+}
+.site-footer {
+  right: 0px;
+  left: 0;
+  bottom: 0px;
+  background: #fff;
+  margin: 0;
+  padding: 10px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  width: auto;
+  height: 50px;
+  z-index: 1;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+  text-align: center;
+    background-color: rgb(237, 228, 228);
+  /*Opacity start*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=70);
+  /* opacity: 0.8; */
+  /*Opacity end*/
+  color: rgb(0, 0, 0);
+  position: fixed;
+  height: 30px;
+
+}
