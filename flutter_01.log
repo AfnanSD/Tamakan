@@ -1,0 +1,80 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter drive \ --driver=test_driver/integration_test.dart --target=integration_test/parent_homepage.dart
+
+## exception
+
+ArgumentError: Invalid argument(s): Invalid type for "path": null
+
+```
+#0      FileSystem.getPath (package:file/src/interface/file_system.dart:160:7)
+#1      LocalFileSystem.directory (package:file/src/backends/local/local_file_system.dart:23:41)
+#2      ErrorHandlingFileSystem.directory (package:flutter_tools/src/base/error_handling_io.dart:130:24)
+#3      DriveCommand._takeScreenshot (package:flutter_tools/src/commands/drive.dart:446:53)
+#4      DriveCommand._registerScreenshotCallbacks.<anonymous closure> (package:flutter_tools/src/commands/drive.dart:369:18)
+#5      LocalSignals._handleSignal.<anonymous closure> (package:flutter_tools/src/base/signals.dart:136:53)
+#6      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:111:32)
+#7      _rootRun (dart:async/zone.dart:1398:13)
+#8      _CustomZone.run (dart:async/zone.dart:1300:19)
+#9      _runZoned (dart:async/zone.dart:1803:10)
+#10     runZonedGuarded (dart:async/zone.dart:1791:12)
+#11     runZoned (dart:async/zone.dart:1743:12)
+#12     asyncGuard (package:flutter_tools/src/base/async_guard.dart:109:3)
+#13     LocalSignals._handleSignal (package:flutter_tools/src/base/signals.dart:136:17)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, 3.7.3, on Microsoft Windows [Version 10.0.22000.1455], locale en-US)
+    [32m•[39m Flutter version 3.7.3 on channel stable at C:\flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision 9944297138 (3 days ago), 2023-02-08 15:46:04 -0800
+    [32m•[39m Engine revision 248290d6d5
+    [32m•[39m Dart version 2.19.2
+    [32m•[39m DevTools version 2.20.1
+
+[32m[✓][39m Windows Version (Installed version of Windows is version 10 or higher)
+
+[32m[✓][39m Android toolchain - develop for Android devices (Android SDK version 33.0.1)
+    [32m•[39m Android SDK at C:\Users\ahmeeDev\AppData\Local\Android\sdk
+    [32m•[39m Platform android-33-ext4, build-tools 33.0.1
+    [32m•[39m Java binary at: C:\Program Files\Android\Android Studio\jre\bin\java
+    [32m•[39m Java version OpenJDK Runtime Environment (build 11.0.13+0-b1751.21-8125866)
+    [32m•[39m All Android licenses accepted.
+
+[32m[✓][39m Chrome - develop for the web
+    [32m•[39m Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[32m[✓][39m Visual Studio - develop for Windows (Visual Studio Community 2022 17.4.4)
+    [32m•[39m Visual Studio at C:\Program Files\Microsoft Visual Studio\2022\Community
+    [32m•[39m Visual Studio Community 2022 version 17.4.33213.308
+    [32m•[39m Windows 10 SDK version 10.0.22000.0
+
+[32m[✓][39m Android Studio (version 2021.3)
+    [32m•[39m Android Studio at C:\Program Files\Android\Android Studio
+    [32m•[39m Flutter plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/9212-flutter
+    [32m•[39m Dart plugin can be installed from:
+      🔨 https://plugins.jetbrains.com/plugin/6351-dart
+    [32m•[39m Java version OpenJDK Runtime Environment (build 11.0.13+0-b1751.21-8125866)
+
+[32m[✓][39m VS Code (version 1.75.1)
+    [32m•[39m VS Code at C:\Users\ahmeeDev\AppData\Local\Programs\Microsoft VS Code
+    [32m•[39m Flutter extension version 3.58.0
+
+[32m[✓][39m Connected device (4 available)
+    [32m•[39m sdk gphone64 x86 64 (mobile) • emulator-5554 • android-x64    • Android 13 (API 33) (emulator)
+    [32m•[39m Windows (desktop)            • windows       • windows-x64    • Microsoft Windows [Version 10.0.22000.1455]
+    [32m•[39m Chrome (web)                 • chrome        • web-javascript • Google Chrome 110.0.5481.78
+    [32m•[39m Edge (web)                   • edge          • web-javascript • Microsoft Edge 109.0.1518.70
+
+[32m[✓][39m HTTP Host Availability
+    [32m•[39m All required HTTP hosts are available
+
+[32m•[39m No issues found!
+```
