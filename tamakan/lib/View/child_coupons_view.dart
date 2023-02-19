@@ -120,15 +120,18 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                                         ),
                                         child: Column(
                                           children: [
-                                            Padding(
+                                            Container(
+                                              height: 50,
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       vertical: 8.0),
-                                              child: Text(
-                                                coupons[index].name,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
+                                              child: FittedBox(
+                                                child: Text(
+                                                  coupons[index].name,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20),
+                                                ),
                                               ),
                                             ),
                                             const Divider(),
@@ -141,7 +144,7 @@ class _ChildCouponsVIewState extends State<ChildCouponsVIew> {
                                               ),
                                               child: Padding(
                                                 padding:
-                                                    const EdgeInsets.all(6.0),
+                                                    const EdgeInsets.all(3),
                                                 child: Image.network(
                                                   coupons[index].pictureURL,
                                                   fit: BoxFit.contain,

@@ -389,6 +389,7 @@ class _ExhcangePointsState extends State<ExhcangePoints> {
                     child: Text(
                       'هل أنت متأكد من استبدال ${couponPoints} نقطة بقسيمة ${name} ؟',
                       style: const TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   Row(
