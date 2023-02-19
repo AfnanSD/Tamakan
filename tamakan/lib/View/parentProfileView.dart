@@ -170,8 +170,14 @@ class _parentprofileviewState extends State<parentprofileview> {
     //updata button
     final updataButton = ButtonWidget(
         fun: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => parentprofileEdit()))
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => parentprofileEdit())).then((value) {
+                setState(() {
+                  lodProfile();
+                });
+              })
             },
         buttonLabel: ' تعديل',
         buttonColor: Color(0xff4ECDC4));
