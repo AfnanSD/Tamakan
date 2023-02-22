@@ -1,11 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
-import 'package:tamakan/View/levels/levels.dart';
+import 'package:tamakan/View/levels.dart';
 import 'package:tamakan/View/manage_family.dart';
 import 'package:tamakan/View/myChildren.dart';
 import 'package:tamakan/View/parentProfileView.dart';
-import 'package:tamakan/View/quranMap.dart';
 import 'package:tamakan/View/quran_view.dart';
 import 'package:tamakan/View/surah_view.dart';
 

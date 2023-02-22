@@ -11,7 +11,6 @@ import 'package:tamakan/View/widgets/child_points.dart';
 import 'dart:ui' as ui;
 
 import '../Model/child.dart';
-import 'child_homepage.dart';
 import 'manage_family.dart';
 import 'resetPasswordView.dart';
 

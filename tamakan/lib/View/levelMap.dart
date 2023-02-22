@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/View/game_view.dart';
 import 'package:tamakan/View/lesson_view.dart';
 
-import '../../Model/child.dart';
+import '../Model/child.dart';
 
 class LevelMap extends StatefulWidget {
   const LevelMap({super.key, required this.childID, required this.level});

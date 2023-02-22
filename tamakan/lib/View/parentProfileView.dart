@@ -12,7 +12,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/Model/userModel.dart';
 import 'package:tamakan/View/deleteAccountView.dart';
-import 'package:tamakan/View/parentHome.dart';
 import 'package:tamakan/View/parentProfileEdit.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';
@@ -204,26 +203,26 @@ class _parentprofileviewState extends State<parentprofileview> {
     );
 
     //cancel button
-    final cancelButton = Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(30),
-      color: Color.fromARGB(255, 76, 180, 184),
-      child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => parentHome()));
-        },
-        child: Text(
-          "العودة",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 25,
-              color: Color.fromARGB(255, 71, 81, 80),
-              fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
+    // final cancelButton = Material(
+    //   elevation: 4,
+    //   borderRadius: BorderRadius.circular(30),
+    //   color: Color.fromARGB(255, 76, 180, 184),
+    //   child: MaterialButton(
+    //     padding: EdgeInsets.fromLTRB(50, 10, 50, 10),
+    //     onPressed: () {
+    //       Navigator.push(
+    //           context, MaterialPageRoute(builder: (context) => parentHome()));
+    //     },
+    //     child: Text(
+    //       "العودة",
+    //       textAlign: TextAlign.center,
+    //       style: TextStyle(
+    //           fontSize: 25,
+    //           color: Color.fromARGB(255, 71, 81, 80),
+    //           fontWeight: FontWeight.bold),
+    //     ),
+    //   ),
+    // );
 //delete button
     final deleteButton = ButtonWidget(
       fun: () => {

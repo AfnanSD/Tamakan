@@ -12,7 +12,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tamakan/Controller/authController.dart';
 import 'package:tamakan/Model/userModel.dart';
 import 'package:tamakan/View/deleteAccountView.dart';
-import 'package:tamakan/View/parentHome.dart';
 import 'package:tamakan/View/parentProfileView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
 import 'package:tamakan/View/widgets/button_widget.dart';

@@ -12,7 +12,7 @@ import 'package:google_speech/google_speech.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sound_stream/sound_stream.dart';
-import 'package:tamakan/View/levels/levels.dart';
+import 'package:tamakan/View/levels.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
 import '../Model/child.dart';

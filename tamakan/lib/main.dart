@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:tamakan/View/parent_homepage.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tamakan/View/loginView.dart';
 import 'package:tamakan/View/registerationView.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
         //'/LearningMap': (BuildContext context) => const LearningMap(),
         '/loginview': (BuildContext context) => loginview(),
         '/registerview': (BuildContext context) => registerationview(),
-        '/ParentProfile': (BuildContext context) => ParentHomePage(),
+        //'/ParentProfile': (BuildContext context) => ParentHomePage(),
         '/parentprofileview': (BuildContext context) => parentprofileview(),
       },
       home: loginview(), //MyHomePage(),

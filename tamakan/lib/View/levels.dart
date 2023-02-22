@@ -9,22 +9,12 @@ import 'package:get/route_manager.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tamakan/View/child_coupons_view.dart';
 
-import 'package:tamakan/View/levels/level1.dart';
-import 'package:tamakan/View/levels/level10.dart';
-import 'package:tamakan/View/levels/level2.dart';
-import 'package:tamakan/View/levels/level3.dart';
-import 'package:tamakan/View/levels/level4.dart';
-import 'package:tamakan/View/levels/level5.dart';
-import 'package:tamakan/View/levels/level6.dart';
-import 'package:tamakan/View/levels/level7.dart';
-import 'package:tamakan/View/levels/level8.dart';
-import 'package:tamakan/View/levels/level9.dart';
 import 'package:tamakan/View/resetPasswordView.dart';
 import 'package:tamakan/View/widgets/TextInputField.dart';
-import 'package:tamakan/View/levels/levelMap.dart';
+import 'package:tamakan/View/levelMap.dart';
 import 'package:tamakan/View/widgets/child_points.dart';
 
-import '../../Model/child.dart';
+import '../Model/child.dart';
 
 class levels extends StatefulWidget {
   const levels({super.key, required this.childID});
