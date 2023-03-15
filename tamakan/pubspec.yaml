@@ -38,10 +38,44 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_storage: ^11.0.7
   firebase_core: ^2.4.0
+  cloud_firestore: ^4.2.0
+  audioplayers: ^1.1.1 
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
+  google_speech: ^2.1.1
+  permission_handler: ^10.2.0
+  downloads_path_provider_28: ^0.1.2
+  loading_indicator: ^3.1.0
+  rxdart: ^0.27.7
+  sound_stream: ^0.3.0
+  intl: ^0.18.0
+  better_player: ^0.0.83
+  font_awesome_flutter: ^10.3.0
+  firebase_auth: ^4.2.1
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+  url_launcher: ^6.1.7
+  flutter_profile_picture: ^2.0.0
+  image_picker: ^0.8.6
+  level_map: ^0.2.0
+  responsive_sizer: ^3.1.1
+  quran: ^1.2.0
+  just_audio: ^0.9.31
+  flutter_launcher_icons: ^0.11.0
+  curved_navigation_bar: ^1.0.3
+  lottie: ^2.2.0
+  google_fonts: ^3.0.1
+  coupon_uikit: ^0.2.0
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -62,8 +96,41 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+   - assets/images/first.png
+   - assets/images/s .png
+   - assets/images/t .png
+   - assets/images/four.png 
+   - assets/images/five.png
+   - assets/images/six.png
+   - assets/images/seven.png
+   - assets/images/eight.png
+   - assets/images/nine.png
+   - assets/images/ten.png
+   - assets/images/logo3.png
+   - assets/images/b2.png
+   - assets/images/trophy.png
+   - assets/images/crocodile.png
+   - assets/images/lion.png
+   - assets/images/owl.png
+   - assets/images/pigeon.png
+   - assets/images/mushroom.png
+   - assets/images/snowflake.png
+   - assets/images/snowy-pine-trees.png
+   - assets/images/sun.png
+   - assets/images/yellow-flower.png
+   - assets/images/sadFace.png
+   - assets/images/levelbackground.png
+   - assets/images/hazelnut.png
+   - assets/images/trees-2.png
+   - assets/test_service_account.json
+   - assets/animations/sad-star.json
+   - assets/animations/happy-star.json
+   - assets/animations/trophy-winner.json
+   - assets/animations/five-stars.json
+   - assets/animations/theree-stars.json
+   - assets/animations/not-found.json
+   - assets/animations/star-rating-bad.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -77,10 +144,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Blabeloo
+      fonts:
+        - asset: assets/fonts/Blabeloo.ttf 
+    - family: UthmanicHafs 
+      fonts:
+        - asset: assets/fonts/UthmanicHafs_V20.ttf 
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/NotoSansArabic_ExtraCondensed-Black.ttf
+          weight: 900 #?
+        - asset: assets/fonts/NotoSansArabic_ExtraCondensed-SemiBold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
